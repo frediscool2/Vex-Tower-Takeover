@@ -1,0 +1,27 @@
+using namespace vex;
+
+extern brain Brain;
+
+// VEXcode devices
+extern motor armMotor;
+extern motor pistonMotor;
+extern controller Controller;
+
+extern motor rightWheelMotorA;
+extern motor rightWheelMotorC;
+extern motor leftWheelMotorB;
+extern motor leftWheelMotorD;
+
+extern motor_group leftMotors;
+extern motor_group rightMotors;
+extern motor_group intakeMotors;
+extern drivetrain driveTrain;
+extern brain::sdcard sdcard;
+
+extern vision Vision;
+/**
+ * Used to initialize code/tasks/devices added using tools in VEXcode Text.
+ *
+ * This should be called at the start of your int main function.
+ */
+void vexcodeInit(void);
