@@ -21,16 +21,22 @@
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
-#include "ControlScheme.cpp"
-#include "Animation.cpp"
 #include "vex.h"
+///
+#include "Animation.cpp"
+#include "ControlScheme.cpp"
+#include <vector>
 
-//
 using namespace vex;
 
 // A global instance of competition
 competition Competition;
+ObjectTracking objectTracker;
+Animation animation;
+
 // define your global instances of motors and other devices here
+event checkSignature = event();
+event screenRefresh = event();
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -43,11 +49,9 @@ competition Competition;
 /*---------------------------------------------------------------------------*/
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
-
-Animation::updateScreen();
-
-// All activities that occur before the competition starts
-// Example: clearing encoders, setting servo positions, ...
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
+  objectTracker.intiSensor();
 }
 
 void autonomous(void) {
@@ -60,12 +64,11 @@ void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
   while (1) {
-
     //~~~ Pressed Functions ~~~
     /*Currently I have the functions named as the input they are described as in
      * the Controllerler layout sheet. I am doing it this way so when we have
      * our mutiple Controller scheme files for each driver we will only have to
-     * swap out the ControllerScheme.cpp file and will not have to change
+     * swap out the ControllerScheme.cpp file ansd will not have to change
      * anything else. This can cause confusion for those who have not looked at
      * the control layout. Please do so
 
@@ -77,10 +80,7 @@ void usercontrol(void) {
      update rate for motor values
 
      */
-
     // BL 1,2 and BL release
-
-
     if (Controller.ButtonL1.pressing()) {
       ControllerInteraction::bL1Pressed();
     } else if (Controller.ButtonL2.pressing()) {
@@ -127,12 +127,16 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
-
   // Run the pre-autonomous function.
   pre_auton();
 
+  screenRefresh(Animation::updateScreen);
+  checkSignature(ObjectTracking::hasSignatureCallback);
+
   // Prevent main from exiting with an infinite loop.
   while (true) {
+    checkSignature.broadcastAndWait();
+    screenRefresh.broadcastAndWait();
     wait(100, msec);
   }
 }

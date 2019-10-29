@@ -1,6 +1,7 @@
 #include "vex.h"
 // this comment is here because they auto format formats include lines by
 // alphabetical order which fucks up some dependancies
+#include "ObjectTracking.cpp"
 #include <iostream>
 
 class ControllerInteraction {
@@ -9,16 +10,12 @@ public:
   static void leftJoystickChange() {
     leftMotors.setVelocity(Controller.Axis3.position(pct), pct);
     leftMotors.spin(fwd);
-    std::cout << Controller.Axis3.position(pct);
-    wait(10, msec);
   }
 
 public:
   static void rightJoystickChange() {
     rightMotors.setVelocity(Controller.Axis2.position(pct), pct);
     rightMotors.spin(fwd);
-    std::cout << Controller.Axis2.position(pct);
-    wait(10, msec);
   }
 
 public:
@@ -53,9 +50,7 @@ public:
    * layout*/
 public:
   static void bR1Pressed() {
-    leftMotors.rotateFor(4, rotationUnits::rev, 50, velocityUnits::pct, false);
-
-    rightMotors.rotateFor(4, rotationUnits::rev, 50, velocityUnits::pct, true);
+//    ObjectTracking::setVisionIndex(ObjectTracking::getVisionIndex() + 1);
   }
 
 public:
