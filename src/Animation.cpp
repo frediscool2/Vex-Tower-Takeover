@@ -1,4 +1,4 @@
-#include "../src/LodePNG/lodepng.h"
+#include "LodePNG/lodepng.h"
 #include "string.h"
 #include "vex.h"
 #include <stdio.h>
