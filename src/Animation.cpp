@@ -8,11 +8,10 @@
 using namespace lodepng;
 
 class Animation {
-#define YSIZE 272;
-#define XSIZE 480;
-
 public:
   static void updateScreen() {
+    unsigned width = 480, height = 272;
+
     std::vector<unsigned char> png;
     std::vector<unsigned char> image;
     int start = clock() / 10;
@@ -21,7 +20,6 @@ public:
     double waitTimes[6] = {250, 250, 250, 250, 250, 250};
     int i = 0, itterator = 1;
 
-    unsigned width, height;
     static_assert(std::is_same<unsigned char, uint8_t>::value, "foo");
 
     while (true) {
@@ -45,5 +43,30 @@ public:
 
       wait(waitTimes[i], msec);
     }
+  }
+
+private:
+  static int generateRawPixelData(unsigned width, unsigned height) {
+    // vector to store our raw pixel data
+    std::vector<unsigned char> image;
+
+    // setting vector size to size of image
+    image.resize(width * height * 4);
+
+    // Loop for y rows
+    for (unsigned y = 0; y < height; y++)
+      // Loop for columns
+      for (unsigned x = 0; x < width; x++) {
+        // generating image data
+        image[4 * width * y + 4 * x + 0] = 255 * !(x & y);
+        image[4 * width * y + 4 * x + 1] = x ^ y;
+        image[4 * width * y + 4 * x + 2] = x | y;
+        image[4 * width * y + 4 * x + 3] = 255;
+      }
+    // image data -> buffer
+    uint8_t *buffer = image.data();
+
+    // returning buffer
+    return *buffer;
   }
 };
