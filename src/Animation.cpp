@@ -8,11 +8,8 @@
 using namespace lodepng;
 
 class Animation {
-#define YSIZE 272;
-#define XSIZE 480;
-
 public:
-  static void updateScreen() {
+  static int updateScreen() {
     // waitimes
     double waitTimes[6] = {250, 250, 250, 250, 250, 250};
 
@@ -63,6 +60,8 @@ public:
       // sleep task
       wait(waitTimes[i], msec);
     }
+    //will never hit here
+    return -1;
   }
 
 private:
