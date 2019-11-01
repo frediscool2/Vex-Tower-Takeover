@@ -51,6 +51,9 @@ signature VisionGREENBOX =
 signature VisionREDBOX =
     signature(3, 8099, 8893, 8496, -1505, -949, -1227, 2.5, 0);
 
+unsigned x;
+signature VisonPencil = signature(4, x, x, x, x, x, x, 2.5, 0);
+
 // VEXcode generated functions
 
 /**

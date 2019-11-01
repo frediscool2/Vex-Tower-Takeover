@@ -1,4 +1,4 @@
-#include "LodePNG/lodepng.h"
+#include "../src/LodePNG/lodepng.h"
 #include "string.h"
 #include "vex.h"
 #include <stdio.h>
@@ -8,10 +8,11 @@
 using namespace lodepng;
 
 class Animation {
+#define YSIZE 272;
+#define XSIZE 480;
+
 public:
   static void updateScreen() {
-    unsigned width = 480, height = 272;
-
     std::vector<unsigned char> png;
     std::vector<unsigned char> image;
     int start = clock() / 10;
@@ -20,7 +21,7 @@ public:
     double waitTimes[6] = {250, 250, 250, 250, 250, 250};
     int i = 0, itterator = 1;
 
-    static_assert(std::is_same<unsigned char, uint8_t>::value, "foo");
+    unsigned width, height;
 
     while (true) {
       load_file(png, filePaths[i].data());
@@ -45,28 +46,32 @@ public:
     }
   }
 
-private:
-  static int generateRawPixelData(unsigned width, unsigned height) {
-    // vector to store our raw pixel data
-    std::vector<unsigned char> image;
+  // generates a white black gradient image
+  private:
+  static void generateRawPixelData(unsigned width, unsigned height) {
+    // our buffer
+    uint32_t *buffer;
 
-    // setting vector size to size of image
-    image.resize(width * height * 4);
+    // setting the size of our buffer
+    buffer = new uint32_t[height * width];
 
-    // Loop for y rows
-    for (unsigned y = 0; y < height; y++)
-      // Loop for columns
-      for (unsigned x = 0; x < width; x++) {
-        // generating image data
-        image[4 * width * y + 4 * x + 0] = 255 * !(x & y);
-        image[4 * width * y + 4 * x + 1] = x ^ y;
-        image[4 * width * y + 4 * x + 2] = x | y;
-        image[4 * width * y + 4 * x + 3] = 255;
+    // checking if buffer is null
+    if (buffer != NULL) {
+      printf("buffer is good\n");
+      // Loop for rows
+      for (int y = 0; y < height; y++) {
+        // loop for colums
+        for (int x = 0; x < width; x++) {
+          // create rgb value
+          int32_t rgb = (x << 16) + (x << 8) + x;
+          buffer[y * width + x] = rgb;
+        }
       }
-    // image data -> buffer
-    uint8_t *buffer = image.data();
+      // drawing buffer
+      Brain.Screen.drawImageFromBuffer(buffer, 0, 0, width, height);
 
-    // returning buffer
-    return *buffer;
+      // delete buffer
+      delete buffer;
+    }
   }
 };

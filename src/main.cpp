@@ -31,12 +31,13 @@ using namespace vex;
 
 // A global instance of competition
 competition Competition;
+
+// object and animation interfaces
 ObjectTracking objectTracker;
 Animation animation;
 
-// define your global instances of motors and other devices here
+// checkSignature event for vision
 event checkSignature = event();
-event screenRefresh = event();
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -51,6 +52,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+
+  // setting up sensor
   objectTracker.intiSensor();
 }
 
@@ -130,13 +133,15 @@ int main() {
   // Run the pre-autonomous function.
   pre_auton();
 
-  screenRefresh(Animation::updateScreen);
+  // check signature event setup
   checkSignature(ObjectTracking::hasSignatureCallback);
+
+  // task setup
+  task screenRefresh = task(Animation::updateScreen);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
     checkSignature.broadcastAndWait();
-    screenRefresh.broadcastAndWait();
     wait(100, msec);
   }
 }

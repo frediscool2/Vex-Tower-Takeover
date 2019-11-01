@@ -43,12 +43,14 @@ public:
 
 public:
   static void intiSensor() {
+    // setting up sensor
     Vision.setWhiteBalanceMode(vision::whiteBalanceMode::automatic);
     Vision.setMode(vision::detectionMode::objectDetect);
     Vision.setWifiMode(vision::wifiMode::off);
     Vision.setLedMode(vision::ledMode::automatic);
   }
 
+  // placeholder function really
   static void getPostionOfObject() {
     for (int i = 0; i < Vision.objectCount; i++) {
       VexVisionObject Object = Vision.objects[i];
