@@ -47,6 +47,7 @@ public:
   }
 
   // generates a white black gradient image
+  private:
   static void generateRawPixelData(unsigned width, unsigned height) {
     // our buffer
     uint32_t *buffer;
