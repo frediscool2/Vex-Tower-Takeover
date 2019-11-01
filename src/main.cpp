@@ -139,13 +139,16 @@ void usercontrol(void) {
 
 void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       velocityUnits velcUnit, double velVal,
-                      motor_group motorGroup) {
+                      motor_group motorGroup, drivetrain driveTrain) {
 
   double degree;
   if (distanceUnit == cm) {
     distanceVal = distanceVal / 2.54;
   } else if (distanceUnit == mm) {
     distanceVal = (distanceVal * 10) / 2.54;
+  }
+
+  if (driveTrain ==null) {
   }
 }
 
