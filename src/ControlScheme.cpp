@@ -8,28 +8,28 @@ class ControllerInteraction {
 
 public:
   static void leftJoystickChange() {
-    leftMotors.setVelocity(Controller.Axis3.position(pct), pct);
+    leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
     leftMotors.spin(fwd);
   }
 
 public:
   static void rightJoystickChange() {
-    rightMotors.setVelocity(Controller.Axis2.position(pct), pct);
+    rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
     rightMotors.spin(fwd);
   }
 
 public:
   static void bL1Pressed() {
     // Intake Motor fwd 50% power
-    intakeMotors.setVelocity(50, pct);
+    intakeMotors.setVelocity(50, velocityUnits::pct);
     intakeMotors.spin(fwd);
   }
 
 public:
   static void bL2Pressed() {
     // Intake Motor rev 50% power
-    intakeMotors.setVelocity(50, pct);
-    intakeMotors.spin(reverse);
+    intakeMotors.setVelocity(50, velocityUnits::pct);
+    intakeMotors.spin(directionType::rev);
   }
 
 public:
@@ -43,7 +43,7 @@ public:
   static void cLPressed() {
     // Arm Motor Reverse 50% power
     armMotor.setVelocity(50, pct);
-    armMotor.spin(reverse);
+    armMotor.spin(directionType::rev);
   }
 
   /* empty functions will be called later once the drive team figures out their
@@ -67,7 +67,7 @@ public:
   static void cRPressed() {
     // Arm Motor Forward 50% power
     pistonMotor.setVelocity(50, pct);
-    pistonMotor.spin(reverse);
+    pistonMotor.spin(directionType::rev);
   }
 
   // Released Functions

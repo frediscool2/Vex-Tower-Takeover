@@ -83,35 +83,21 @@ void usercontrol(void) {
      update rate for motor values
 
      */
-    // BL 1,2 and BL release
-    if (Controller.ButtonL1.pressing()) {
-      ControllerInteraction::bL1Pressed();
-    } else if (Controller.ButtonL2.pressing()) {
-      ControllerInteraction::bL2Pressed();
-    } else {
-      ControllerInteraction::bLReleased();
-    }
+    Controller.ButtonL1.pressed(ControllerInteraction::bL1Pressed);
+    Controller.ButtonL2.pressed(ControllerInteraction::bL2Pressed);
+    Controller.ButtonR1.pressed(ControllerInteraction::bR1Pressed);
+    Controller.ButtonRight.pressed(ControllerInteraction::bL3Pressed);
+    Controller.ButtonDown.pressed(ControllerInteraction::cLPressed);
+    Controller.ButtonY.pressed(ControllerInteraction::bR3Pressed);
+    Controller.ButtonB.pressed(ControllerInteraction::cRPressed);
 
-    if (Controller.ButtonR1.pressing()) {
-      ControllerInteraction::bR1Pressed();
-    }
-    // BL 3 and CL
-    if (Controller.ButtonRight.pressing()) {
-      ControllerInteraction::bL3Pressed();
-    } else if (Controller.ButtonDown.pressing()) {
-      ControllerInteraction::cLPressed();
-    } else {
-      ControllerInteraction::bL3Released();
-    }
+    Controller.ButtonL1.released(ControllerInteraction::bLReleased);
+    Controller.ButtonL2.released(ControllerInteraction::bLReleased);
+    Controller.ButtonR1.released(ControllerInteraction::bRReleased);
+    Controller.ButtonR2.released(ControllerInteraction::bRReleased);
+    Controller.ButtonRight.released(ControllerInteraction::bL3Released);
+    Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
-    // BR 3 and CR
-    if (Controller.ButtonY.pressing()) {
-      ControllerInteraction::bL3Pressed();
-    } else if (Controller.ButtonB.pressing()) {
-      ControllerInteraction::cRPressed();
-    } else {
-      ControllerInteraction::bR3Released();
-    }
 
     // ~~~ JoyStick Controllers ~~~
 
