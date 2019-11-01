@@ -53,7 +53,6 @@ using namespace vex;
 #include <vector>
 
 using namespace vex;
-distanceUnits in = distanceUnits::in;
 distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
@@ -143,9 +142,10 @@ void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       motor_group motorGroup) {
 
   double degree;
-  switch (distanceUnit) {
-  case distanceUnit==cm:
-    break;
+  if (distanceUnit == cm) {
+    distanceVal = distanceVal / 2.54;
+  } else if (distanceUnit == mm) {
+    distanceVal = (distanceVal * 10) / 2.54;
   }
 }
 
