@@ -12,7 +12,7 @@ class Animation {
 #define XSIZE 480;
 
 public:
-  static void updateScreen() {
+  static int updateScreen() {
     std::vector<unsigned char> png;
     std::vector<unsigned char> image;
     int start = Brain.Timer.time(msec);
@@ -44,6 +44,7 @@ public:
 
       wait(waitTimes[i], msec);
     }
+    return 0;
   }
 
   // generates a white black gradient image
