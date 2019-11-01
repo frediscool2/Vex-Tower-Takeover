@@ -1,26 +1,52 @@
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp    F */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
+// To complete the VEXcode V5 Text project upgrade process, please follow the
+// steps below.
+//
+// 1. You can use the Robot Configuration window to recreate your V5 devices
+//   - including any motors, sensors, 3-wire devices, and controllers.
+//
+// 2. All previous code located in main.cpp has now been commented out. You
+//   will need to migrate this code to the new "int main" structure created
+//   below and keep in mind any new device names you may have set from the
+//   Robot Configuration window.
+//
+// If you would like to go back to your original project, a complete backup
+// of your original (pre-upgraded) project was created in a backup folder
+// inside of this project's folder.
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// rightWheelMotorB     motor         1
-// rightWheelMotorD     motor         2
-// leftWheelMotorA      motor         3
-// leftWheelMotorC      motor         4
-// leftIntakeMotor      motor         5
-// rightIntakeMotor     motor         6
-// armMotor             motor         7
-// pistonMotor          motor         8
-// Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
+#include "vex.h"
+
+using namespace vex;
+
+// // ---- START VEXCODE CONFIGURED DEVICES ----
+// // Robot Configuration:
+// // [Name]               [Type]        [Port(s)]
+// // ---- END VEXCODE CONFIGURED DEVICES ----
+// /*----------------------------------------------------------------------------*/
+// /* */
+// /*    Module:       main.cpp    F */
+// /*    Author:       VEX */
+// /*    Created:      Thu Sep 26 2019 */
+// /*    Description:  Competition Template */
+// /* */
+// /*----------------------------------------------------------------------------*/
+//
+// // ---- START VEXCODE CONFIGURED DEVICES ----
+// // Robot Configuration:
+// // [Name]               [Type]        [Port(s)]
+// // rightWheelMotorB     motor         1
+// // rightWheelMotorD     motor         2
+// // leftWheelMotorA      motor         3
+// // leftWheelMotorC      motor         4
+// // leftIntakeMotor      motor         5
+// // rightIntakeMotor     motor         6
+// // armMotor             motor         7
+// // pistonMotor          motor         8
+// // Controller          controller
+// // ---- END VEXCODE CONFIGURED DEVICES ----
+//
 #include "vex.h"
 ///
 #include "Animation.cpp"
@@ -98,7 +124,6 @@ void usercontrol(void) {
     Controller.ButtonRight.released(ControllerInteraction::bL3Released);
     Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
-
     // ~~~ JoyStick Controllers ~~~
 
     // TL left,right
@@ -123,7 +148,7 @@ int main() {
   checkSignature(ObjectTracking::hasSignatureCallback);
 
   // task setup
-  //task screenRefresh = task(Animation::updateScreen);
+  // task screenRefresh = task(Animation::updateScreen);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
