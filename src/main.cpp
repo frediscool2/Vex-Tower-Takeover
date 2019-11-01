@@ -54,7 +54,7 @@ using namespace vex;
 
 using namespace vex;
 distanceUnits in = distanceUnits::in;
-distanceUnits cm distanceUnits::cm;
+distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
@@ -143,7 +143,10 @@ void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       motor_group motorGroup) {
 
   double degree;
-  switch (distanceUnit) { case cm: }
+  switch (distanceUnit) {
+  case distanceUnit==cm:
+    break;
+  }
 }
 
 int main() {
