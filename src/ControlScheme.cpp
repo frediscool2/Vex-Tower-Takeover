@@ -8,28 +8,32 @@ class ControllerInteraction {
 
 public:
   static void leftJoystickChange() {
-    leftMotors.setVelocity(Controller.Axis3.position(pct), pct);
+    leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
     leftMotors.spin(fwd);
+    task::sleep(10);
   }
 
 public:
   static void rightJoystickChange() {
-    rightMotors.setVelocity(Controller.Axis2.position(pct), pct);
+    rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
     rightMotors.spin(fwd);
+    task::sleep(10);
   }
 
 public:
   static void bL1Pressed() {
     // Intake Motor fwd 50% power
-    intakeMotors.setVelocity(50, pct);
+    intakeMotors.setVelocity(50, velocityUnits::pct);
     intakeMotors.spin(fwd);
+    task::sleep(10);
   }
 
 public:
   static void bL2Pressed() {
     // Intake Motor rev 50% power
-    intakeMotors.setVelocity(50, pct);
-    intakeMotors.spin(reverse);
+    intakeMotors.setVelocity(50, velocityUnits::pct);
+    intakeMotors.spin(directionType::rev);
+    task::sleep(10);
   }
 
 public:
@@ -37,13 +41,15 @@ public:
     // Arm Motor Forward
     armMotor.setVelocity(50, pct);
     armMotor.spin(fwd);
+    task::sleep(10);
   }
 
 public:
   static void cLPressed() {
     // Arm Motor Reverse 50% power
     armMotor.setVelocity(50, pct);
-    armMotor.spin(reverse);
+    armMotor.spin(directionType::rev);
+    task::sleep(10);
   }
 
   /* empty functions will be called later once the drive team figures out their
@@ -67,7 +73,8 @@ public:
   static void cRPressed() {
     // Arm Motor Forward 50% power
     pistonMotor.setVelocity(50, pct);
-    pistonMotor.spin(reverse);
+    pistonMotor.spin(directionType::rev);
+    task::sleep(10);
   }
 
   // Released Functions
@@ -75,12 +82,14 @@ public:
   static void bLReleased() {
     // Stopping Left Intake Motor
     intakeMotors.stop();
+    task::sleep(10);
   }
 
 public:
   static void bL3Released() {
     // Stopping Arm Motor
     armMotor.stop();
+    task::sleep(10);
   }
 
 public: // right bumper release
