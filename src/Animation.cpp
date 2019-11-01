@@ -15,7 +15,7 @@ public:
   static void updateScreen() {
     std::vector<unsigned char> png;
     std::vector<unsigned char> image;
-    int start = clock() / 10;
+    int start = Brain.Timer.time(msec);
     std::string filePaths[6] = {"ball-2.png", "ball-3.png", "ball-4.png",
                                 "ball-5.png", "ball-6.png", "ball-7.png"};
     double waitTimes[6] = {250, 250, 250, 250, 250, 250};
@@ -39,7 +39,7 @@ public:
         itterator = -1;
       }
 
-      start = clock() / 10;
+      start = Brain.Timer.time(msec);
       i += itterator;
 
       wait(waitTimes[i], msec);
@@ -47,7 +47,7 @@ public:
   }
 
   // generates a white black gradient image
-  private:
+private:
   static void generateRawPixelData(unsigned width, unsigned height) {
     // our buffer
     uint32_t *buffer;
