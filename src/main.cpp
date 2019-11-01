@@ -53,6 +53,8 @@ using namespace vex;
 #include <vector>
 
 using namespace vex;
+distanceUnits in = distanceUnits::in;
+distanceUnits cm distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
@@ -134,6 +136,14 @@ void usercontrol(void) {
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
+}
+
+void driveForDistance(distanceUnits distanceUnit, double distanceVal,
+                      velocityUnits velcUnit, double velVal,
+                      motor_group motorGroup) {
+
+  double degree;
+  switch (distanceUnit) { case cm: }
 }
 
 int main() {
