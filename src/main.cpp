@@ -137,7 +137,7 @@ int main() {
   checkSignature(ObjectTracking::hasSignatureCallback);
 
   // task setup
-  task screenRefresh = task(Animation::updateScreen);
+  //task screenRefresh = task(Animation::updateScreen);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
