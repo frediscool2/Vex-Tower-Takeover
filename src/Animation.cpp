@@ -45,6 +45,8 @@ public:
       wait(waitTimes[i], msec);
     }
   }
+
+  // generates a white black gradient image
   static void generateRawPixelData(unsigned width, unsigned height) {
     // our buffer
     uint32_t *buffer;
