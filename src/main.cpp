@@ -20,33 +20,32 @@
 
 using namespace vex;
 
-// // ---- START VEXCODE CONFIGURED DEVICES ----
-// // Robot Configuration:
-// // [Name]               [Type]        [Port(s)]
-// // ---- END VEXCODE CONFIGURED DEVICES ----
-// /*----------------------------------------------------------------------------*/
-// /* */
-// /*    Module:       main.cpp    F */
-// /*    Author:       VEX */
-// /*    Created:      Thu Sep 26 2019 */
-// /*    Description:  Competition Template */
-// /* */
-// /*----------------------------------------------------------------------------*/
-//
-// // ---- START VEXCODE CONFIGURED DEVICES ----
-// // Robot Configuration:
-// // [Name]               [Type]        [Port(s)]
-// // rightWheelMotorB     motor         1
-// // rightWheelMotorD     motor         2
-// // leftWheelMotorA      motor         3
-// // leftWheelMotorC      motor         4
-// // leftIntakeMotor      motor         5
-// // rightIntakeMotor     motor         6
-// // armMotor             motor         7
-// // pistonMotor          motor         8
-// // Controller          controller
-// // ---- END VEXCODE CONFIGURED DEVICES ----
-//
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// ---- END VEXCODE CONFIGURED DEVICES ----
+/*----------------------------------------------------------------------------*/
+/*    Module:       main.cpp    F */
+/*    Author:       VEX */
+/*    Created:      Thu Sep 26 2019 */
+/*    Description:  Competition Template */
+/* */
+/*----------------------------------------------------------------------------*/
+
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// rightWheelMotorB     motor         1
+// rightWheelMotorD     motor         2
+// leftWheelMotorA      motor         3
+// leftWheelMotorC      motor         4
+// leftIntakeMotor      motor         5
+// rightIntakeMotor     motor         6
+// armMotor             motor         7
+// pistonMotor          motor         8
+// Controller          controller
+// ---- END VEXCODE CONFIGURED DEVICES ----
+
 #include "vex.h"
 ///
 #include "Animation.cpp"
@@ -148,7 +147,7 @@ int main() {
   checkSignature(ObjectTracking::hasSignatureCallback);
 
   // task setup
-  // task screenRefresh = task(Animation::updateScreen);
+  task screenRefresh = task(Animation::updateScreen);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
