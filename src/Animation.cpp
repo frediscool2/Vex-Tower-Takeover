@@ -46,30 +46,33 @@ public:
       wait(waitTimes[i], msec);
     }
   }
-  
+
 private:
-  static int generateRawPixelData(unsigned width, unsigned height,
-                                  int byteSize) {
-    // vector to store our raw pixel data
-    std::vector<unsigned char> image;
+  static void generateRawPixelData(unsigned width, unsigned height) {
+    // our buffer
+    uint32_t *buffer;
 
-    // setting vector size to size of image *4 because of the 4bytesize
-    image.resize(width * height * byteSize);
+    // setting the size of our buffer
+    buffer = new uint32_t[height * width];
 
-    // Loop for rows
-    for (unsigned y = 0; y < height; y++){
-      // Loop for columns
-      for (unsigned x = 0; x < width; x++) {
-        // generating image data
-        image[byteSize * width * y + byteSize * x + 0] = 255 * !(x & y);
-        image[byteSize * width * y + byteSize * x + 1] = x ^ y;
-        image[byteSize * width * y + byteSize * x + 2] = x | y;
-        image[byteSize * width * y + byteSize * x + 3] = 255;
-      }}
-    // image data -> buffer
-    uint8_t *buffer = image.data();
+    // checking if buffer is null
+    if (buffer != NULL) {
+      printf("buffer is good\n");
 
-    // returning buffer
-    return *buffer;
+      // Loop for rows
+      for (int y = 0; y < height; y++) {
+        // loop for colums
+        for (int x = 0; x < width; x++) {
+          // create rgb value
+          int32_t rgb = (x << 16) + (x << 8) + x;
+          buffer[y * width + x] = rgb;
+        }
+      }
+      // drawing buffer
+      Brain.Screen.drawImageFromBuffer(buffer, 0, 0, width, height);
+
+      // delete buffer
+      delete buffer;
+    }
   }
 };
