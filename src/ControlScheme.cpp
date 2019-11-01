@@ -10,14 +10,12 @@ public:
   static void leftJoystickChange() {
     leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
     leftMotors.spin(fwd);
-    task::sleep(10);
   }
 
 public:
   static void rightJoystickChange() {
     rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
     rightMotors.spin(fwd);
-    task::sleep(10);
   }
 
 public:
@@ -25,7 +23,6 @@ public:
     // Intake Motor fwd 50% power
     intakeMotors.setVelocity(50, velocityUnits::pct);
     intakeMotors.spin(fwd);
-    task::sleep(10);
   }
 
 public:
@@ -33,7 +30,6 @@ public:
     // Intake Motor rev 50% power
     intakeMotors.setVelocity(50, velocityUnits::pct);
     intakeMotors.spin(directionType::rev);
-    task::sleep(10);
   }
 
 public:
@@ -41,7 +37,6 @@ public:
     // Arm Motor Forward
     armMotor.setVelocity(50, pct);
     armMotor.spin(fwd);
-    task::sleep(10);
   }
 
 public:
@@ -49,7 +44,6 @@ public:
     // Arm Motor Reverse 50% power
     armMotor.setVelocity(50, pct);
     armMotor.spin(directionType::rev);
-    task::sleep(10);
   }
 
   /* empty functions will be called later once the drive team figures out their
@@ -74,7 +68,6 @@ public:
     // Arm Motor Forward 50% power
     pistonMotor.setVelocity(50, pct);
     pistonMotor.spin(directionType::rev);
-    task::sleep(10);
   }
 
   // Released Functions
@@ -82,14 +75,12 @@ public:
   static void bLReleased() {
     // Stopping Left Intake Motor
     intakeMotors.stop();
-    task::sleep(10);
   }
 
 public:
   static void bL3Released() {
     // Stopping Arm Motor
     armMotor.stop();
-    task::sleep(10);
   }
 
 public: // right bumper release
