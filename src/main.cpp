@@ -141,10 +141,12 @@ void usercontrol(void) {
 void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       velocityUnits velcUnit, double velVal,
                       motor_group motorGroup) {
+motorGroup.rotateFor(distanceVal , deg ,velVal, velcUnit, false);
 
+motorGroup.
   double degree;
   switch (distanceUnit) {
-  case distanceUnit==cm:
+  case distanceUnit==cm;
     break;
   }
 }
