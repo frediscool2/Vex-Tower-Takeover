@@ -109,18 +109,29 @@ void usercontrol(void) {
      update rate for motor values
 
      */
+
+    // left 1,2
     Controller.ButtonL1.pressed(ControllerInteraction::bL1Pressed);
     Controller.ButtonL2.pressed(ControllerInteraction::bL2Pressed);
+
+    // right 1,2
     Controller.ButtonR1.pressed(ControllerInteraction::bR1Pressed);
+    Controller.ButtonR2.pressed(ControllerInteraction::bR2Pressed);
     Controller.ButtonRight.pressed(ControllerInteraction::bL3Pressed);
+
     Controller.ButtonDown.pressed(ControllerInteraction::cLPressed);
+
     Controller.ButtonY.pressed(ControllerInteraction::bR3Pressed);
     Controller.ButtonB.pressed(ControllerInteraction::cRPressed);
 
+    // left 1,2 released
     Controller.ButtonL1.released(ControllerInteraction::bLReleased);
     Controller.ButtonL2.released(ControllerInteraction::bLReleased);
+
+    // right 1,2 released
     Controller.ButtonR1.released(ControllerInteraction::bRReleased);
     Controller.ButtonR2.released(ControllerInteraction::bRReleased);
+
     Controller.ButtonRight.released(ControllerInteraction::bL3Released);
     Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
@@ -145,9 +156,7 @@ void driveForDistance(distanceUnits distanceUnit, double distanceVal,
   } else if (distanceUnit == mm) {
     distanceVal = (distanceVal * 10) / 2.54;
   }
-motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
-
-
+  motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
 }
 
 int main() {
