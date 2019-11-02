@@ -24,8 +24,8 @@ public:
     unsigned width, height;
 
     while (true) {
-      load_file(png, filePaths[i].data());
-      decode(image, width, height, png);
+      // load_file(png, filePaths[i].data());
+      // decode(image, width, height, png);
 
       uint8_t *buffer = image.data();
 

@@ -152,10 +152,16 @@ void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       velocityUnits velcUnit, double velVal,
                       motor_group motorGroup) {
   if (distanceUnit == cm) {
+    // cm -> inches
     distanceVal = distanceVal / 2.54;
   } else if (distanceUnit == mm) {
+    // mm -> inches
     distanceVal = (distanceVal * 10) / 2.54;
   }
+  // wheel circumfrence /360deg = inchesTraveledPerDeg
+  // distanceToTravel / inchesTraveledPerDeg = degreesToTravel
+  distanceVal = distanceVal / ((3.14159265359 * 3.25) / 360);
+
   motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
 }
 
