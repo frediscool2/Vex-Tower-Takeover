@@ -59,7 +59,7 @@ distanceUnits cm = distanceUnits::cm;
 competition Competition;
 
 // object and animation interfaces
-ObjectTracking objectTracker;
+//ObjectTracking objectTracker;
 Animation animation;
 
 // checkSignature event for vision
@@ -80,7 +80,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 
   // setting up sensor
-  objectTracker.intiSensor();
+  //objectTracker.intiSensor();
 }
 
 void autonomous(void) {
@@ -148,23 +148,6 @@ void usercontrol(void) {
   }
 }
 
-void driveForDistance(distanceUnits distanceUnit, double distanceVal,
-                      velocityUnits velcUnit, double velVal,
-                      motor_group motorGroup) {
-  if (distanceUnit == cm) {
-    // cm -> inches
-    distanceVal = distanceVal / 2.54;
-  } else if (distanceUnit == mm) {
-    // mm -> inches
-    distanceVal = (distanceVal * 10) / 2.54;
-  }
-  // wheel circumfrence /360deg = inchesTraveledPerDeg
-  // distanceToTravel / inchesTraveledPerDeg = degreesToTravel
-  distanceVal = distanceVal / ((3.14159265359 * 3.25) / 360);
-
-  motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
-}
-
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
@@ -173,7 +156,7 @@ int main() {
   pre_auton();
 
   // check signature event setup
-  checkSignature(ObjectTracking::hasSignatureCallback);
+  //checkSignature(ObjectTracking::hasSignatureCallback);
 
   // task setup
   task screenRefresh = task(Animation::updateScreen);
