@@ -5,7 +5,7 @@
 #include <string.h>
 #include <vector>
 
-using namespace lodepng;
+using namespace vex;
 
 class Animation {
 #define YSIZE 272;
