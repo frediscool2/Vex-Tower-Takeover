@@ -53,7 +53,6 @@ using namespace vex;
 #include <vector>
 
 using namespace vex;
-distanceUnits in = distanceUnits::in;
 distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
@@ -141,14 +140,12 @@ void usercontrol(void) {
 void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                       velocityUnits velcUnit, double velVal,
                       motor_group motorGroup) {
-motorGroup.rotateFor(distanceVal , deg ,velVal, velcUnit, false);
-
-motorGroup.
-  double degree;
-  switch (distanceUnit) {
-  case distanceUnit==cm;
-    break;
+  if (distanceUnit == cm) {
+    distanceVal = distanceVal / 2.54;
+  } else if (distanceUnit == mm) {
+    distanceVal = (distanceVal * 10) / 2.54;
   }
+  motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
 }
 
 int main() {
