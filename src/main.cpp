@@ -77,7 +77,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 
   // setting up sensor
-  // intiSensor();
+  //objectTracker.intiSensor();
 }
 
 void autonomous(void) {
@@ -196,18 +196,6 @@ static void intiSensor() {
   Vision.setMode(vision::detectionMode::objectDetect);
   Vision.setWifiMode(vision::wifiMode::off);
   Vision.setLedMode(vision::ledMode::automatic);
-}
-
-// 157.5 range test!
-/*
-  *2+-
-  *5+-
-  *20+-
-  *25+-
-
-
-*/
-
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
