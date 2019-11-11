@@ -1,7 +1,6 @@
 #include "vex.h"
 // this comment is here because they auto format formats include lines by
 // alphabetical order which fucks up some dependancies
-#include "ObjectTracking.cpp"
 #include <iostream>
 
 class ControllerInteraction {
@@ -50,7 +49,12 @@ public:
    * layout*/
 public:
   static void bR1Pressed() {
-//    ObjectTracking::setVisionIndex(ObjectTracking::getVisionIndex() + 1);
+    //    ObjectTracking::setVisionIndex(ObjectTracking::getVisionIndex() + 1);
+
+    driveForDistance(distanceUnits::cm, 111.76, velocityUnits::pct, 50,
+                     leftMotors);
+    driveForDistance(distanceUnits::cm, 111.76, velocityUnits::pct, 50,
+                     rightMotors);
   }
 
 public:
@@ -90,5 +94,20 @@ public:
   static void bR3Released() {
     // Stopping  Piston Motor
     pistonMotor.stop();
+  }
+
+  static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
+                               velocityUnits velcUnit, double velVal,
+                               motor_group motorGroup) {
+    if (distanceUnit == distanceUnits::cm) {
+      distanceVal = distanceVal / 2.54;
+    } else if (distanceUnit == mm) {
+      distanceVal = (distanceVal * 10) / 2.54;
+    }
+
+    double inchesPerDegree = (3.14159 * 3.25) / 360;
+    distanceVal = distanceVal / inchesPerDegree;
+
+    motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
   }
 };

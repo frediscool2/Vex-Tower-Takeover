@@ -17,6 +17,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "vision-config.h"
 
 using namespace vex;
 
@@ -46,24 +47,20 @@ using namespace vex;
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
-#include "vex.h"
-///
-#include "Animation.cpp"
 #include "ControlScheme.cpp"
+#include "ObjectTracking.cpp"
+
 #include <vector>
 
-using namespace vex;
 distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
 
-// object and animation interfaces
-ObjectTracking objectTracker;
-Animation animation;
-
-// checkSignature event for vision
-event checkSignature = event();
+// updateVision event for vision
+event updateVision = event();
+event updateTurn = event();
+event updateDistance = event();
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -80,7 +77,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 
   // setting up sensor
-  objectTracker.intiSensor();
+  // intiSensor();
 }
 
 void autonomous(void) {
@@ -136,7 +133,6 @@ void usercontrol(void) {
     Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
     // ~~~ JoyStick Controllers ~~~
-
     // TL left,right
     Controller.Axis3.changed(ControllerInteraction::leftJoystickChange);
 
@@ -148,33 +144,116 @@ void usercontrol(void) {
   }
 }
 
-void driveForDistance(distanceUnits distanceUnit, double distanceVal,
-                      velocityUnits velcUnit, double velVal,
-                      motor_group motorGroup) {
-  if (distanceUnit == cm) {
-    distanceVal = distanceVal / 2.54;
-  } else if (distanceUnit == mm) {
-    distanceVal = (distanceVal * 10) / 2.54;
-  }
-  motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
+static void updateVisionSensor() {
+  // setting up screen
+  Brain.Screen.setFont(mono40);
+  Brain.Screen.clearLine(1, black);
+  Brain.Screen.setCursor(1, 1);
+
+  // fetch the list of objects that match our signature
+  Vision.takeSnapshot(GREEN_CUBE);
 }
+
+static void adjustTurn() {
+  Brain.Screen.setFont(mono40);
+  Brain.Screen.clearLine(1, black);
+  Brain.Screen.setCursor(1, 1);
+  VexVisionObject object = Vision.largestObject;
+
+  if (object.originX < 76) {
+    Brain.Screen.print("left of bot");
+    leftMotors.spinFor(fwd, 90, rotationUnits::deg, 100, velocityUnits::pct,
+                       false);
+  } else if (object.originX > 84) {
+    Brain.Screen.print("right of bot");
+    rightMotors.spinFor(fwd, 90, rotationUnits::deg, 100, velocityUnits::pct,
+                        false);
+  }
+}
+
+static void adjustDistance() {
+  Brain.Screen.setFont(mono40);
+  Brain.Screen.clearLine(3, black); // sd
+  Brain.Screen.setCursor(3, 1);
+  VexVisionObject object = Vision.largestObject;
+
+  if (object.width < 158 || object.height < 152) {
+    leftMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
+                       false);
+    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
+                        false);
+  } else if (object.width > 165 || object.height < 150) {
+    leftMotors.spinFor(reverse, 90,deg, 100, velocityUnits::pct,
+                       false);
+    rightMotors.spinFor(reverse, 90, deg, 100,
+                        velocityUnits::pct, false);
+  }
+}
+
+static void intiSensor() {
+  // setting up sensor
+  Vision.setWhiteBalanceMode(vision::whiteBalanceMode::automatic);
+  Vision.setMode(vision::detectionMode::objectDetect);
+  Vision.setWifiMode(vision::wifiMode::off);
+  Vision.setLedMode(vision::ledMode::automatic);
+}
+
+// 157.5 range test!
+/*
+  *2+-
+  *5+-
+  *20+-
+  *25+-
+
+
+*/
 
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
+
   // Run the pre-autonomous function.
   pre_auton();
+  intiSensor();
 
   // check signature event setup
-  checkSignature(ObjectTracking::hasSignatureCallback);
 
   // task setup
-  task screenRefresh = task(Animation::updateScreen);
+  updateVision(updateVisionSensor);
+  updateTurn(adjustTurn);
+  updateDistance(adjustDistance);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    checkSignature.broadcastAndWait();
+    updateVision.broadcastAndWait();
+    updateTurn.broadcastAndWait();
+    updateDistance.broadcastAndWait();
     wait(100, msec);
   }
 }
+
+/*
+  TODO:
+-Test values that the sensor returns we know the following
+  a) all x values grabbed from object will be between 0 and 315
+  b) all y values grabbed from object will be betweenn 0 and 211
+  c) we have methods that can grab the width, height, angle, centerX, centerY,
+      orginX and orginY. Values
+
+    Questions:
+      -Lets say we fetch the centerX value of the object.
+        what does this value represent?
+        is 0 the very left limit of the sensors view and 315 the right limit?
+        If so is an x val of 157.5 -                            dead center?
+        How precice are the values, do we need to add a range of .5 or 5?
+      -What is the max range of the sensor?
+      -What is the max effetive range of the sensor?
+      -What is the poll rate of the sensor?
+      -Correct brightness setting of the vision sensor on init see vision docs
+          for details
+      -Effectivness of automatic brightness setting vs manaul
+      -LED interaction
+      -
+
+*/

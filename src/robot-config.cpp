@@ -40,20 +40,6 @@ drivetrain driveTrain =
 // sdcard
 brain::sdcard sdcard = brain::sdcard();
 
-// vision sensor
-vision Vision = vision(PORT7);
-
-// Vison Signatures
-signature VisionBLUEBOX = // values were taken from vex
-    signature(1, -3441, -2785, -3113, 8975, 10355, 9665, 2.5, 0);
-signature VisionGREENBOX =
-    signature(2, -5767, -4965, -5366, -3803, -2861, -3332, 2.5, 0);
-signature VisionREDBOX =
-    signature(3, 8099, 8893, 8496, -1505, -949, -1227, 2.5, 0);
-
-unsigned x;
-signature VisonPencil = signature(4, x, x, x, x, x, x, 2.5, 0);
-
 // VEXcode generated functions
 
 /**

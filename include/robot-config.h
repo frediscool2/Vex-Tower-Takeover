@@ -1,5 +1,6 @@
 using namespace vex;
-using signature = vision::signature;;
+
+using signature = vision::signature;
 extern brain Brain;
 
 // VEXcode devices
@@ -19,10 +20,8 @@ extern drivetrain driveTrain;
 extern brain::sdcard sdcard;
 
 extern vision Vision;
-extern signature VisionBLUEBOX;
-extern signature VisionGREENBOX;
-extern signature VisionREDBOX;
-extern signature VisionFooSignature;
+
+
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.
  *
