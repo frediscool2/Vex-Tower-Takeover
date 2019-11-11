@@ -162,11 +162,12 @@ static void adjustTurn() {
 
   if (object.originX < 76) {
     Brain.Screen.print("left of bot");
-    leftMotors.spinFor(fwd, 90, rotationUnits::deg, 100, velocityUnits::pct,
+    leftMotors.spinFor(fwd, 90,deg, 100, velocityUnits::pct,
                        false);
+                       
   } else if (object.originX > 84) {
     Brain.Screen.print("right of bot");
-    rightMotors.spinFor(fwd, 90, rotationUnits::deg, 100, velocityUnits::pct,
+    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
                         false);
   }
 }
@@ -196,6 +197,9 @@ static void intiSensor() {
   Vision.setMode(vision::detectionMode::objectDetect);
   Vision.setWifiMode(vision::wifiMode::off);
   Vision.setLedMode(vision::ledMode::automatic);
+
+}
+
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
