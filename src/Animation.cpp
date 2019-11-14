@@ -5,17 +5,17 @@
 #include <string.h>
 #include <vector>
 
-using namespace lodepng;
+using namespace vex;
 
 class Animation {
 #define YSIZE 272;
 #define XSIZE 480;
 
 public:
-  static void updateScreen() {
+  static int updateScreen() {
     std::vector<unsigned char> png;
     std::vector<unsigned char> image;
-    int start = clock() / 10;
+    int start = Brain.Timer.time(msec);
     std::string filePaths[6] = {"ball-2.png", "ball-3.png", "ball-4.png",
                                 "ball-5.png", "ball-6.png", "ball-7.png"};
     double waitTimes[6] = {250, 250, 250, 250, 250, 250};
@@ -24,8 +24,8 @@ public:
     unsigned width, height;
 
     while (true) {
-      load_file(png, filePaths[i].data());
-      decode(image, width, height, png);
+      // load_file(png, filePaths[i].data());
+      // decode(image, width, height, png);
 
       uint8_t *buffer = image.data();
 
@@ -39,15 +39,16 @@ public:
         itterator = -1;
       }
 
-      start = clock() / 10;
+      start = Brain.Timer.time(msec);
       i += itterator;
 
       wait(waitTimes[i], msec);
     }
+    return 0;
   }
 
   // generates a white black gradient image
-  private:
+private:
   static void generateRawPixelData(unsigned width, unsigned height) {
     // our buffer
     uint32_t *buffer;
