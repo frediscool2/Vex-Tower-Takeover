@@ -48,7 +48,6 @@ using namespace vex;
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "ControlScheme.cpp"
-#include "ObjectTracking.cpp"
 
 #include <vector>
 
@@ -56,11 +55,6 @@ distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
-
-// updateVision event for vision
-event updateVision = event();
-event updateTurn = event();
-event updateDistance = event();
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -77,7 +71,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 
   // setting up sensor
-  //objectTracker.intiSensor();
+  // objectTracker.intiSensor();
 }
 
 void autonomous(void) {
@@ -100,10 +94,6 @@ void usercontrol(void) {
 
       Also the motors are labeled by the letter taped onto them again this was a
      drive team instruction and is a temp solution
-
-     The alternative to an if else chain is an event based code system using the
-     pressed() functions. The downside to the event based aproach is a lower
-     update rate for motor values
 
      */
 
@@ -144,62 +134,6 @@ void usercontrol(void) {
   }
 }
 
-static void updateVisionSensor() {
-  // setting up screen
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(1, black);
-  Brain.Screen.setCursor(1, 1);
-
-  // fetch the list of objects that match our signature
-  Vision.takeSnapshot(GREEN_CUBE);
-}
-
-static void adjustTurn() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(1, black);
-  Brain.Screen.setCursor(1, 1);
-  VexVisionObject object = Vision.largestObject;
-
-  if (object.originX < 76) {
-    Brain.Screen.print("left of bot");
-    leftMotors.spinFor(fwd, 90,deg, 100, velocityUnits::pct,
-                       false);
-                       
-  } else if (object.originX > 84) {
-    Brain.Screen.print("right of bot");
-    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                        false);
-  }
-}
-
-static void adjustDistance() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(3, black); // sd
-  Brain.Screen.setCursor(3, 1);
-  VexVisionObject object = Vision.largestObject;
-
-  if (object.width < 158 || object.height < 152) {
-    leftMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                       false);
-    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                        false);
-  } else if (object.width > 165 || object.height < 150) {
-    leftMotors.spinFor(reverse, 90,deg, 100, velocityUnits::pct,
-                       false);
-    rightMotors.spinFor(reverse, 90, deg, 100,
-                        velocityUnits::pct, false);
-  }
-}
-
-static void intiSensor() {
-  // setting up sensor
-  Vision.setWhiteBalanceMode(vision::whiteBalanceMode::automatic);
-  Vision.setMode(vision::detectionMode::objectDetect);
-  Vision.setWifiMode(vision::wifiMode::off);
-  Vision.setLedMode(vision::ledMode::automatic);
-
-}
-
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
@@ -207,20 +141,9 @@ int main() {
 
   // Run the pre-autonomous function.
   pre_auton();
-  intiSensor();
-
-  // check signature event setup
-
-  // task setup
-  updateVision(updateVisionSensor);
-  updateTurn(adjustTurn);
-  updateDistance(adjustDistance);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    updateVision.broadcastAndWait();
-    updateTurn.broadcastAndWait();
-    updateDistance.broadcastAndWait();
     wait(100, msec);
   }
 }
