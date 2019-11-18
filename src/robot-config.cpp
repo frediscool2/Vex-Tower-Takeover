@@ -33,9 +33,6 @@ motor_group leftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
 motor_group rightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
 motor_group intakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
 
-// Drivetrain
-drivetrain driveTrain =
-    drivetrain(leftMotors, rightMotors, 299.24, 31.75, 130, mm, 1);
 
 // sdcard
 brain::sdcard sdcard = brain::sdcard();
