@@ -19,8 +19,9 @@
 // pistonMotor          motor         8
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
-
+//
 #include "ControlScheme.cpp"
+#include "GUI.h"
 #include "vex.h"
 
 using namespace vex;
@@ -29,6 +30,8 @@ distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
+
+GUI gui;
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -43,6 +46,7 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+  armMotor.setBrake(hold);
 }
 
 void autonomous(void) {
@@ -91,6 +95,8 @@ void usercontrol(void) {
     Controller.ButtonR2.released(ControllerInteraction::bRReleased);
 
     Controller.ButtonRight.released(ControllerInteraction::bL3Released);
+    Controller.ButtonDown.released(ControllerInteraction::cLReleased);
+
     Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
     // ~~~ JoyStick Controllers ~~~
@@ -110,11 +116,14 @@ int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
+  //
   // Run the pre-autonomous function.
   pre_auton();
-  
+
   // Prevent main from exiting with an infinite loop.
   while (true) {
+    Brain.Screen.pressed(gui.screenPressed);
+    gui.updateScreen();
     wait(100, msec);
   }
 }
