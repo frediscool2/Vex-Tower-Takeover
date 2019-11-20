@@ -102,25 +102,11 @@ void GUI::displayRunning() {
 
 // https://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle#481150
 bool GUI::isCirclePressed(Circle bound) {
-  int dx, dy, r;
 
-  dx = abs(Brain.Screen.xPosition() - bound.getDX());
-  dy = abs(Brain.Screen.yPosition() - bound.getDY());
-  r = bound.getRadius();
-
-  if (dx + dy <= r) {
-    return true;
-  }
-  if (dx > r) {
-    return false;
-  }
-  if (dy > r) {
-    return false;
-  }
-  if (dx ^ 2 + dy ^ 2 <= r ^ 2) {
-    return true;
-  }
-  return false;
+if (Brain.Screen.xPosition()-bound.getDX())^2 +(Brain.Screen.yPosition()-bound.getDY())^2 <r^2){
+  return true;
+}
+return false;
 }
 
 void GUI::updateScreen() {
