@@ -100,4 +100,19 @@ public:
 
     motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
   }
+
+  static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
+                               velocityUnits velcUnit, double velVal,
+                               motor motorGroup) {
+    if (distanceUnit == distanceUnits::cm) {
+      distanceVal = distanceVal / 2.54;
+    } else if (distanceUnit == mm) {
+      distanceVal = (distanceVal * 10) / 2.54;
+    }
+
+    double inchesPerDegree = (3.14159 * 3.25) / 360;
+    distanceVal = distanceVal / inchesPerDegree;
+
+    motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
+  }
 };
