@@ -7,37 +7,31 @@ class ControllerInteraction {
 
 public:
   static void leftJoystickChange() {
-    leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
-    leftMotors.spin(fwd);
+    leftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
   }
 
   static void rightJoystickChange() {
-    rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
-    rightMotors.spin(fwd);
+    rightMotors.spin(fwd, Controller.Axis2.position(pct), pct);
   }
 
   static void bL1Pressed() {
     // Intake Motor fwd 50% power
-    intakeMotors.setVelocity(50, velocityUnits::pct);
-    intakeMotors.spin(fwd);
+    intakeMotors.spin(fwd, 50, pct);
   }
 
   static void bL2Pressed() {
     // Intake Motor rev 50% power
-    intakeMotors.setVelocity(50, velocityUnits::pct);
-    intakeMotors.spin(directionType::rev);
+    intakeMotors.spin(reverse, 50, pct);
   }
 
   static void bL3Pressed() {
     // Arm Motor Forward
-    armMotor.setVelocity(50, pct);
-    armMotor.spin(fwd);
+    armMotors.spin(fwd, 50, pct);
   }
 
   static void cLPressed() {
     // Arm Motor Reverse 50% power
-    armMotor.setVelocity(50, pct);
-    armMotor.spin(directionType::rev);
+    armMotors.spin(reverse, 50, pct);
   }
 
   /* empty functions will be called later once the drive team figures out their
@@ -55,14 +49,12 @@ public:
 
   static void bR3Pressed() {
     // Piston Motor Forward 50% power
-    pistonMotor.setVelocity(50, pct);
-    pistonMotor.spin(fwd);
+    pistonMotor.spin(fwd, 50, pct);
   }
 
   static void cRPressed() {
     // Arm Motor Forward 50% power
-    pistonMotor.setVelocity(100, pct);
-    pistonMotor.spin(directionType::rev);
+    pistonMotor.spin(reverse, 100, pct);
   }
 
   // Released Functions
@@ -73,10 +65,10 @@ public:
 
   static void bL3Released() {
     // Stopping Arm Motor
-    armMotor.stop(hold);
+    armMotors.stop();
   }
 
-  static void cLReleased() { armMotor.stop(hold); }
+  static void cLReleased() { armMotors.stop(); }
 
   // right bumper release
   static void bRReleased() { intakeMotors.stop(); }

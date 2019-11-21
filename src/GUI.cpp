@@ -98,15 +98,22 @@ void GUI::displayRunning() {
   for (Circle circle : runningBounds) {
     Brain.Screen.drawCircle(circle.getDX(), circle.getDY(), circle.getRadius());
   }
+
+  for (int i = 0; i < runningBounds.size(); i++) {
+    Circle circle = runningBounds.at(i);
+    Brain.Screen.drawCircle(circle.getDX(), circle.getDY(), circle.getRadius());
+  }
 }
 
 // https://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle#481150
 bool GUI::isCirclePressed(Circle bound) {
 
-if (Brain.Screen.xPosition()-bound.getDX())^2 +(Brain.Screen.yPosition()-bound.getDY())^2 <r^2){
-  return true;
-}
-return false;
+  if (pow(Brain.Screen.xPosition() - bound.getDX(), 2) +
+          pow(Brain.Screen.yPosition() - bound.getDY(), 2) <
+      pow(r, 2)) {
+    return true;
+  }
+  return false;
 }
 
 void GUI::updateScreen() {

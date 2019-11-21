@@ -46,7 +46,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  armMotor.setBrake(hold);
+  armMotorA.setBrake(hold);
+  armMotorB.setBrake(hold);
 }
 
 void autonomous(void) {
