@@ -16,12 +16,7 @@ extern motor leftWheelMotorD;
 extern motor_group leftMotors;
 extern motor_group rightMotors;
 extern motor_group intakeMotors;
-extern drivetrain driveTrain;
-extern brain::sdcard sdcard;
-
-extern vision Vision;
-
-
+extern motor_group driveTrain;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.
  *

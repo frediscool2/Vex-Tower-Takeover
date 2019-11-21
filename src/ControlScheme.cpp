@@ -61,7 +61,7 @@ public:
 
   static void cRPressed() {
     // Arm Motor Forward 50% power
-    pistonMotor.setVelocity(50, pct);
+    pistonMotor.setVelocity(100, pct);
     pistonMotor.spin(directionType::rev);
   }
 
@@ -73,8 +73,10 @@ public:
 
   static void bL3Released() {
     // Stopping Arm Motor
-    armMotor.stop();
+    armMotor.stop(hold);
   }
+
+  static void cLReleased() { armMotor.stop(hold); }
 
   // right bumper release
   static void bRReleased() { intakeMotors.stop(); }

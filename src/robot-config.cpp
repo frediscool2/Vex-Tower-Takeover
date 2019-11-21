@@ -20,7 +20,8 @@ motor leftIntakeMotor = motor(PORT5, ratio18_1, false);
 motor rightIntakeMotor = motor(PORT6, ratio18_1, true);
 
 // Arm motor
-motor armMotor = motor(PORT7, ratio18_1, false);
+motor armMotor = motor(PORT7, ratio6_1, false);
+
 
 // Piston motor
 motor pistonMotor = motor(PORT8, ratio18_1, false);
@@ -32,10 +33,6 @@ controller Controller = controller(primary);
 motor_group leftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
 motor_group rightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
 motor_group intakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
-
-// Drivetrain
-drivetrain driveTrain =
-    drivetrain(leftMotors, rightMotors, 299.24, 31.75, 130, mm, 1);
 
 // sdcard
 brain::sdcard sdcard = brain::sdcard();

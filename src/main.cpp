@@ -1,30 +1,3 @@
-// To complete the VEXcode V5 Text project upgrade process, please follow the
-// steps below.
-//
-// 1. You can use the Robot Configuration window to recreate your V5 devices
-//   - including any motors, sensors, 3-wire devices, and controllers.
-//
-// 2. All previous code located in main.cpp has now been commented out. You
-//   will need to migrate this code to the new "int main" structure created
-//   below and keep in mind any new device names you may have set from the
-//   Robot Configuration window.
-//
-// If you would like to go back to your original project, a complete backup
-// of your original (pre-upgraded) project was created in a backup folder
-// inside of this project's folder.
-
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// ---- END VEXCODE CONFIGURED DEVICES ----
-
-#include "vex.h"
-#include "vision-config.h"
-
-using namespace vex;
-
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*    Module:       main.cpp    F */
 /*    Author:       VEX */
@@ -46,21 +19,19 @@ using namespace vex;
 // pistonMotor          motor         8
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
-
+//
 #include "ControlScheme.cpp"
-#include "ObjectTracking.cpp"
+#include "GUI.h"
+#include "vex.h"
 
-#include <vector>
+using namespace vex;
 
 distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
 
-// updateVision event for vision
-event updateVision = event();
-event updateTurn = event();
-event updateDistance = event();
+GUI gui;
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -75,9 +46,7 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-
-  // setting up sensor
-  //objectTracker.intiSensor();
+  armMotor.setBrake(hold);
 }
 
 void autonomous(void) {
@@ -100,10 +69,6 @@ void usercontrol(void) {
 
       Also the motors are labeled by the letter taped onto them again this was a
      drive team instruction and is a temp solution
-
-     The alternative to an if else chain is an event based code system using the
-     pressed() functions. The downside to the event based aproach is a lower
-     update rate for motor values
 
      */
 
@@ -130,6 +95,8 @@ void usercontrol(void) {
     Controller.ButtonR2.released(ControllerInteraction::bRReleased);
 
     Controller.ButtonRight.released(ControllerInteraction::bL3Released);
+    Controller.ButtonDown.released(ControllerInteraction::cLReleased);
+
     Controller.ButtonY.released(ControllerInteraction::bR3Released);
 
     // ~~~ JoyStick Controllers ~~~
@@ -144,108 +111,19 @@ void usercontrol(void) {
   }
 }
 
-static void updateVisionSensor() {
-  // setting up screen
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(1, black);
-  Brain.Screen.setCursor(1, 1);
-
-  // fetch the list of objects that match our signature
-  Vision.takeSnapshot(GREEN_CUBE);
-}
-
-static void adjustTurn() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(1, black);
-  Brain.Screen.setCursor(1, 1);
-  VexVisionObject object = Vision.largestObject;
-
-  if (object.originX < 76) {
-    Brain.Screen.print("left of bot");
-    leftMotors.spinFor(fwd, 90,deg, 100, velocityUnits::pct,
-                       false);
-                       
-  } else if (object.originX > 84) {
-    Brain.Screen.print("right of bot");
-    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                        false);
-  }
-}
-
-static void adjustDistance() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(3, black); // sd
-  Brain.Screen.setCursor(3, 1);
-  VexVisionObject object = Vision.largestObject;
-
-  if (object.width < 158 || object.height < 152) {
-    leftMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                       false);
-    rightMotors.spinFor(fwd, 90, deg, 100, velocityUnits::pct,
-                        false);
-  } else if (object.width > 165 || object.height < 150) {
-    leftMotors.spinFor(reverse, 90,deg, 100, velocityUnits::pct,
-                       false);
-    rightMotors.spinFor(reverse, 90, deg, 100,
-                        velocityUnits::pct, false);
-  }
-}
-
-static void intiSensor() {
-  // setting up sensor
-  Vision.setWhiteBalanceMode(vision::whiteBalanceMode::automatic);
-  Vision.setMode(vision::detectionMode::objectDetect);
-  Vision.setWifiMode(vision::wifiMode::off);
-  Vision.setLedMode(vision::ledMode::automatic);
-
-}
-
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
+  //
   // Run the pre-autonomous function.
   pre_auton();
-  intiSensor();
-
-  // check signature event setup
-
-  // task setup
-  updateVision(updateVisionSensor);
-  updateTurn(adjustTurn);
-  updateDistance(adjustDistance);
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    updateVision.broadcastAndWait();
-    updateTurn.broadcastAndWait();
-    updateDistance.broadcastAndWait();
+    Brain.Screen.pressed(gui.screenPressed);
+    gui.updateScreen();
     wait(100, msec);
   }
 }
-
-/*
-  TODO:
--Test values that the sensor returns we know the following
-  a) all x values grabbed from object will be between 0 and 315
-  b) all y values grabbed from object will be betweenn 0 and 211
-  c) we have methods that can grab the width, height, angle, centerX, centerY,
-      orginX and orginY. Values
-
-    Questions:
-      -Lets say we fetch the centerX value of the object.
-        what does this value represent?
-        is 0 the very left limit of the sensors view and 315 the right limit?
-        If so is an x val of 157.5 -                            dead center?
-        How precice are the values, do we need to add a range of .5 or 5?
-      -What is the max range of the sensor?
-      -What is the max effetive range of the sensor?
-      -What is the poll rate of the sensor?
-      -Correct brightness setting of the vision sensor on init see vision docs
-          for details
-      -Effectivness of automatic brightness setting vs manaul
-      -LED interaction
-      -
-
-*/
