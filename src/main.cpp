@@ -57,12 +57,49 @@ void autonomous(void) {
 
 void SetDriverCieran()
 {
+  // Robot Movement Setup
+  // Tank Controls
 
+  // Set the left joystick Y Axis to move the left side of the robot
+  Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
+
+  // Set the right joystick Y Axis to move the right side of the robot
+  Controller.Axis2.changed(ControllerInteraction::moveRightSide);
+
+
+  // Arm Movement Setup
+  // Controls for the arm
+
+  // Sets the left down button to lower the robot's arms
+  Controller.ButtonDown.pressed(ControllerInteraction::lowerArm);
+
+  // Sets the right down button(B) to raise the robot's arm
+  Controller.ButtonB.pressed(ControllerInteraction::liftArm);
+
+
+  // Piston Control Setup
+  // Controls for the piston
+
+  // Sets the lowest front left button to lower the piston
+  Controller.ButtonL2.pressed(ControllerInteraction::pistonRetract);
+  
+  // Sets the lowest front right button to raise the piston
+  Controller.ButtonR2.pressed(ControllerInteraction::pistonExtend);
+
+
+  // Intake Control Setup
+  // Controls for the intake system
+
+  // Sets the highest front left button to have the intake system pull objects towards the bot
+  Controller.ButtonL1.pressed(ControllerInteraction::pullIntake);
+
+  // Sets the highest front right button to have the intake system push objects away from the bot
+  Controller.ButtonR1.pressed(ControllerInteraction::pushIntake);
 }
 
 void SetDriverCharlie()
 {
-  
+
 }
 
 void SetDriverAndrew()
@@ -73,6 +110,7 @@ void SetDriverAndrew()
 void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
+  SetDriverCieran();
   while (1) {
     //~~~ Pressed Functions ~~~
     /*Currently I have the functions named as the input they are described as in
@@ -86,10 +124,6 @@ void usercontrol(void) {
      drive team instruction and is a temp solution
 
      */
-
-    // left 1,2
-    Controller.ButtonRight.pressed(ControllerInteraction::moveLeftSide);
-    Controller.ButtonRight.pressed(ControllerInteraction::move
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
