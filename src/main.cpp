@@ -31,7 +31,7 @@ distanceUnits cm = distanceUnits::cm;
 // A global instance of competition
 competition Competition;
 
-GUI gui;
+//GUI gui;
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -55,6 +55,21 @@ void autonomous(void) {
   // ..........................................................................
 }
 
+void SetDriverCieran()
+{
+
+}
+
+void SetDriverCharlie()
+{
+  
+}
+
+void SetDriverAndrew()
+{
+
+}
+
 void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
@@ -73,38 +88,8 @@ void usercontrol(void) {
      */
 
     // left 1,2
-    Controller.ButtonL1.pressed(ControllerInteraction::bL1Pressed);
-    Controller.ButtonL2.pressed(ControllerInteraction::bL2Pressed);
-
-    // right 1,2
-    Controller.ButtonR1.pressed(ControllerInteraction::bR1Pressed);
-    Controller.ButtonR2.pressed(ControllerInteraction::bR2Pressed);
-    Controller.ButtonRight.pressed(ControllerInteraction::bL3Pressed);
-
-    Controller.ButtonDown.pressed(ControllerInteraction::cLPressed);
-
-    Controller.ButtonY.pressed(ControllerInteraction::bR3Pressed);
-    Controller.ButtonB.pressed(ControllerInteraction::cRPressed);
-
-    // left 1,2 released
-    Controller.ButtonL1.released(ControllerInteraction::bLReleased);
-    Controller.ButtonL2.released(ControllerInteraction::bLReleased);
-
-    // right 1,2 released
-    Controller.ButtonR1.released(ControllerInteraction::bRReleased);
-    Controller.ButtonR2.released(ControllerInteraction::bRReleased);
-
-    Controller.ButtonRight.released(ControllerInteraction::bL3Released);
-    Controller.ButtonDown.released(ControllerInteraction::cLReleased);
-
-    Controller.ButtonY.released(ControllerInteraction::bR3Released);
-
-    // ~~~ JoyStick Controllers ~~~
-    // TL left,right
-    Controller.Axis3.changed(ControllerInteraction::leftJoystickChange);
-
-    // TR left,right
-    Controller.Axis2.changed(ControllerInteraction::rightJoystickChange);
+    Controller.ButtonRight.pressed(ControllerInteraction::moveLeftSide);
+    Controller.ButtonRight.pressed(ControllerInteraction::move
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -122,8 +107,8 @@ int main() {
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    Brain.Screen.pressed(gui.screenPressed);
-    gui.updateScreen();
+    //Brain.Screen.pressed(gui.screenPressed);
+    //gui.updateScreen();
     wait(100, msec);
   }
 }

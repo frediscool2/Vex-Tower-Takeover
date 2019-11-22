@@ -1,4 +1,4 @@
-#include "GUI.h"
+/*#include "GUI.h"
 
 // setting up our constructor
 int dx, dy, r;
@@ -23,7 +23,7 @@ will be removed later
 
   way more then that just all I can think of its 11pm and I wrote this all in
 one day without any testing so you know bugs
-*/
+
 Circle::Circle(int dx_, int dy_, int r_, STATE triggerState_) {
   dx = dx_;
   dy = dy_;
@@ -113,7 +113,7 @@ void GUI::updateScreen() {
   // see screen pressed so this makes sense
   /*thats right folks I am using a function with a switch statment to call a
    * function with the exact same switch statement but with a different
-   * operation within it. */
+   * operation within it. 
 
   switch (currentState) {
   case MAIN_MENU:
@@ -146,7 +146,7 @@ void GUI::updateScreen() {
  switch but we have to change up the return and breaks. The return is to
  prevent wasted resources looping through the rest of the array again a
  miiscule impact but good practice
- */
+ 
 
 void GUI::screenPressed() {
   switch (currentState) {
@@ -181,3 +181,4 @@ void GUI::screenPressed() {
     break;
   }
 }
+*/
