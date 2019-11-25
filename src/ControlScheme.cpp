@@ -62,11 +62,15 @@ public:
 };
 
 class Driver {
+  static void nothing() {}
 
 public:
-  static void SetDriverCieran() {
+  static void setDriverCieran() {
     // Robot Movement Setup
     // Tank Controls
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
 
     // Set the left joystick Y Axis to move the left side of the robot
     Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
@@ -112,15 +116,15 @@ public:
       - Get controls from charlie and update the callbacks with his desired
       control scheme
     */
-
-    // Reset the driver
-
-  static void SetDriverCharlie() {
-    Controller.Screen.clearScreen();
-    Controller.Screen.print("Hello Charlie!");
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
   }
 
   static void setDriverAndrew() {
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
 
     // Set the left joystick Y Axis to move the left side of the robot
     Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
@@ -149,8 +153,8 @@ public:
     // Intake Control Setup
     // Controls for the intake system
 
-    // Sets the highest front left button to have the intake system pull objects
-    // towards the bot
+    // Sets the highest front left button to have the intake system pull
+    // objects towards the bot
     Controller.ButtonL1.pressed(ControllerInteraction::pullIntake);
 
     // Sets the highest front right button to have the intake system push

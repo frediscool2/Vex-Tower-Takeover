@@ -44,13 +44,10 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 
-  //
   // Implement some logic to determine who the driver is
-  //  
-  Controller.ButtonLeft.pressed(Driver::SetDriverCieran);
-  Controller.ButtonX.pressed(Driver::SetDriverAndrew);
-  Controller.ButtonA.pressed(Driver::SetDriverCharlie);
-
+  Controller.ButtonLeft.pressed(Driver::setDriverCieran);
+  Controller.ButtonX.pressed(Driver::setDriverAndrew);
+  Controller.ButtonA.pressed(Driver::setDriverCharlie);
 
   armMotorA.setBrake(hold);
   armMotorB.setBrake(hold);
@@ -67,7 +64,6 @@ void usercontrol(void) {
   Brain.Screen.render(true);
 
   while (1) {
-    
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
