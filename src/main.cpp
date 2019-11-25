@@ -21,7 +21,6 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
 #include "ControlScheme.cpp"
-#include "GUI.h"
 #include "vex.h"
 
 using namespace vex;
@@ -31,7 +30,6 @@ distanceUnits cm = distanceUnits::cm;
 // A global instance of competition
 competition Competition;
 
-//GUI gui;
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -95,8 +93,6 @@ int main() {
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    //Brain.Screen.pressed(gui.screenPressed);
-    //gui.updateScreen();
     wait(100, msec);
   }
 }
