@@ -7,49 +7,41 @@ class ControllerInteraction {
 
 public:
   static void moveLeftSide() {
-    leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
-    leftMotors.spin(fwd);
+    leftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
   }
 
   static void moveRightSide() {
-    rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
-    rightMotors.spin(fwd);
+    rightMotors.spin(fwd, Controller.Axis2.position(pct), pct);
   }
 
   static void pushIntake() {
     // Intake Motor fwd 50% power
-    intakeMotors.setVelocity(50, velocityUnits::pct);
-    intakeMotors.spin(fwd);
+    intakeMotors.spin(fwd, 50, pct);
   }
 
   static void pullIntake() {
     // Intake Motor rev 50% power
-    intakeMotors.setVelocity(50, velocityUnits::pct);
-    intakeMotors.spin(directionType::rev);
+    intakeMotors.spin(reverse, 50, pct);
   }
 
   static void liftArm() {
     // Arm Motor Forward
-    armMotor.setVelocity(50, pct);
-    armMotor.spin(fwd);
+    armMotors.spin(fwd, 50, pct);
   }
 
   static void lowerArm() {
     // Arm Motor Reverse 50% power
-    armMotor.setVelocity(50, pct);
-    armMotor.spin(directionType::rev);
+    armMotors.spin(reverse, 50, pct);
   }
 
   static void pistonExtend() {
     // Piston Motor Forward 50% power
-    pistonMotor.setVelocity(50, pct);
-    pistonMotor.spin(fwd);
+    pistonMotor.spin(fwd, 50, pct);
   }
 
   static void pistonRetract() {
     // Arm Motor Forward 50% power
-    pistonMotor.setVelocity(100, pct);
-    pistonMotor.spin(directionType::rev);
+    pistonMotor.spin(reverse, 100, pct);
   }
 
   // Released Functions
@@ -60,7 +52,7 @@ public:
 
   static void stopArm() {
     // Stopping Arm Motor
-    armMotor.stop(hold);
+    armMotors.stop();
   }
 
   static void stopPiston() {
@@ -115,20 +107,13 @@ public:
     Controller.Screen.print("Hello Cieran!");
   }
 
-  static void SetDriverCharlie() {
 
+  static void SetDriverCharlie() {
     Controller.Screen.clearScreen();
     Controller.Screen.print("Hello Charlie!");
   }
 
   static void SetDriverAndrew() {
-    //
-    // Reset the driver
-    //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
-
     // Robot Movement Setup
     // Tank Controls
 
