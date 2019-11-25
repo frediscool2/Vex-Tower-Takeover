@@ -69,19 +69,10 @@ public:
   }
 };
 
-static void Nothing() {}
-
 class Driver {
 
 public:
   static void SetDriverCieran() {
-    //
-    // Reset the driver
-    //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
-
     // Robot Movement Setup
     // Tank Controls
 
@@ -125,12 +116,6 @@ public:
   }
 
   static void SetDriverCharlie() {
-    //
-    // Reset the driver
-    //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
 
     Controller.Screen.clearScreen();
     Controller.Screen.print("Hello Charlie!");
@@ -184,15 +169,5 @@ public:
 
     Controller.Screen.clearScreen();
     Controller.Screen.print("Hello Andrew!");
-  }
-
-  static void SetDriver() {
-    Controller.Screen.print("Choose the new Driver");
-    Controller.Screen.newLine();
-    Controller.Screen.print("Left: Cieran, X: Andrew, A: Charlie");
-
-    Controller.ButtonLeft.pressed(SetDriverCieran);
-    Controller.ButtonX.pressed(SetDriverAndrew);
-    Controller.ButtonA.pressed(SetDriverCharlie);
   }
 };

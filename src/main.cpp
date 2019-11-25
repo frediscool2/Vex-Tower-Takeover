@@ -48,9 +48,10 @@ void pre_auton(void) {
 
   // 
   // Implement some logic to determine who the driver is
-  //
-  Controller.ButtonUp.pressed(Driver::SetDriver);
-  Driver::SetDriver();
+  //  
+  Controller.ButtonLeft.pressed(Driver::SetDriverCieran);
+  Controller.ButtonX.pressed(Driver::SetDriverAndrew);
+  Controller.ButtonA.pressed(Driver::SetDriverCharlie);
 }
 
 void autonomous(void) {
