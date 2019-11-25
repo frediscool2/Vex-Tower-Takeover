@@ -21,7 +21,7 @@ static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
 
   static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
                                velocityUnits velcUnit, double velVal,
-                               motor motorGroup) {
+                               motor mMotor) {
     if (distanceUnit == distanceUnits::cm) {
       distanceVal = distanceVal / 2.54;
     } else if (distanceUnit == mm) {
@@ -31,7 +31,7 @@ static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
     
     distanceVal = distanceVal / Math::inchesPerDegree;
 
-    motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
+    mMotor.rotateTo(distanceVal, deg, velVal, velcUnit, false);
   }
 
   namespace Autonomous
