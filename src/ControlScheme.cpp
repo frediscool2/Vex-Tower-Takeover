@@ -116,9 +116,12 @@ public:
   }
 
   static void setDriverCharlie() {
-    //
+    /*  TODO:
+      - Get controls from charlie and update the callbacks with his desired
+      control scheme
+    */
+
     // Reset the driver
-    //
     Controller.ButtonRight.pressed(nothing);
     Controller.ButtonLeft.pressed(nothing);
 
@@ -127,14 +130,11 @@ public:
   }
 
   static void setDriverAndrew() {
-    //
     // Reset the driver
-    //
     Controller.ButtonRight.pressed(nothing);
     Controller.ButtonLeft.pressed(nothing);
 
-    // Robot Movement Setup
-    // Tank Controls
+    // ~~~ Robot Movement Setup ~~~
 
     // Set the left joystick Y Axis to move the left side of the robot
     Controller.Axis3.changed(ControllerInteraction::moveLeftSide);

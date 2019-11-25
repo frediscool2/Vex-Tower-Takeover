@@ -30,7 +30,6 @@ distanceUnits cm = distanceUnits::cm;
 // A global instance of competition
 competition Competition;
 
-
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -44,8 +43,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  
-  // 
+
+  //
   // Implement some logic to determine who the driver is
   //
   Controller.ButtonUp.pressed(Driver::setDriver);
@@ -66,18 +65,7 @@ void usercontrol(void) {
   Brain.Screen.render(true);
 
   while (1) {
-    //~~~ Pressed Functions ~~~
-    /*Currently I have the functions named as the input they are described as in
-     * the Controllerler layout sheet. I am doing it this way so when we have
-     * our mutiple Controller scheme files for each driver we will only have to
-     * swap out the ControllerScheme.cpp file ansd will not have to change
-     * anything else. This can cause confusion for those who have not looked at
-     * the control layout. Please do so
-
-      Also the motors are labeled by the letter taped onto them again this was a
-     drive team instruction and is a temp solution
-
-     */
+    
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -89,7 +77,6 @@ int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
-  //
   // Run the pre-autonomous function.
   pre_auton();
 
