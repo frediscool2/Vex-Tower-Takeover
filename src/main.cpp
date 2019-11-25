@@ -43,6 +43,12 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+
+  // Implement some logic to determine who the driver is
+  Controller.ButtonLeft.pressed(Driver::setDriverCieran);
+  Controller.ButtonX.pressed(Driver::setDriverAndrew);
+  Controller.ButtonA.pressed(Driver::setDriverCharlie);
+
   armMotorA.setBrake(hold);
   armMotorB.setBrake(hold);
 }
@@ -56,53 +62,8 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
+
   while (1) {
-    //~~~ Pressed Functions ~~~
-    /*Currently I have the functions named as the input they are described as in
-     * the Controllerler layout sheet. I am doing it this way so when we have
-     * our mutiple Controller scheme files for each driver we will only have to
-     * swap out the ControllerScheme.cpp file ansd will not have to change
-     * anything else. This can cause confusion for those who have not looked at
-     * the control layout. Please do so
-
-      Also the motors are labeled by the letter taped onto them again this was a
-     drive team instruction and is a temp solution
-
-     */
-
-    // left 1,2
-    Controller.ButtonL1.pressed(ControllerInteraction::bL1Pressed);
-    Controller.ButtonL2.pressed(ControllerInteraction::bL2Pressed);
-
-    // right 1,2
-    Controller.ButtonR1.pressed(ControllerInteraction::bR1Pressed);
-    Controller.ButtonR2.pressed(ControllerInteraction::bR2Pressed);
-    Controller.ButtonRight.pressed(ControllerInteraction::bL3Pressed);
-
-    Controller.ButtonDown.pressed(ControllerInteraction::cLPressed);
-
-    Controller.ButtonY.pressed(ControllerInteraction::bR3Pressed);
-    Controller.ButtonB.pressed(ControllerInteraction::cRPressed);
-
-    // left 1,2 released
-    Controller.ButtonL1.released(ControllerInteraction::bLReleased);
-    Controller.ButtonL2.released(ControllerInteraction::bLReleased);
-
-    // right 1,2 released
-    Controller.ButtonR1.released(ControllerInteraction::bRReleased);
-    Controller.ButtonR2.released(ControllerInteraction::bRReleased);
-
-    Controller.ButtonRight.released(ControllerInteraction::bL3Released);
-    Controller.ButtonDown.released(ControllerInteraction::cLReleased);
-
-    Controller.ButtonY.released(ControllerInteraction::bR3Released);
-
-    // ~~~ JoyStick Controllers ~~~
-    // TL left,right
-    Controller.Axis3.changed(ControllerInteraction::leftJoystickChange);
-
-    // TR left,right
-    Controller.Axis2.changed(ControllerInteraction::rightJoystickChange);
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -114,7 +75,6 @@ int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
-  //
   // Run the pre-autonomous function.
   pre_auton();
 

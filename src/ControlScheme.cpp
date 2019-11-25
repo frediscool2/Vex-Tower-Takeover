@@ -6,90 +6,162 @@
 class ControllerInteraction {
 
 public:
-  static void leftJoystickChange() {
+  static void moveLeftSide() {
     leftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
   }
 
-  static void rightJoystickChange() {
+  static void moveRightSide() {
     rightMotors.spin(fwd, Controller.Axis2.position(pct), pct);
   }
 
-  static void bL1Pressed() {
+  static void pushIntake() {
     // Intake Motor fwd 50% power
     intakeMotors.spin(fwd, 50, pct);
   }
 
-  static void bL2Pressed() {
+  static void pullIntake() {
     // Intake Motor rev 50% power
     intakeMotors.spin(reverse, 50, pct);
   }
 
-  static void bL3Pressed() {
+  static void liftArm() {
     // Arm Motor Forward
     armMotors.spin(fwd, 50, pct);
   }
 
-  static void cLPressed() {
+  static void lowerArm() {
     // Arm Motor Reverse 50% power
     armMotors.spin(reverse, 50, pct);
   }
 
-  /* empty functions will be called later once the drive team figures out their
-   * layout*/
-  static void bR1Pressed() {
-    //    ObjectTracking::setVisionIndex(ObjectTracking::getVisionIndex() + 1);
-
-    driveForDistance(distanceUnits::cm, 111.76, velocityUnits::pct, 50,
-                     leftMotors);
-    driveForDistance(distanceUnits::cm, 111.76, velocityUnits::pct, 50,
-                     rightMotors);
-  }
-
-  static void bR2Pressed() {}
-
-  static void bR3Pressed() {
+  static void pistonExtend() {
     // Piston Motor Forward 50% power
     pistonMotor.spin(fwd, 50, pct);
   }
 
-  static void cRPressed() {
+  static void pistonRetract() {
     // Arm Motor Forward 50% power
     pistonMotor.spin(reverse, 100, pct);
   }
 
   // Released Functions
-  static void bLReleased() {
+  static void stopIntake() {
     // Stopping Left Intake Motor
     intakeMotors.stop();
   }
 
-  static void bL3Released() {
+  static void stopArm() {
     // Stopping Arm Motor
     armMotors.stop();
   }
 
-  static void cLReleased() { armMotors.stop(); }
-
-  // right bumper release
-  static void bRReleased() { intakeMotors.stop(); }
-
-  static void bR3Released() {
+  static void stopPiston() {
     // Stopping  Piston Motor
     pistonMotor.stop();
   }
+};
 
-  static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
-                               velocityUnits velcUnit, double velVal,
-                               motor_group motorGroup) {
-    if (distanceUnit == distanceUnits::cm) {
-      distanceVal = distanceVal / 2.54;
-    } else if (distanceUnit == mm) {
-      distanceVal = (distanceVal * 10) / 2.54;
-    }
+class Driver {
+  static void nothing() {}
 
-    double inchesPerDegree = (3.14159 * 3.25) / 360;
-    distanceVal = distanceVal / inchesPerDegree;
+public:
+  static void setDriverCieran() {
+    // Robot Movement Setup
+    // Tank Controls
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
 
-    motorGroup.rotateTo(distanceVal, deg, velVal, velcUnit, false);
+    // Set the left joystick Y Axis to move the left side of the robot
+    Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
+
+    // Set the right joystick Y Axis to move the right side of the robot
+    Controller.Axis2.changed(ControllerInteraction::moveRightSide);
+
+    // Arm Movement Setup
+    // Controls for the arm
+
+    // Sets the left down button to lower the robot's arms
+    Controller.ButtonDown.pressed(ControllerInteraction::lowerArm);
+
+    // Sets the right down button(B) to raise the robot's arm
+    Controller.ButtonB.pressed(ControllerInteraction::liftArm);
+
+    // Piston Control Setup
+    // Controls for the piston
+
+    // Sets the lowest front left button to lower the piston
+    Controller.ButtonL2.pressed(ControllerInteraction::pistonRetract);
+
+    // Sets the lowest front right button to raise the piston
+    Controller.ButtonR2.pressed(ControllerInteraction::pistonExtend);
+
+    // Intake Control Setup
+    // Controls for the intake system
+
+    // Sets the highest front left button to have the intake system pull objects
+    // towards the bot
+    Controller.ButtonL1.pressed(ControllerInteraction::pullIntake);
+
+    // Sets the highest front right button to have the intake system push
+    // objects away from the bot
+    Controller.ButtonR1.pressed(ControllerInteraction::pushIntake);
+
+    Controller.Screen.clearScreen();
+    Controller.Screen.print("Hello Cieran!");
+  }
+
+  static void setDriverCharlie() {
+    /*  TODO:
+      - Get controls from charlie and update the callbacks with his desired
+      control scheme
+    */
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
+  }
+
+  static void setDriverAndrew() {
+    Controller.ButtonLeft.pressed(nothing);
+    Controller.ButtonX.pressed(nothing);
+    Controller.ButtonA.pressed(nothing);
+
+    // Set the left joystick Y Axis to move the left side of the robot
+    Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
+
+    // Set the right joystick Y Axis to move the right side of the robot
+    Controller.Axis2.changed(ControllerInteraction::moveRightSide);
+
+    // Arm Movement Setup
+    // Controls for the arm
+
+    // Sets the left down button to lower the robot's arms
+    Controller.ButtonDown.pressed(ControllerInteraction::lowerArm);
+
+    // Sets the right down button(B) to raise the robot's arm
+    Controller.ButtonB.pressed(ControllerInteraction::liftArm);
+
+    // Piston Control Setup
+    // Controls for the piston
+
+    // Sets the lowest front left button to lower the piston
+    Controller.ButtonL2.pressed(ControllerInteraction::pistonRetract);
+
+    // Sets the lowest front right button to raise the piston
+    Controller.ButtonR2.pressed(ControllerInteraction::pistonExtend);
+
+    // Intake Control Setup
+    // Controls for the intake system
+
+    // Sets the highest front left button to have the intake system pull
+    // objects towards the bot
+    Controller.ButtonL1.pressed(ControllerInteraction::pullIntake);
+
+    // Sets the highest front right button to have the intake system push
+    // objects away from the bot
+    Controller.ButtonR1.pressed(ControllerInteraction::pushIntake);
+
+    Controller.Screen.clearScreen();
+    Controller.Screen.print("Hello Andrew!");
   }
 };
