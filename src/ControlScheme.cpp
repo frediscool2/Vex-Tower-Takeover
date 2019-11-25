@@ -7,13 +7,11 @@ class ControllerInteraction {
 
 public:
   static void moveLeftSide() {
-    leftMotors.setVelocity(Controller.Axis3.position(pct), velocityUnits::pct);
-    leftMotors.spin(fwd);
+    leftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
   }
 
   static void moveRightSide() {
-    rightMotors.setVelocity(Controller.Axis2.position(pct), velocityUnits::pct);
-    rightMotors.spin(fwd);
+    rightMotors.spin(fwd, Controller.Axis2.position(pct), pct);
   }
 
   static void pushIntake() {
@@ -63,18 +61,17 @@ public:
   }
 };
 
-static void Nothing() {}
+static void nothing() {}
 
 class Driver {
 
 public:
-  static void SetDriverCieran() {
+  static void setDriverCieran() {
     //
     // Reset the driver
     //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
+    Controller.ButtonRight.pressed(nothing);
+    Controller.ButtonLeft.pressed(nothing);
 
     // Robot Movement Setup
     // Tank Controls
@@ -118,25 +115,23 @@ public:
     Controller.Screen.print("Hello Cieran!");
   }
 
-  static void SetDriverCharlie() {
+  static void setDriverCharlie() {
     //
     // Reset the driver
     //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
+    Controller.ButtonRight.pressed(nothing);
+    Controller.ButtonLeft.pressed(nothing);
 
     Controller.Screen.clearScreen();
     Controller.Screen.print("Hello Charlie!");
   }
 
-  static void SetDriverAndrew() {
+  static void setDriverAndrew() {
     //
     // Reset the driver
     //
-    Controller.ButtonUp.pressed(Nothing);
-    Controller.ButtonRight.pressed(Nothing);
-    Controller.ButtonLeft.pressed(Nothing);
+    Controller.ButtonRight.pressed(nothing);
+    Controller.ButtonLeft.pressed(nothing);
 
     // Robot Movement Setup
     // Tank Controls
@@ -180,13 +175,13 @@ public:
     Controller.Screen.print("Hello Andrew!");
   }
 
-  static void SetDriver() {
+  static void setDriver() {
     Controller.Screen.print("Choose the new Driver");
     Controller.Screen.newLine();
     Controller.Screen.print("Left: Cieran, X: Andrew, A: Charlie");
 
-    Controller.ButtonLeft.pressed(SetDriverCieran);
-    Controller.ButtonX.pressed(SetDriverAndrew);
-    Controller.ButtonA.pressed(SetDriverCharlie);
+    Controller.ButtonLeft.pressed(setDriverCieran);
+    Controller.ButtonX.pressed(setDriverAndrew);
+    Controller.ButtonA.pressed(setDriverCharlie);
   }
 };
