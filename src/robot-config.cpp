@@ -20,11 +20,11 @@ motor leftIntakeMotor = motor(PORT5, ratio18_1, false);
 motor rightIntakeMotor = motor(PORT6, ratio18_1, true);
 
 // Arm motor
-motor armMotor = motor(PORT7, ratio6_1, false);
-
+motor armMotorA = motor(PORT7, ratio6_1, false);
+motor armMotorB = motor(PORT8, ratio6_1, true);
 
 // Piston motor
-motor pistonMotor = motor(PORT8, ratio18_1, false);
+motor pistonMotor = motor(PORT9, ratio18_1, false);
 
 // Controller
 controller Controller = controller(primary);
@@ -33,6 +33,7 @@ controller Controller = controller(primary);
 motor_group leftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
 motor_group rightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
 motor_group intakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
+motor_group armMotors = motor_group(armMotorA, armMotorB);
 
 // sdcard
 brain::sdcard sdcard = brain::sdcard();

@@ -4,18 +4,15 @@ using signature = vision::signature;
 extern brain Brain;
 
 // VEXcode devices
-extern motor armMotor;
+extern motor armMotorA;
+extern motor armMotorB;
 extern motor pistonMotor;
 extern controller Controller;
-
-extern motor rightWheelMotorA;
-extern motor rightWheelMotorC;
-extern motor leftWheelMotorB;
-extern motor leftWheelMotorD;
 
 extern motor_group leftMotors;
 extern motor_group rightMotors;
 extern motor_group intakeMotors;
+extern motor_group armMotors;
 extern motor_group driveTrain;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.

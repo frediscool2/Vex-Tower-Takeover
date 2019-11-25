@@ -44,13 +44,15 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  armMotor.setBrake(hold);
-
+  
   // 
   // Implement some logic to determine who the driver is
   //
   Controller.ButtonUp.pressed(Driver::SetDriver);
   Driver::SetDriver();
+
+  armMotorA.setBrake(hold);
+  armMotorB.setBrake(hold);
 }
 
 void autonomous(void) {
