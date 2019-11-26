@@ -35,7 +35,7 @@ controller Controller = controller(primary);
 motor_group LeftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
 motor_group RightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
 motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
-motor_group ArmMotors = motor_group(armMotorA, armMotorB);
+motor_group ArmMotors = motor_group(leftArmMotor, rightArmMotor);
 motor_group PistonMotors = motor_group(leftPistonMotor, rightPistonMotor);
 
 // VEXcode generated functions

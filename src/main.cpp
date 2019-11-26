@@ -59,6 +59,13 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
+  if (Controller.ButtonX.pressing()) {
+    Driver::setDriverAndrew();
+  } else if (Controller.ButtonLeft.pressing()) {
+    Driver::setDriverCieran();
+  } else if (Controller.ButtonA.pressing()) {
+    Driver::setDriverCharlie();
+  }
 
   while (1) {
     wait(20, msec); // Sleep the task for a short amount of time to
