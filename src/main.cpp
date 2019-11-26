@@ -20,7 +20,7 @@
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
-#include "ControlScheme.cpp"
+#include "ControlScheme.h"
 #include "vex.h"
 
 using namespace vex;
@@ -43,14 +43,11 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+  leftArmMotor.setBrake(hold);
+  rightArmMotor.setBrake(hold);
 
-  // Implement some logic to determine who the driver is
-  Controller.ButtonLeft.pressed(Driver::setDriverCieran);
-  Controller.ButtonX.pressed(Driver::setDriverAndrew);
-  Controller.ButtonA.pressed(Driver::setDriverCharlie);
-
-  armMotorA.setBrake(hold);
-  armMotorB.setBrake(hold);
+  leftPistonMotor.setBrake(hold);
+  rightPistonMotor.setBrake(hold);
 }
 
 void autonomous(void) {
@@ -64,7 +61,6 @@ void usercontrol(void) {
   Brain.Screen.render(true);
 
   while (1) {
-
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }

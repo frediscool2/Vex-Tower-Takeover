@@ -10,33 +10,33 @@ brain Brain;
 // VEXcode device constructors
 
 // leftt and right wheel motors
-motor rightWheelMotorA = motor(PORT1, ratio18_1, true);
-motor rightWheelMotorC = motor(PORT2, ratio18_1, true);
 motor leftWheelMotorB = motor(PORT3, ratio18_1, false);
 motor leftWheelMotorD = motor(PORT4, ratio18_1, false);
+motor rightWheelMotorA = motor(PORT1, ratio18_1, true);
+motor rightWheelMotorC = motor(PORT2, ratio18_1, true);
 
 // left and right intake motors
 motor leftIntakeMotor = motor(PORT5, ratio18_1, false);
 motor rightIntakeMotor = motor(PORT6, ratio18_1, true);
 
 // Arm motor
-motor armMotorA = motor(PORT7, ratio6_1, false);
-motor armMotorB = motor(PORT8, ratio6_1, true);
+motor leftArmMotor = motor(PORT8, ratio36_1, true);
+motor rightArmMotor = motor(PORT7, ratio36_1, false);
 
 // Piston motor
-motor pistonMotor = motor(PORT9, ratio18_1, false);
+
+motor leftPistonMotor = motor(PORT10, ratio36_1, true);
+motor rightPistonMotor = motor(PORT9, ratio36_1, false);
 
 // Controller
 controller Controller = controller(primary);
 
 // ~~~ Motor Groups ~~~
-motor_group leftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
-motor_group rightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
-motor_group intakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
-motor_group armMotors = motor_group(armMotorA, armMotorB);
-
-// sdcard
-brain::sdcard sdcard = brain::sdcard();
+motor_group LeftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
+motor_group RightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
+motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
+motor_group ArmMotors = motor_group(armMotorA, armMotorB);
+motor_group PistonMotors = motor_group(leftPistonMotor, rightPistonMotor);
 
 // VEXcode generated functions
 
