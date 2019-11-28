@@ -1,8 +1,7 @@
 #include "auto.h"
 
 void Auto::driveForDistance(double distanceVal, motor_group motorGroup,
-                            bool wait, double velVal,
-                            velocityUnits velcUnits,
+                            bool wait, double velVal, velocityUnits velcUnits,
                             distanceUnits distanceUnit) {
 
   if (distanceUnit == distanceUnits::cm) {
@@ -38,9 +37,7 @@ void Auto::blueRightAuto() {}
 // Left side autonomous of the blue side
 // Note: Left is refering to the the left of someone looking at red side to the
 // blue side
-void Auto::redLeftAuto() {
-  
-}
+void Auto::redLeftAuto() {}
 
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at red side to
