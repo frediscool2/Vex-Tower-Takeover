@@ -52,7 +52,6 @@ void pre_auton(void) {
   Controller.ButtonX.pressed(Driver::SetDriverAndrew);
   Controller.ButtonA.pressed(Driver::SetDriverCharlie);
 
-
   armMotorA.setBrake(hold);
   armMotorB.setBrake(hold);
 }
