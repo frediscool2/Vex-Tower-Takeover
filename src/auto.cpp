@@ -1,10 +1,8 @@
 #include "auto.h"
-using namespace Math;
 
-static void driveForDistance(double distanceVal, motor_group motorGroup,
-                             bool wait = false, double velVal = 50,
-                             velocityUnits velcUnits = velocityUnits::pct,
-                             distanceUnits distanceUnit = inches) {
+void Auto::driveForDistance(double distanceVal, motor_group motorGroup,
+                            bool wait, double velVal, velocityUnits velcUnits,
+                            distanceUnits distanceUnit) {
 
   if (distanceUnit == distanceUnits::cm) {
     distanceVal = distanceVal / 2.54;
@@ -26,7 +24,25 @@ static void driveForDistance(double distanceVal, motor_group motorGroup,
   motorGroup.rotateTo(distanceVal, deg, velVal, velocityUnits::pct, wait);
 }
 
-void Auto::rightAuto(int a) {
+// Left side autonomous of the blue side
+// Note: Left is refering to the the left of someone looking at blue side to the
+// red side
+void Auto::blueLeftAuto() {}
+
+// Left side autonomous of the blue side
+// Note: Right is refering to the the right of someone looking at blue side to
+// the red side
+void Auto::blueRightAuto() {}
+
+// Left side autonomous of the blue side
+// Note: Left is refering to the the left of someone looking at red side to the
+// blue side
+void Auto::redLeftAuto() {}
+
+// Left side autonomous of the blue side
+// Note: Right is refering to the the right of someone looking at red side to
+// the blue side
+void Auto::redRightAuto() {
 
   // section 1
   /* driveForDistance((distanceUnits)deg, 1087.2, 50, LeftMotors, false);
@@ -57,33 +73,3 @@ void Auto::rightAuto(int a) {
   driveForDistance(-295.2, LeftMotors);
   driveForDistance(-507.2, RightMotors, true);
 }
-
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the red side
-void BlueLeftAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at blue side to the red side
-void BlueRightAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at red side to the blue side
-void RedLeftAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at red side to the blue side
-void RedRightAuto() 
-{
-  
-}
-
-} // namespace Autonomous

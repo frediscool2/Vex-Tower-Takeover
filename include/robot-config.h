@@ -20,7 +20,6 @@ extern motor_group RightMotors;
 extern motor_group IntakeMotors;
 extern motor_group ArmMotors;
 extern motor_group PistonMotors;
-extern motor_group DriveTrain;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.
  *
