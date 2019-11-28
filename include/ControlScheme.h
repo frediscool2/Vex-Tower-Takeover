@@ -17,7 +17,6 @@ class Driver {
   bool running = false;
 
   static void nothing();
-
 public:
   static void setDriverCieran();
   static void setDriverCharlie();

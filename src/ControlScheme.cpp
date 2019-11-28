@@ -13,12 +13,12 @@ void ControllerInteraction::moveRightSide() {
 
 void ControllerInteraction::pushIntake() {
   // Intake Motor fwd 50% power
-  IntakeMotors.spin(fwd, 50, pct);
+  IntakeMotors.spin(fwd, 100, pct);
 }
 
 void ControllerInteraction::pullIntake() {
   // Intake Motor rev 50% power
-  IntakeMotors.spin(reverse, 50, pct);
+  IntakeMotors.spin(reverse, 100, pct);
 }
 
 void ControllerInteraction::liftArm() {
@@ -33,7 +33,7 @@ void ControllerInteraction::lowerArm() {
 
 void ControllerInteraction::extendPiston() {
   // Piston Motor Forward 50% power
-  PistonMotors.spin(fwd, 50, pct);
+  PistonMotors.spin(fwd, 100, pct);
 }
 
 void ControllerInteraction::retractPiston() {
@@ -56,16 +56,15 @@ void ControllerInteraction::stopPiston() {
   PistonMotors.stop();
 }
 
-void Driver::setDriverCieran() {
+void Driver::nothing() {}
 
+void Driver::setDriverCieran() {
+  Brain.Screen.printAt(1, 0, false, "hi!");
   // Robot Movement Setup
   // Tank Controls
   Controller.ButtonLeft.pressed(nothing);
   Controller.ButtonX.pressed(nothing);
   Controller.ButtonA.pressed(nothing);
-
-  Controller.Screen.clearScreen();
-  Controller.Screen.print("Hello Cieran!");
 
   // Set the left joystick Y Axis to move the left side of the robot
   Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
@@ -107,6 +106,9 @@ void Driver::setDriverCieran() {
   // objects away from the bot
   Controller.ButtonR1.pressed(ControllerInteraction::pushIntake);
   Controller.ButtonR1.released(ControllerInteraction::stopIntake);
+
+  Controller.Screen.clearScreen();
+  Controller.Screen.print("Hello Cieran!");
 }
 
 void Driver::setDriverCharlie() {

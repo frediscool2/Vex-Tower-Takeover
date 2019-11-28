@@ -4,6 +4,11 @@ using signature = vision::signature;
 extern brain Brain;
 
 // VEXcode devices
+extern motor leftWheelMotor;
+extern motor rightWheelMotor;
+extern motor leftIntakeMotor;
+extern motor rightIntakeMotor;
+
 extern motor leftArmMotor;
 extern motor rightArmMotor;
 extern motor leftPistonMotor;
