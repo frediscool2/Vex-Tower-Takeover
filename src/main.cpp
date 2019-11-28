@@ -78,21 +78,6 @@ void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
 
-  driveForDistance((distanceUnits)deg, 1150.4, 50, LeftMotors, false);
-  driveForDistance((distanceUnits)deg, 1099.2, 50, RightMotors, true);
-
-  driveForDistance((distanceUnits)deg, -269.6, 50, LeftMotors, false);
-  driveForDistance((distanceUnits)deg, -270.8, 50, RightMotors, true);
-
-  driveForDistance((distanceUnits)deg, 86, 50, LeftMotors, false);
-  driveForDistance((distanceUnits)deg, -732, 50, RightMotors, true);
-
-  driveForDistance((distanceUnits)deg, 411.2, 50, LeftMotors, false);
-  driveForDistance((distanceUnits)deg, 428.4, 50, RightMotors, true);
-
-  driveForDistance((distanceUnits)deg, -295.2, 50, LeftMotors, false);
-  driveForDistance((distanceUnits)deg, -507.2, 50, RightMotors, true);
-
   while (1) {
     Controller.ButtonX.pressed(resetEncoders);
     Controller.Screen.setCursor(1, 0);
