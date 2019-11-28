@@ -21,7 +21,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
 #include "ControlScheme.h"
-//#include "auto.cpp"
+#include "auto.cpp"
 #include "vex.h"
 
 // using namespace Autonomous;
@@ -31,35 +31,6 @@ distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
-namespace Math {
-const double inchesPerDegree = (3.14159 * 3.25) / 360;
-const double cmPerDegree = (3.1459 * 8.255) / 360;
-const double mmPerDegree = (3.14159 * 82.55) / 360;
-} // namespace Math
-
-static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
-                             double velVal, motor_group motorGroup, bool wait) {
-  if (distanceUnit == distanceUnits::cm) {
-    distanceVal = distanceVal / 2.54;
-  } else if (distanceUnit == mm) {
-    distanceVal = (distanceVal * 10) / 2.54;
-  } else
-
-    switch (distanceUnit) {
-    case distanceUnits::cm:
-      distanceVal = distanceVal / Math::cmPerDegree;
-      break;
-    case distanceUnits::mm:
-      distanceVal = distanceVal / Math::cmPerDegree;
-      break;
-    case distanceUnits::in:
-      distanceVal = distanceVal / Math::inchesPerDegree;
-      break;
-    default:
-      break;
-    }
-  motorGroup.rotateTo(distanceVal, deg, velVal, velocityUnits::pct, wait);
-}
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
