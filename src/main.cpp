@@ -21,7 +21,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
 #include "ControlScheme.h"
-#include "auto.cpp"
+#include "auto.h"
 #include "vex.h"
 
 // using namespace Autonomous;
