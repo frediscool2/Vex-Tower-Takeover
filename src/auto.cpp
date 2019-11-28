@@ -3,19 +3,12 @@
 void Auto::driveForDistance(double distanceVal, motor_group motorGroup,
                             bool wait, double velVal, velocityUnits velcUnits,
                             distanceUnits distanceUnit) {
-
-  if (distanceUnit == distanceUnits::cm) {
-    distanceVal = distanceVal / 2.54;
-  } else if (distanceUnit == mm) {
-    distanceVal = (distanceVal * 10) / 2.54;
-  }
-
   switch (distanceUnit) {
   case distanceUnits::cm:
-    distanceVal = distanceVal / Math::cmPerDegree;
+    distanceVal = (distanceVal / 2.54) / Math::cmPerDegree;
     break;
   case distanceUnits::mm:
-    distanceVal = distanceVal / Math::cmPerDegree;
+    distanceVal = (distanceVal * 10) / Math::cmPerDegree;
     break;
   case distanceUnits::in:
     distanceVal = distanceVal / Math::inchesPerDegree;
