@@ -34,7 +34,6 @@ motor_group LeftMotors = motor_group(leftWheelMotor);
 motor_group RightMotors = motor_group(rightWheelMotor);
 motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
 motor_group ArmMotors = motor_group(leftArmMotor, rightArmMotor);
-motor_group PistonMotors = motor_group(leftPistonMotor, rightPistonMotor);
 
 // VEXcode generated functions
 

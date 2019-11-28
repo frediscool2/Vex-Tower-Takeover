@@ -63,32 +63,4 @@ void RightAuto(int a) {
   driveForDistance((distanceUnits)deg, -507.2, 50, RightMotors, true);
 }
 
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the red side
-void BlueLeftAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at blue side to the red side
-void BlueRightAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at red side to the blue side
-void RedLeftAuto() 
-{
-
-}
-
-// Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at red side to the blue side
-void RedRightAuto() 
-{
-  
-}
-
 } // namespace Autonomous
