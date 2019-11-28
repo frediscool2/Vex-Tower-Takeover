@@ -20,16 +20,46 @@
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
-#include "ControlScheme.cpp"
+#include "ControlScheme.h"
+//#include "auto.cpp"
 #include "vex.h"
 
+// using namespace Autonomous;
 using namespace vex;
 
 distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
+namespace Math {
+const double inchesPerDegree = (3.14159 * 3.25) / 360;
+const double cmPerDegree = (3.1459 * 8.255) / 360;
+const double mmPerDegree = (3.14159 * 82.55) / 360;
+} // namespace Math
 
+static void driveForDistance(distanceUnits distanceUnit, double distanceVal,
+                             double velVal, motor_group motorGroup, bool wait) {
+  if (distanceUnit == distanceUnits::cm) {
+    distanceVal = distanceVal / 2.54;
+  } else if (distanceUnit == mm) {
+    distanceVal = (distanceVal * 10) / 2.54;
+  } else
+
+    switch (distanceUnit) {
+    case distanceUnits::cm:
+      distanceVal = distanceVal / Math::cmPerDegree;
+      break;
+    case distanceUnits::mm:
+      distanceVal = distanceVal / Math::cmPerDegree;
+      break;
+    case distanceUnits::in:
+      distanceVal = distanceVal / Math::inchesPerDegree;
+      break;
+    default:
+      break;
+    }
+  motorGroup.rotateTo(distanceVal, deg, velVal, velocityUnits::pct, wait);
+}
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -44,42 +74,62 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  
-  // 
-  // Implement some logic to determine who the driver is
-  //  
-  Controller.ButtonLeft.pressed(Driver::SetDriverCieran);
-  Controller.ButtonX.pressed(Driver::SetDriverAndrew);
-  Controller.ButtonA.pressed(Driver::SetDriverCharlie);
 
-  armMotorA.setBrake(hold);
-  armMotorB.setBrake(hold);
+  leftWheelMotor.resetRotation();
+  rightWheelMotor.resetPosition();
+
+  leftArmMotor.setBrake(hold);
+  rightArmMotor.setBrake(hold);
+
+  leftPistonMotor.setBrake(hold);
+  rightPistonMotor.setBrake(hold);
+
+  leftIntakeMotor.setBrake(hold);
+  rightIntakeMotor.setBrake(hold);
+
+  Controller.Screen.print("A =X, C= Left, Ch=A");
+  Driver::setDriverAndrew();
 }
 
 void autonomous(void) {
+  //  RightAuto(1);
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
+}
+// temp function REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void resetEncoders() {
+  leftWheelMotor.resetRotation();
+  rightWheelMotor.resetRotation();
 }
 
 void usercontrol(void) {
   // User control code here, inside the loop
   Brain.Screen.render(true);
 
+  driveForDistance((distanceUnits)deg, 1150.4, 50, LeftMotors, false);
+  driveForDistance((distanceUnits)deg, 1099.2, 50, RightMotors, true);
+
+  driveForDistance((distanceUnits)deg, -269.6, 50, LeftMotors, false);
+  driveForDistance((distanceUnits)deg, -270.8, 50, RightMotors, true);
+
+  driveForDistance((distanceUnits)deg, 86, 50, LeftMotors, false);
+  driveForDistance((distanceUnits)deg, -732, 50, RightMotors, true);
+
+  driveForDistance((distanceUnits)deg, 411.2, 50, LeftMotors, false);
+  driveForDistance((distanceUnits)deg, 428.4, 50, RightMotors, true);
+
+  driveForDistance((distanceUnits)deg, -295.2, 50, LeftMotors, false);
+  driveForDistance((distanceUnits)deg, -507.2, 50, RightMotors, true);
+
   while (1) {
-    //~~~ Pressed Functions ~~~
-    /*Currently I have the functions named as the input they are described as in
-     * the Controllerler layout sheet. I am doing it this way so when we have
-     * our mutiple Controller scheme files for each driver we will only have to
-     * swap out the ControllerScheme.cpp file ansd will not have to change
-     * anything else. This can cause confusion for those who have not looked at
-     * the control layout. Please do so
-
-      Also the motors are labeled by the letter taped onto them again this was a
-     drive team instruction and is a temp solution
-
-     */
-
+    Controller.ButtonX.pressed(resetEncoders);
+    Controller.Screen.setCursor(1, 0);
+    Controller.Screen.clearLine(1);
+    Controller.Screen.print("L1: %.3f", leftWheelMotor.rotation(deg));
+    Controller.Screen.setCursor(2, 0);
+    Controller.Screen.clearLine(2);
+    Controller.Screen.print("R1: %.3f", rightWheelMotor.rotation(deg));
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
@@ -90,7 +140,6 @@ int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
-  //
   // Run the pre-autonomous function.
   pre_auton();
 
