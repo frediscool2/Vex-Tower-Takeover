@@ -21,7 +21,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
 #include "ControlScheme.h"
-//#include "auto.cpp"
+#include "auto.cpp"
 #include "vex.h"
 
 // using namespace Autonomous;
@@ -31,7 +31,6 @@ distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
-
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
