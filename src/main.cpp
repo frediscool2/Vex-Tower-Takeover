@@ -56,6 +56,7 @@ int updateMotorEncoders() {
     Controller.Screen.setCursor(2, 0);
     Controller.Screen.clearLine(2);
     Controller.Screen.print("R1: %.2f", rightWheelMotor.rotation(deg));
+    wait(10, msec); // motors has a max poll rate of 10 msec
   }
   return -1;
 }
