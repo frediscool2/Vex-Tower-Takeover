@@ -77,7 +77,7 @@ void pre_auton(void) {
   leftIntakeMotor.setBrake(hold);
   rightIntakeMotor.setBrake(hold);
 
-  Controller.Screen.print("A =X, C= Left, Ch=A");
+  // DEBUG
   Driver::setDriverAndrew();
 }
 

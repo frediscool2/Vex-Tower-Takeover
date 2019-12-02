@@ -4,7 +4,6 @@
 #include "ControlScheme.h"
 
 void ControllerInteraction::moveLeftSide() {
-
   LeftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
 }
 
