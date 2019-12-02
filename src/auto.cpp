@@ -1,27 +1,32 @@
 #include "auto.h"
+#include "stdio.h"
 
-void Auto::driveForDistance(double distanceVal, motor_group motorGroup,
-                            bool wait, double velVal, velocityUnits velcUnits,
+void Auto::driveForDistance(double distanceVal, motor Motor, bool wait,
+                            double velVal, velocityUnits velcUnits,
                             distanceUnits distanceUnit) {
-
-  if (distanceUnit == distanceUnits::cm) {
-    distanceVal = distanceVal / 2.54;
-  } else if (distanceUnit == mm) {
-    distanceVal = (distanceVal * 10) / 2.54;
-  }
-
   switch (distanceUnit) {
+    Controller.Screen.setCursor(3, 0);
+    Controller.Screen.clearLine();
   case distanceUnits::cm:
-    distanceVal = distanceVal / Math::cmPerDegree;
+    Controller.Screen.print("CM In Switch;");
+
+    distanceVal = (distanceVal / 2.54) / Math::cmPerDegree;
     break;
   case distanceUnits::mm:
-    distanceVal = distanceVal / Math::cmPerDegree;
+    Controller.Screen.print("CM In Switch;");
+    distanceVal = (distanceVal * 10) / Math::cmPerDegree;
     break;
   case distanceUnits::in:
+    Controller.Screen.print("CM In Switch;");
     distanceVal = distanceVal / Math::inchesPerDegree;
     break;
   }
-  motorGroup.rotateTo(distanceVal, deg, velVal, velocityUnits::pct, wait);
+  Controller.Screen.setCursor(3, 0);
+  Controller.Screen.clearLine();
+  Controller.Screen.print("Starting Rotate For");
+  Motor.rotateFor(distanceVal, deg, velVal, velocityUnits::pct, wait);
+  Controller.Screen.clearLine();
+  Controller.Screen.print("Rotate For End");
 }
 
 // Left side autonomous of the blue side
@@ -76,18 +81,24 @@ void Auto::redRightAuto() {
    driveForDistance((distanceUnits)deg, 0000, 50, RightMotors, true);
  */
   // section 2
-  driveForDistance(1150.4, LeftMotors);
-  driveForDistance(1099.2, RightMotors, true);
+  driveForDistance(1150.4, leftWheelMotor);
+  driveForDistance(1099.2, rightWheelMotor, true);
 
-  driveForDistance(-269.6, LeftMotors);
-  driveForDistance(-270.8, RightMotors, true);
-  
-  driveForDistance(86, LeftMotors);
-  driveForDistance(-732, RightMotors, true);
+  // debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT
+  // BOOL)
+  if (leftWheelMotor.isDone() && rightWheelMotor.isDone()) {
+    return;
+  }
 
-  driveForDistance(411.2, LeftMotors);
-  driveForDistance(428.4, RightMotors, true);
+  driveForDistance(-269.6, leftWheelMotor);
+  driveForDistance(-270.8, rightWheelMotor, true);
 
-  driveForDistance(-295.2, LeftMotors);
-  driveForDistance(-507.2, RightMotors, true);
-  };
+  driveForDistance(86, leftWheelMotor);
+  driveForDistance(-732, rightWheelMotor, true);
+
+  driveForDistance(411.2, leftWheelMotor);
+  driveForDistance(428.4, rightWheelMotor, true);
+
+  driveForDistance(-295.2, leftWheelMotor);
+  driveForDistance(-507.2, rightWheelMotor, true);
+}

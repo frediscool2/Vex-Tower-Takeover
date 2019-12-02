@@ -21,7 +21,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 //
 #include "ControlScheme.h"
-#include "auto.cpp"
+#include "auto.h"
 #include "vex.h"
 
 // using namespace Autonomous;
@@ -41,13 +41,32 @@ competition Competition;
 /*  function is only called once after the V5 has been powered on and        */
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
+// temp function REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void resetEncoders() {
+  leftWheelMotor.resetRotation();
+  rightWheelMotor.resetRotation();
+}
+
+int updateMotorEncoders() {
+  resetEncoders();
+  while (Competition.isAutonomous()) {
+    Controller.Screen.setCursor(1, 0);
+    Controller.Screen.clearLine(1);
+    Controller.Screen.print("L1: %.2f", leftWheelMotor.rotation(deg));
+    Controller.Screen.setCursor(2, 0);
+    Controller.Screen.clearLine(2);
+    Controller.Screen.print("R1: %.2f", rightWheelMotor.rotation(deg));
+  }
+  return -1;
+}
+
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 
   leftWheelMotor.resetRotation();
-  rightWheelMotor.resetPosition();
+  rightWheelMotor.resetRotation();
 
   leftArmMotor.setBrake(hold);
   rightArmMotor.setBrake(hold);
@@ -58,34 +77,25 @@ void pre_auton(void) {
   leftIntakeMotor.setBrake(hold);
   rightIntakeMotor.setBrake(hold);
 
-  Controller.Screen.print("A =X, C= Left, Ch=A");
+  // DEBUG
   Driver::setDriverAndrew();
 }
 
 void autonomous(void) {
+  // just for debugging purposes
+  task updateEncoders = task(updateMotorEncoders);
+  Auto::redRightAuto();
+
   //  RightAuto(1);
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
 }
-// temp function REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-void resetEncoders() {
-  leftWheelMotor.resetRotation();
-  rightWheelMotor.resetRotation();
-}
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  Brain.Screen.render(true);
 
   while (1) {
-    Controller.ButtonX.pressed(resetEncoders);
-    Controller.Screen.setCursor(1, 0);
-    Controller.Screen.clearLine(1);
-    Controller.Screen.print("L1: %.3f", leftWheelMotor.rotation(deg));
-    Controller.Screen.setCursor(2, 0);
-    Controller.Screen.clearLine(2);
-    Controller.Screen.print("R1: %.3f", rightWheelMotor.rotation(deg));
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
