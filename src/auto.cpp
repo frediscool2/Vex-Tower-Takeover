@@ -55,7 +55,8 @@ void Auto::redRightAuto() {
   driveForDistance(1150.4, leftWheelMotor);
   driveForDistance(1099.2, rightWheelMotor, true);
 
-  //debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT BOOL)
+  // debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT
+  // BOOL)
   if (leftWheelMotor.isDone() && rightWheelMotor.isDone()) {
     return;
   }

@@ -84,7 +84,6 @@ void pre_auton(void) {
 void autonomous(void) {
   // just for debugging purposes
   task updateEncoders = task(updateMotorEncoders);
-  
   Auto::redRightAuto();
 
   //  RightAuto(1);
@@ -95,7 +94,6 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  Brain.Screen.render(true);
 
   while (1) {
     wait(20, msec); // Sleep the task for a short amount of time to
