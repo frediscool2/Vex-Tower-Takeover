@@ -9,7 +9,8 @@ const double mmPerDegree = (3.14159 * 82.55) / 360;
 class Auto {
 public:
   static void driveForDistance(double distanceVal, motor Motor,
-                               distanceUnits distanceUnit, bool wait = false,
+                               bool wait = false,
+                               distanceUnits distanceUnit = inches,
                                double velVal = 50,
                                velocityUnits velcUnits = velocityUnits::pct);
 
