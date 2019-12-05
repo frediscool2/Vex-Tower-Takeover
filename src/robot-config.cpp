@@ -33,6 +33,7 @@ controller Controller = controller(primary);
 motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
 motor_group ArmMotors = motor_group(leftArmMotor, rightArmMotor);
 motor_group PistonMotors = motor_group(leftPistonMotor, rightPistonMotor);
+
 // VEXcode generated functions
 
 /**
