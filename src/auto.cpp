@@ -42,7 +42,6 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
 // Left side autonomous of the blue side
 // Note: Left is refering to the the left of someone looking at blue side to the
 // red side ETHAN
-void Auto::blueLeftAuto() {}
 
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at blue side to
@@ -73,8 +72,6 @@ void Auto::redLeftAuto() {
 // Left side autonomous of the blue side
 // Note: Left is refering to the the left of someone looking at blue side to the
 // red side ETHAN
-void Auto::blueLeftAuto() {}
-
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at red side to
 // the blue side ETHAN
@@ -112,3 +109,4 @@ void Auto::redRightAuto() {
   spinForDegrees(-295.2, leftWheelMotor);
   spinForDegrees(-507.2, rightWheelMotor, true);
 }
+void Auto::blueLeftAuto() {}
