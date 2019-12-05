@@ -1,32 +1,43 @@
 #include "auto.h"
 #include "stdio.h"
+using namespace vex;
 
-void Auto::driveForDistance(double distanceVal, motor Motor, bool wait,
-                            double velVal, velocityUnits velcUnits,
-                            distanceUnits distanceUnit) {
+void waitFoo() { wait(5, sec); }
+
+void Auto::driveForDistance(double distanceVal, motor Motor,
+                            distanceUnits distanceUnit, bool wait,
+                            double velVal, velocityUnits velcUnits) {
   switch (distanceUnit) {
     Controller.Screen.setCursor(3, 0);
     Controller.Screen.clearLine();
   case distanceUnits::cm:
     Controller.Screen.print("CM In Switch;");
-
     distanceVal = (distanceVal / 2.54) / Math::cmPerDegree;
     break;
   case distanceUnits::mm:
-    Controller.Screen.print("CM In Switch;");
+    Controller.Screen.print("mm In Switch;");
     distanceVal = (distanceVal * 10) / Math::cmPerDegree;
     break;
   case distanceUnits::in:
-    Controller.Screen.print("CM In Switch;");
+    Controller.Screen.print("inch In Switch;");
     distanceVal = distanceVal / Math::inchesPerDegree;
     break;
+  default:
+    Controller.Screen.print("Default");
+    break;
   }
+
   Controller.Screen.setCursor(3, 0);
   Controller.Screen.clearLine();
   Controller.Screen.print("Starting Rotate For");
   Motor.rotateFor(distanceVal, deg, velVal, velocityUnits::pct, wait);
   Controller.Screen.clearLine();
   Controller.Screen.print("Rotate For End");
+}
+
+void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
+                          double velVal, velocityUnits velcUnits) {
+  Motor.rotateFor(distanceVal, deg, velVal, velcUnits, wait);
 }
 
 // Left side autonomous of the blue side
@@ -80,25 +91,23 @@ void Auto::redRightAuto() {
    driveForDistance((distanceUnits)deg, 0000, 50, LeftMotors, false);
    driveForDistance((distanceUnits)deg, 0000, 50, RightMotors, true);
  */
-  // section 2
-  driveForDistance(1150.4, leftWheelMotor);
-  driveForDistance(1099.2, rightWheelMotor, true);
+  // section 2 spinForDegrees
+  spinForDegrees(1150.4, leftWheelMotor);
+  spinForDegrees(1099.2, rightWheelMotor, true);
 
+  
   // debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT
   // BOOL)
-  if (leftWheelMotor.isDone() && rightWheelMotor.isDone()) {
-    return;
-  }
 
-  driveForDistance(-269.6, leftWheelMotor);
-  driveForDistance(-270.8, rightWheelMotor, true);
+  spinForDegrees(-269.6, leftWheelMotor);
+  spinForDegrees(-270.8, rightWheelMotor, true);
 
-  driveForDistance(86, leftWheelMotor);
-  driveForDistance(-732, rightWheelMotor, true);
+  spinForDegrees(-732, leftWheelMotor);
+  spinForDegrees(86, rightWheelMotor, true);
 
-  driveForDistance(411.2, leftWheelMotor);
-  driveForDistance(428.4, rightWheelMotor, true);
+  spinForDegrees(411.2, leftWheelMotor);
+  spinForDegrees(428.4, rightWheelMotor, true);
 
-  driveForDistance(-295.2, leftWheelMotor);
-  driveForDistance(-507.2, rightWheelMotor, true);
+  spinForDegrees(-295.2, leftWheelMotor);
+  spinForDegrees(-507.2, rightWheelMotor, true);
 }

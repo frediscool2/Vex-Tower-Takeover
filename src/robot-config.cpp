@@ -14,8 +14,8 @@ motor leftWheelMotor = motor(PORT4, ratio18_1, false);
 motor rightWheelMotor = motor(PORT2, ratio18_1, true);
 
 // left and right intake motors
-motor leftIntakeMotor = motor(PORT5, ratio18_1, false);
-motor rightIntakeMotor = motor(PORT6, ratio18_1, true);
+motor leftIntakeMotor = motor(PORT1, ratio18_1, false);
+motor rightIntakeMotor = motor(PORT5, ratio18_1, true);
 
 // Arm motor
 motor leftArmMotor = motor(PORT8, ratio36_1, true);
@@ -30,8 +30,6 @@ motor rightPistonMotor = motor(PORT9, ratio36_1, false);
 controller Controller = controller(primary);
 
 // ~~~ Motor Groups ~~~
-motor_group LeftMotors = motor_group(leftWheelMotor);
-motor_group RightMotors = motor_group(rightWheelMotor);
 motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
 motor_group ArmMotors = motor_group(leftArmMotor, rightArmMotor);
 

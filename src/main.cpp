@@ -56,6 +56,7 @@ int updateMotorEncoders() {
     Controller.Screen.setCursor(2, 0);
     Controller.Screen.clearLine(2);
     Controller.Screen.print("R1: %.2f", rightWheelMotor.rotation(deg));
+    wait(10, msec); // motors has a max poll rate of 10 msec
   }
   return -1;
 }
@@ -68,6 +69,9 @@ void pre_auton(void) {
   leftWheelMotor.resetRotation();
   rightWheelMotor.resetRotation();
 
+  leftWheelMotor.setBrake(coast);
+  rightWheelMotor.setBrake(coast);
+
   leftArmMotor.setBrake(hold);
   rightArmMotor.setBrake(hold);
 
@@ -78,11 +82,12 @@ void pre_auton(void) {
   rightIntakeMotor.setBrake(hold);
 
   // DEBUG
-  Driver::setDriverAndrew();
+  Driver::setDriverCieran();
 }
 
 void autonomous(void) {
   // just for debugging purposes
+
   task updateEncoders = task(updateMotorEncoders);
   Auto::redRightAuto();
 
@@ -94,8 +99,13 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  task updateEncoders = task(updateMotorEncoders);
 
   while (1) {
+    if (Controller.ButtonX.pressing()) {
+      resetEncoders();
+    }
+
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
