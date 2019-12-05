@@ -4,20 +4,20 @@
 #include "ControlScheme.h"
 
 void ControllerInteraction::moveLeftSide() {
-  LeftMotors.spin(fwd, Controller.Axis3.position(pct), pct);
+  leftWheelMotor.spin(fwd, Controller.Axis3.position(pct), pct);
 }
 
 void ControllerInteraction::moveRightSide() {
-  RightMotors.spin(fwd, Controller.Axis2.position(pct), pct);
+  rightWheelMotor.spin(fwd, Controller.Axis2.position(pct), pct);
 }
 
 void ControllerInteraction::pushIntake() {
-  // Intake Motor fwd 50% power
+  // Intake Motor fwd 100% power
   IntakeMotors.spin(fwd, 100, pct);
 }
 
 void ControllerInteraction::pullIntake() {
-  // Intake Motor rev 50% power
+  // Intake Motor rev 100% power
   IntakeMotors.spin(reverse, 100, pct);
 }
 
@@ -42,7 +42,7 @@ void ControllerInteraction::retractPiston() {
 }
 
 void ControllerInteraction::stopIntake() {
-  // Stopping Left Intake Motor
+  // Stopping Intake Motors
   IntakeMotors.stop();
 }
 

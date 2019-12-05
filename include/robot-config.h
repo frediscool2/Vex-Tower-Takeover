@@ -15,8 +15,6 @@ extern motor leftPistonMotor;
 extern motor rightPistonMotor;
 extern controller Controller;
 
-extern motor_group LeftMotors;
-extern motor_group RightMotors;
 extern motor_group IntakeMotors;
 extern motor_group ArmMotors;
 extern motor_group PistonMotors;
