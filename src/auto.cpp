@@ -39,34 +39,109 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
                           double velVal, velocityUnits velcUnits) {
   Motor.rotateFor(distanceVal, deg, velVal, velcUnits, wait);
 }
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the
-// red side ETHAN
+
+// Drop off logic for leaving the blocks in the drop off zone
+void Dropoff()
+{
+
+}
 
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at blue side to
 // the red side THAYEN
 void Auto::blueRightAuto() {
-  IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, leftWheelMotor);
-  driveForDistance(23, rightWheelMotor, true);
+  // Start in the box closest at the deposit spot as possible
+  // move forward collecting block 1
+  // turn 45 degrees to centre
+  // collect the tower
+  // turn 90 degrees
+  // collect last block
+  // turn 90 degrees
+  // deposit blocks in deposit spot
+  // backup a bit
+
+  // Spin the Intake Motors
+  IntakeMotors.spin(fwd);
+
+  // Drive forward towards the first block
+  driveForDistance(5, leftWheelMotor, false);
+  driveForDistance(5, rightWheelMotor, true);
+
+  // Turn 45 degrees towards the center to face the tower
+  leftWheelMotor.spinFor(directionType::rev, 45, deg);
+
+  // Drive forward towards the 4 block tower
+  driveForDistance(5, leftWheelMotor, false);
+  driveForDistance(5, rightWheelMotor, true);
+
+  // Spin 45 degress towards the last block
+  rightWheelMotor.spinFor(directionType::fwd, 135, deg);
+
+  // Drive forwards towards the last block
+  driveForDistance(5, leftWheelMotor, false);
+  driveForDistance(5, rightWheelMotor, true);
+
+  // Stop the motors from spinning
+  IntakeMotors.stop();
+
+  // Spin towards the drop off point
+  leftWheelMotor.spinFor(directionType::rev, 45, deg);
+
+  // Drive forwards towards the drop off point
+  driveForDistance(7, leftWheelMotor, false);
+  driveForDistance(7, rightWheelMotor, true);
+  
+  // Drop off
+  Dropoff();
 }
 
 // Left side autonomous of the blue side
 // Note: Left is refering to the the left of someone looking at red side to the
 // blue side THAYEN
 void Auto::redLeftAuto() {
-  IntakeMotors.spin(fwd, 100, velocityUnits::pct);
-  driveForDistance(23, leftWheelMotor);
-  driveForDistance(23, rightWheelMotor, true);
+  // Start in the box closest at the deposit spot as possible
+  // move forward collecting block 1
+  // turn 45 degrees to centre
+  // collect the tower
+  // turn 90 degrees
+  // collect last block
+  // turn 90 degrees
+  // deposit blocks in deposit spot
+  // backup a bit
 
-  driveForDistance(5, leftWheelMotor);
+  // Spin the Intake Motors
+  IntakeMotors.spin(fwd);
+
+  // Drive forward towards the first block
+  driveForDistance(5, leftWheelMotor, false);
   driveForDistance(5, rightWheelMotor, true);
 
-  ArmMotors.rotateTo(30, deg);
+  // Turn 45 degrees towards the center to face the tower
+  rightWheelMotor.spinFor(directionType::rev, 45, deg);
 
-  driveForDistance(36, leftWheelMotor);
-  driveForDistance(36, rightWheelMotor, true);
+  // Drive forward towards the 4 block tower
+  driveForDistance(5, leftWheelMotor, false);
+  driveForDistance(5, rightWheelMotor, true);
+
+  // Spin 45 degress towards the last block
+  leftWheelMotor.spinFor(directionType::fwd, 135, deg);
+
+  // Drive forwards towards the last block
+  driveForDistance(5, leftWheelMotor, false);
+  driveForDistance(5, rightWheelMotor, true);
+
+  // Stop the motors from spinning
+  IntakeMotors.stop();
+
+  // Spin towards the drop off point
+  rightWheelMotor.spinFor(directionType::rev, 45, deg);
+
+  // Drive forwards towards the drop off point
+  driveForDistance(7, leftWheelMotor, false);
+  driveForDistance(7, rightWheelMotor, true);
+  
+  // Drop off
+  Dropoff();
 }
 
 // Left side autonomous of the blue side
@@ -109,4 +184,8 @@ void Auto::redRightAuto() {
   spinForDegrees(-295.2, leftWheelMotor);
   spinForDegrees(-507.2, rightWheelMotor, true);
 }
+
+// Left side autonomous of the blue side
+// Note: Left is refering to the the left of someone looking at blue side to the
+// red side ETHAN
 void Auto::blueLeftAuto() {}
