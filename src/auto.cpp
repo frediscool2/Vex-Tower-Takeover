@@ -39,20 +39,14 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
                           double velVal, velocityUnits velcUnits) {
   Motor.rotateFor(distanceVal, deg, velVal, velcUnits, wait);
 }
-
-// Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the red side
-// ETHAN
-void Auto::blueLeftAuto() {}
-
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at blue side to the red side
 // THAYEN
 void Auto::blueRightAuto() 
 {
   IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, LeftMotors);
-  driveForDistance(23, RightMotors, true);
+  driveForDistance(23, leftWheelMotor, distanceUnits::in, false);
+  driveForDistance(23, rightWheelMotor, distanceUnits::in, true);
 }
 
 // Left side autonomous of the blue side
@@ -61,17 +55,22 @@ void Auto::blueRightAuto()
 void Auto::redLeftAuto() 
 {
   IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, LeftMotors, false);
-  driveForDistance(23, RightMotors, true);
+  driveForDistance(23, leftWheelMotor, distanceUnits::in, false);
+  driveForDistance(23, rightWheelMotor, distanceUnits::in, true);
 
-  driveForDistance(5, LeftMotors, false);
-  driveForDistance(5, RightMotors, true);
+  driveForDistance(5, leftWheelMotor, distanceUnits::in, false);
+  driveForDistance(5, rightWheelMotor, distanceUnits::in, true);
   
   ArmMotors.rotateTo(30, rotationUnits::deg);
 
-  driveForDistance(36, LeftMotors, false);
-  driveForDistance(36, RightMotors, true);
+  driveForDistance(36, leftWheelMotor, distanceUnits::in, false);
+  driveForDistance(36, rightWheelMotor, distanceUnits::in, true);
 }
+
+// Left side autonomous of the blue side
+// Note: Left is refering to the the left of someone looking at blue side to the red side
+// ETHAN
+void Auto::blueLeftAuto() {}
 
 // Left side autonomous of the blue side
 // Note: Right is refering to the the right of someone looking at red side to the blue side
