@@ -4,9 +4,9 @@ using namespace vex;
 
 void waitFoo() { wait(5, sec); }
 
-void Auto::driveForDistance(double distanceVal, motor Motor,
-                            distanceUnits distanceUnit, bool wait,
-                            double velVal, velocityUnits velcUnits) {
+void Auto::driveForDistance(double distanceVal, motor Motor, bool wait,
+                            distanceUnits distanceUnit, double velVal,
+                            velocityUnits velcUnits) {
   switch (distanceUnit) {
     Controller.Screen.setCursor(3, 0);
     Controller.Screen.clearLine();
@@ -41,41 +41,39 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
 }
 
 // Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the red side
-// ETHAN
+// Note: Left is refering to the the left of someone looking at blue side to the
+// red side ETHAN
 void Auto::blueLeftAuto() {}
 
 // Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at blue side to the red side
-// THAYEN
-void Auto::blueRightAuto() 
-{
+// Note: Right is refering to the the right of someone looking at blue side to
+// the red side THAYEN
+void Auto::blueRightAuto() {
   IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, LeftMotors);
-  driveForDistance(23, RightMotors, true);
+  driveForDistance(23, leftWheelMotor);
+  driveForDistance(23, rightWheelMotor, true);
 }
 
 // Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at red side to the blue side
-// THAYEN
-void Auto::redLeftAuto() 
-{
+// Note: Left is refering to the the left of someone looking at red side to the
+// blue side THAYEN
+void Auto::redLeftAuto() {
   IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, LeftMotors, false);
-  driveForDistance(23, RightMotors, true);
+  driveForDistance(23, leftWheelMotor);
+  driveForDistance(23, rightWheelMotor, true);
 
-  driveForDistance(5, LeftMotors, false);
-  driveForDistance(5, RightMotors, true);
-  
+  driveForDistance(5, leftWheelMotor);
+  driveForDistance(5, rightWheelMotor, true);
+
   ArmMotors.rotateTo(30, rotationUnits::deg);
 
-  driveForDistance(36, LeftMotors, false);
-  driveForDistance(36, RightMotors, true);
+  driveForDistance(36, leftWheelMotor);
+  driveForDistance(36, rightWheelMotor, true);
 }
 
 // Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at red side to the blue side
-// ETHAN
+// Note: Right is refering to the the right of someone looking at red side to
+// the blue side ETHAN
 void Auto::redRightAuto() {
 
   // section 1
@@ -95,7 +93,6 @@ void Auto::redRightAuto() {
   spinForDegrees(1150.4, leftWheelMotor);
   spinForDegrees(1099.2, rightWheelMotor, true);
 
-  
   // debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT
   // BOOL)
 
