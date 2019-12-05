@@ -41,23 +41,41 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
 }
 
 // Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at blue side to the
-// red side
-void Auto::blueLeftAuto() { ; }
+// Note: Left is refering to the the left of someone looking at blue side to the red side
+// ETHAN
+void Auto::blueLeftAuto() {}
 
 // Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at blue side to
-// the red side
-void Auto::blueRightAuto() {}
+// Note: Right is refering to the the right of someone looking at blue side to the red side
+// THAYEN
+void Auto::blueRightAuto() 
+{
+  IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
+  driveForDistance(23, LeftMotors);
+  driveForDistance(23, RightMotors, true);
+}
 
 // Left side autonomous of the blue side
-// Note: Left is refering to the the left of someone looking at red side to the
-// blue side
-void Auto::redLeftAuto() {}
+// Note: Left is refering to the the left of someone looking at red side to the blue side
+// THAYEN
+void Auto::redLeftAuto() 
+{
+  IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
+  driveForDistance(23, LeftMotors, false);
+  driveForDistance(23, RightMotors, true);
+
+  driveForDistance(5, LeftMotors, false);
+  driveForDistance(5, RightMotors, true);
+  
+  ArmMotors.rotateTo(30, rotationUnits::deg);
+
+  driveForDistance(36, LeftMotors, false);
+  driveForDistance(36, RightMotors, true);
+}
 
 // Left side autonomous of the blue side
-// Note: Right is refering to the the right of someone looking at red side to
-// the blue side
+// Note: Right is refering to the the right of someone looking at red side to the blue side
+// ETHAN
 void Auto::redRightAuto() {
 
   // section 1
