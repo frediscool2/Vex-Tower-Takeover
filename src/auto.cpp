@@ -78,11 +78,11 @@ void Auto::redLeftAuto() {
 void Auto::redRightAuto() {
 
   // section 2 spinForDegrees
-  ArmMotors.rotateFor(fwd, 90, deg, true);
-
+  ArmMotors.rotateFor(fwd, 20, deg, true);
+  IntakeMotors.spin(fwd, 100, pct);
   // collect 4 wih 5th ontop of 4th
-  spinForDegrees(1150.4, leftWheelMotor);
-  spinForDegrees(1099.2, rightWheelMotor, true);
+  spinForDegrees(1200.4, leftWheelMotor,false);
+  spinForDegrees(1149.2, rightWheelMotor, true);
 
   // backup
   spinForDegrees(-269.6, leftWheelMotor);
@@ -100,8 +100,10 @@ void Auto::redRightAuto() {
   spinForDegrees(1150.4, leftWheelMotor);
   spinForDegrees(1099.2, rightWheelMotor, true);
 
-  spinForDegrees(445, leftWheelMotor, false, 30);
-  spinForDegrees(-445, rightWheelMotor, true, 30);
+  spinForDegrees(475, leftWheelMotor, false, 30);
+  spinForDegrees(-475, rightWheelMotor, true, 30);
+
+  IntakeMotors.stop();
 
   /*spinForDegrees(-732, leftWheelMotor);
   spinForDegrees(86, rightWheelMotor, true);

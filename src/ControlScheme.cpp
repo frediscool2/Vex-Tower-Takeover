@@ -23,12 +23,12 @@ void ControllerInteraction::pullIntake() {
 
 void ControllerInteraction::liftArm() {
   // Arm Motor Forward
-  ArmMotors.spin(fwd, 50, pct);
+  ArmMotors.spin(fwd, 40, pct);
 }
 
 void ControllerInteraction::lowerArm() {
   // Arm Motor Reverse 50% power
-  ArmMotors.spin(reverse, 50, pct);
+  ArmMotors.spin(reverse, 40, pct);
 }
 
 void ControllerInteraction::extendPiston() {
@@ -86,26 +86,23 @@ void Driver::setDriverCieran() {
   // Piston Control Setup
   // Controls for the piston
 
+  // Sets the highest front left button to have the intake system pull
+  // objects towards the bot
+  Controller.ButtonL1.pressed(ControllerInteraction::pushIntake);
+  Controller.ButtonL1.released(ControllerInteraction::stopIntake);
+
   // Sets the lowest front left button to lower the piston
   Controller.ButtonL2.pressed(ControllerInteraction::retractPiston);
   Controller.ButtonL2.released(ControllerInteraction::stopPiston);
 
+  // Sets the highest front right button to have the intake system push
+  // objects away from the bot
+  Controller.ButtonR1.pressed(ControllerInteraction::pullIntake);
+  Controller.ButtonR1.released(ControllerInteraction::stopIntake);
+
   // Sets the lowest front right button to raise the piston
   Controller.ButtonR2.pressed(ControllerInteraction::extendPiston);
   Controller.ButtonR2.released(ControllerInteraction::stopPiston);
-
-  // Intake Control Setup
-  // Controls for the intake system
-
-  // Sets the highest front left button to have the intake system pull
-  // objects towards the bot
-  Controller.ButtonL1.pressed(ControllerInteraction::pullIntake);
-  Controller.ButtonL1.released(ControllerInteraction::stopIntake);
-
-  // Sets the highest front right button to have the intake system push
-  // objects away from the bot
-  Controller.ButtonR1.pressed(ControllerInteraction::pushIntake);
-  Controller.ButtonR1.released(ControllerInteraction::stopIntake);
 
   Controller.Screen.clearScreen();
   Controller.Screen.print("Hello Cieran!");
@@ -122,7 +119,6 @@ void Driver::setDriverCharlie() {
 }
 
 void Driver::setDriverAndrew() {
-  Controller.ButtonLeft.pressed(nothing);
   Controller.ButtonX.pressed(nothing);
   Controller.ButtonA.pressed(nothing);
 
@@ -136,14 +132,19 @@ void Driver::setDriverAndrew() {
   Controller.Axis2.changed(ControllerInteraction::moveRightSide);
 
   // ~~~ Arm Movement Setup ~~~
+  Controller.ButtonLeft.pressed(ControllerInteraction::liftArm);
+  Controller.ButtonLeft.released(ControllerInteraction::stopArm);
 
   // sets the down buttons pressed and released functions
   Controller.ButtonDown.pressed(ControllerInteraction::lowerArm);
   Controller.ButtonDown.released(ControllerInteraction::stopArm);
 
+  Controller.ButtonY.pressed(ControllerInteraction::extendPiston);
+  Controller.ButtonY.released(ControllerInteraction::stopPiston);
+
   // Sets the right down button(B) to raise the robot's arm
-  Controller.ButtonB.pressed(ControllerInteraction::liftArm);
-  Controller.ButtonB.released(ControllerInteraction::stopArm);
+  Controller.ButtonB.pressed(ControllerInteraction::retractPiston);
+  Controller.ButtonB.released(ControllerInteraction::stopPiston);
 
   // Piston Control Setup
   // Controls for the piston
