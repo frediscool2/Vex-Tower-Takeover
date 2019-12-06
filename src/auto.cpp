@@ -1,4 +1,5 @@
 #include "auto.h"
+#include "ControlScheme.h"
 #include "stdio.h"
 using namespace vex;
 
@@ -50,46 +51,28 @@ void Dropoff()
 // Note: Right is refering to the the right of someone looking at blue side to
 // the red side THAYEN
 void Auto::blueRightAuto() {
-  // Start in the box closest at the deposit spot as possible
-  // move forward collecting block 1
-  // turn 45 degrees to centre
-  // collect the tower
-  // turn 90 degrees
-  // collect last block
-  // turn 90 degrees
-  // deposit blocks in deposit spot
-  // backup a bit
+  // Raise the arm motors
+  ArmMotors.rotateFor(fwd, 39, deg);
 
   // Spin the Intake Motors
-  IntakeMotors.spin(fwd);
+  ControllerInteraction::pullIntake();
+
+  // To counter an initial force from starting the intake system
+  rightWheelMotor.spinFor(directionType::fwd, 20, deg);
 
   // Drive forward towards the first block
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
-
-  // Turn 45 degrees towards the center to face the tower
-  leftWheelMotor.spinFor(directionType::rev, 45, deg);
-
-  // Drive forward towards the 4 block tower
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
+  driveForDistance(35, leftWheelMotor, false);
+  driveForDistance(35, rightWheelMotor, true);
 
   // Spin 45 degress towards the last block
-  rightWheelMotor.spinFor(directionType::fwd, 135, deg);
+  leftWheelMotor.spinFor(directionType::fwd, 990.4, deg);
 
-  // Drive forwards towards the last block
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
+  // Drive forwards towards the last block  
+  driveForDistance(37, rightWheelMotor, false);
+  driveForDistance(37, leftWheelMotor, true);
 
   // Stop the motors from spinning
   IntakeMotors.stop();
-
-  // Spin towards the drop off point
-  leftWheelMotor.spinFor(directionType::rev, 45, deg);
-
-  // Drive forwards towards the drop off point
-  driveForDistance(7, leftWheelMotor, false);
-  driveForDistance(7, rightWheelMotor, true);
   
   // Drop off
   Dropoff();
@@ -99,46 +82,26 @@ void Auto::blueRightAuto() {
 // Note: Left is refering to the the left of someone looking at red side to the
 // blue side THAYEN
 void Auto::redLeftAuto() {
-  // Start in the box closest at the deposit spot as possible
-  // move forward collecting block 1
-  // turn 45 degrees to centre
-  // collect the tower
-  // turn 90 degrees
-  // collect last block
-  // turn 90 degrees
-  // deposit blocks in deposit spot
-  // backup a bit
 
+  ArmMotors.rotateFor(fwd, 35, deg);
+  
   // Spin the Intake Motors
-  IntakeMotors.spin(fwd);
+  ControllerInteraction::pullIntake();
 
+  rightWheelMotor.spinFor(fwd, 100, deg);
   // Drive forward towards the first block
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
-
-  // Turn 45 degrees towards the center to face the tower
-  rightWheelMotor.spinFor(directionType::rev, 45, deg);
-
-  // Drive forward towards the 4 block tower
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
+  driveForDistance(37, leftWheelMotor, false);
+  driveForDistance(37, rightWheelMotor, true);
 
   // Spin 45 degress towards the last block
-  leftWheelMotor.spinFor(directionType::fwd, 135, deg);
+  rightWheelMotor.spinFor(directionType::fwd, 990.4, deg);
 
   // Drive forwards towards the last block
-  driveForDistance(5, leftWheelMotor, false);
-  driveForDistance(5, rightWheelMotor, true);
+  driveForDistance(37, leftWheelMotor, false);
+  driveForDistance(37, rightWheelMotor, true);
 
   // Stop the motors from spinning
   IntakeMotors.stop();
-
-  // Spin towards the drop off point
-  rightWheelMotor.spinFor(directionType::rev, 45, deg);
-
-  // Drive forwards towards the drop off point
-  driveForDistance(7, leftWheelMotor, false);
-  driveForDistance(7, rightWheelMotor, true);
   
   // Drop off
   Dropoff();

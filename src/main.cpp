@@ -45,17 +45,29 @@ competition Competition;
 void resetEncoders() {
   leftWheelMotor.resetRotation();
   rightWheelMotor.resetRotation();
+  leftPistonMotor.resetRotation();
+  rightPistonMotor.resetRotation();
 }
 
 int updateMotorEncoders() {
   resetEncoders();
-  while (Competition.isAutonomous()) {
+  while (true) {
     Controller.Screen.setCursor(1, 0);
     Controller.Screen.clearLine(1);
-    Controller.Screen.print("L1: %.2f", leftWheelMotor.rotation(deg));
+    Controller.Screen.print("L: %.2f    R: %.2f", leftWheelMotor.rotation(deg),
+                            rightWheelMotor.rotation(deg));
     Controller.Screen.setCursor(2, 0);
     Controller.Screen.clearLine(2);
-    Controller.Screen.print("R1: %.2f", rightWheelMotor.rotation(deg));
+    Controller.Screen.print("P1: %.2f P2: %.2f   ",
+                            leftPistonMotor.rotation(deg),
+                            rightPistonMotor.rotation(deg));
+
+    Controller.Screen.setCursor(3, 0);
+    Controller.Screen.clearLine(3);
+    Controller.Screen.print("Lt: %.2f    Rt: %.2f",
+                            leftWheelMotor.temperature(celsius),
+                            rightWheelMotor.temperature(celsius));
+
     wait(10, msec); // motors has a max poll rate of 10 msec
   }
   return -1;
@@ -89,7 +101,7 @@ void autonomous(void) {
   // just for debugging purposes
 
   task updateEncoders = task(updateMotorEncoders);
-  Auto::redRightAuto();
+  Auto::redLeftAuto();
 
   //  RightAuto(1);
   // ..........................................................................
