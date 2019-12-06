@@ -100,8 +100,7 @@ void pre_auton(void) {
 void autonomous(void) {
   // just for debugging purposes
 
-  task updateEncoders = task(updateMotorEncoders);
-  Auto::redLeftAuto();
+  Auto::redRightAuto();
 
   //  RightAuto(1);
   // ..........................................................................
