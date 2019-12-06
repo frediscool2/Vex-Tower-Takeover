@@ -77,36 +77,42 @@ void Auto::redLeftAuto() {
 // the blue side ETHAN
 void Auto::redRightAuto() {
 
-  // section 1
-  /* driveForDistance((distanceUnits)deg, 1087.2, 50, LeftMotors, false);
-   driveForDistance((distanceUnits)deg, 1058.4, 50, RightMotors, true);
-
-   driveForDistance((distanceUnits)deg, -568, 50, LeftMotors, false);
-   driveForDistance((distanceUnits)deg, -251.6, 50, RightMotors, true);
-
-   driveForDistance((distanceUnits)deg, 0000, 50, LeftMotors, false);
-   driveForDistance((distanceUnits)deg, 0000, 50, RightMotors, true);
-
-   driveForDistance((distanceUnits)deg, 0000, 50, LeftMotors, false);
-   driveForDistance((distanceUnits)deg, 0000, 50, RightMotors, true);
- */
   // section 2 spinForDegrees
+  ArmMotors.rotateFor(fwd, 90, deg, true);
+
+  // collect 4 wih 5th ontop of 4th
   spinForDegrees(1150.4, leftWheelMotor);
   spinForDegrees(1099.2, rightWheelMotor, true);
 
-  // debug(SHOULD BE DONE ALREADY BEFORE HITTING HERE IF NOT ERROR WITH WAIT
-  // BOOL)
-
+  // backup
   spinForDegrees(-269.6, leftWheelMotor);
   spinForDegrees(-270.8, rightWheelMotor, true);
 
-  spinForDegrees(-732, leftWheelMotor);
+  // turn left
+  spinForDegrees(-310, leftWheelMotor, true);
+
+  // backup into wall iffy
+  spinForDegrees(-1000, leftWheelMotor);
+  spinForDegrees(-1270, rightWheelMotor, true);
+
+  wait(50, msec);
+  // collect 3
+  spinForDegrees(1150.4, leftWheelMotor);
+  spinForDegrees(1099.2, rightWheelMotor, true);
+
+  spinForDegrees(445, leftWheelMotor, false, 30);
+  spinForDegrees(-445, rightWheelMotor, true, 30);
+
+  /*spinForDegrees(-732, leftWheelMotor);
   spinForDegrees(86, rightWheelMotor, true);
+
+  return;
 
   spinForDegrees(411.2, leftWheelMotor);
   spinForDegrees(428.4, rightWheelMotor, true);
 
   spinForDegrees(-295.2, leftWheelMotor);
-  spinForDegrees(-507.2, rightWheelMotor, true);
+  spinForDegrees(-507.2, rightWheelMotor, true);*/
 }
+
 void Auto::blueLeftAuto() {}
