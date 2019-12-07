@@ -1,5 +1,7 @@
 #include "auto.h"
-#include "stdio.h"
+#include "ControlScheme.h"
+#include "stdio.h" #
+
 using namespace vex;
 
 void waitFoo() { wait(5, sec); }
@@ -47,9 +49,29 @@ void Auto::spinForDegrees(double distanceVal, motor Motor, bool wait,
 // Note: Right is refering to the the right of someone looking at blue side to
 // the red side THAYEN
 void Auto::blueRightAuto() {
-  IntakeMotors.spin(directionType::fwd, 100, velocityUnits::pct);
-  driveForDistance(23, leftWheelMotor);
+  ArmMotors.rotateFor(fwd, 39, deg);
   driveForDistance(23, rightWheelMotor, true);
+  // Spin the Intake Motors
+  ControllerInteraction::pullIntake();
+
+  // To counter an initial force from starting the intake system
+  rightWheelMotor.spinFor(directionType::fwd, 20, deg);
+
+  // Drive forward towards the first block
+  driveForDistance(35, leftWheelMotor, false);
+  driveForDistance(35, rightWheelMotor, true);
+
+  // Spin 45 degress towards the last block
+  leftWheelMotor.spinFor(directionType::fwd, 990.4, deg);
+
+  // Drive forwards towards the last block
+  driveForDistance(37, rightWheelMotor, false);
+  driveForDistance(37, leftWheelMotor, true);
+
+  // Stop the motors from spinning
+  IntakeMotors.stop();
+
+  // Drop off
 }
 
 // Left side autonomous of the blue side
@@ -81,29 +103,31 @@ void Auto::redRightAuto() {
   ArmMotors.rotateFor(fwd, 20, deg, true);
   IntakeMotors.spin(fwd, 100, pct);
   // collect 4 wih 5th ontop of 4th
-  spinForDegrees(1200.4, leftWheelMotor,false);
-  spinForDegrees(1149.2, rightWheelMotor, true);
+  spinForDegrees(1250.4, leftWheelMotor, false);
+  spinForDegrees(1199.2, rightWheelMotor, true);
 
   // backup
   spinForDegrees(-269.6, leftWheelMotor);
   spinForDegrees(-270.8, rightWheelMotor, true);
 
-  // turn left
+  // turn left FLAG
   spinForDegrees(-310, leftWheelMotor, true);
 
-  // backup into wall iffy
+  // backup into wall FLAG
   spinForDegrees(-1000, leftWheelMotor);
   spinForDegrees(-1270, rightWheelMotor, true);
 
   wait(50, msec);
   // collect 3
-  spinForDegrees(1150.4, leftWheelMotor);
-  spinForDegrees(1099.2, rightWheelMotor, true);
+  spinForDegrees(1200.4, leftWheelMotor);
+  spinForDegrees(1149.2, rightWheelMotor, true);
 
   spinForDegrees(475, leftWheelMotor, false, 30);
   spinForDegrees(-475, rightWheelMotor, true, 30);
 
   IntakeMotors.stop();
+
+  dropOff();
 
   /*spinForDegrees(-732, leftWheelMotor);
   spinForDegrees(86, rightWheelMotor, true);
@@ -118,3 +142,29 @@ void Auto::redRightAuto() {
 }
 
 void Auto::blueLeftAuto() {}
+
+void Auto::dropOff() {
+
+  spinForDegrees(607.6, leftWheelMotor);
+  spinForDegrees(596, rightWheelMotor, true);
+
+  IntakeMotors.stop(hold);
+
+  spinForDegrees(-1174.6, leftPistonMotor);
+  spinForDegrees(-1174.6, rightPistonMotor, true);
+
+  spinForDegrees(587.3, leftPistonMotor);
+  spinForDegrees(587.3, rightPistonMotor, true);
+
+  IntakeMotors.spin(reverse, 100, pct);
+
+  wait(100, msec);
+
+  spinForDegrees(-607.6, leftWheelMotor);
+  spinForDegrees(-596, rightWheelMotor, true);
+
+  IntakeMotors.stop();
+
+  //  spinForDegrees(-464.40, leftIntakeMotor);
+  // spinForDegrees(-464.40, rightIntakeMotor, true);
+}

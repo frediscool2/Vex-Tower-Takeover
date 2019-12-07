@@ -54,12 +54,11 @@ int updateMotorEncoders() {
   while (true) {
     Controller.Screen.setCursor(1, 0);
     Controller.Screen.clearLine(1);
-    Controller.Screen.print("L: %.2f    R: %.2f", leftWheelMotor.rotation(deg),
+    Controller.Screen.print("L: %.2f R: %.2f", leftWheelMotor.rotation(deg),
                             rightWheelMotor.rotation(deg));
     Controller.Screen.setCursor(2, 0);
     Controller.Screen.clearLine(2);
-    Controller.Screen.print("P1: %.2f P2: %.2f   ",
-                            leftPistonMotor.rotation(deg),
+    Controller.Screen.print("P1: %.2f P2: %.2f", leftPistonMotor.rotation(deg),
                             rightPistonMotor.rotation(deg));
 
     Controller.Screen.setCursor(3, 0);
