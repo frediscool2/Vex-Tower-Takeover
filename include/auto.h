@@ -20,6 +20,7 @@ public:
   static void dropOff();
 
 public:
+static void autoSkills();
   static void blueLeftAuto();
   static void blueRightAuto();
   static void redLeftAuto();

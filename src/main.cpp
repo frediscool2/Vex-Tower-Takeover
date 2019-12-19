@@ -41,31 +41,57 @@ competition Competition;
 /*  function is only called once after the V5 has been powered on and        */
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
-// temp function REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 void resetEncoders() {
   leftWheelMotor.resetRotation();
   rightWheelMotor.resetRotation();
+  leftArmMotor.resetRotation();
+  rightArmMotor.resetRotation();
   leftPistonMotor.resetRotation();
   rightPistonMotor.resetRotation();
+  leftIntakeMotor.resetRotation();
+  rightIntakeMotor.resetRotation();
 }
 
 int updateMotorEncoders() {
   resetEncoders();
   while (true) {
-    Controller.Screen.setCursor(1, 0);
-    Controller.Screen.clearLine(1);
-    Controller.Screen.print("L: %.2f R: %.2f", leftWheelMotor.rotation(deg),
-                            rightWheelMotor.rotation(deg));
-    Controller.Screen.setCursor(2, 0);
-    Controller.Screen.clearLine(2);
-    Controller.Screen.print("P1: %.2f P2: %.2f", leftPistonMotor.rotation(deg),
-                            rightPistonMotor.rotation(deg));
+    Controller.Screen.clearScreen();
+    printf("~~~~ Motor Encoders ~~~\n\n");
+    printf("DriveL:  %.2f DriveR:  %.2f\n", leftWheelMotor.rotation(deg),
+           rightWheelMotor.rotation(deg));
+    printf("PistonL: %.2f  PistonR: %.2f\n", leftPistonMotor.rotation(deg),
+           rightPistonMotor.rotation(deg));
+    printf("ArmL: %.2f  ArmR: %.2f\n", leftArmMotor.rotation(deg),
+           rightArmMotor.rotation(deg));
+    printf("IntakeL: %.2f IntakeR:  %.2f\n", leftIntakeMotor.rotation(deg),
+           rightIntakeMotor.rotation(deg));
 
-    Controller.Screen.setCursor(3, 0);
-    Controller.Screen.clearLine(3);
-    Controller.Screen.print("Lt: %.2f    Rt: %.2f",
+    printf("~~~~ Motor Temperatures  ~~~\n\n");
+    printf("DriveL:  %.1f DriveR:  %.1f\n", leftWheelMotor.temperature(celsius),
+           rightWheelMotor.temperature(celsius));
+    printf("PistonL:  %.1f PistonR: %.1f\n",
+           leftPistonMotor.temperature(celsius),
+           rightPistonMotor.temperature(celsius));
+    printf("ArmL:  %.1f ArmR:  %.1f\n", leftArmMotor.temperature(celsius),
+           rightArmMotor.temperature(celsius));
+    printf("IntakeL: %.1f IntakeR: %.1f\n",
+           leftIntakeMotor.temperature(celsius),
+           rightIntakeMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(1, 0);
+    Controller.Screen.print("DL: %.1f DR: %.1f",
                             leftWheelMotor.temperature(celsius),
                             rightWheelMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(2, 0);
+    Controller.Screen.print("P1: %.1f P2: %.1f",
+                            leftPistonMotor.temperature(celsius),
+                            rightPistonMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(3, 0);
+    Controller.Screen.print("A1: %.1f A2: %.1f", leftArmMotor.rotation(deg),
+                            rightArmMotor.rotation(deg));
 
     wait(10, msec); // motors has a max poll rate of 10 msec
   }
@@ -93,18 +119,25 @@ void pre_auton(void) {
   rightIntakeMotor.setBrake(hold);
 
   // DEBUG
-  Driver::setDriverCieran();
+  Driver::setDriverCharlie();
 }
 
 void autonomous(void) {
-  // just for debugging purposes
 
-  Auto::redRightAuto();
+  Auto::autoSkills();
+  /* fold out
+    // PISTON
+    Auto::spinForDegrees(-277.4, leftPistonMotor);
+    Auto::spinForDegrees(-281, rightPistonMotor, true);
 
-  //  RightAuto(1);
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
+    Auto::spinForDegrees(709.8, leftArmMotor);
+    Auto::spinForDegrees(709.8, rightArmMotor, true);
+
+    Auto::spinForDegrees(277.4, leftPistonMotor);
+    Auto::spinForDegrees(281, rightPistonMotor, true);
+
+    Auto::redRightAuto();
+    */
 }
 
 void usercontrol(void) {

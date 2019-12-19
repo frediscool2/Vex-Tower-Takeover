@@ -113,17 +113,38 @@ void Driver::setDriverCharlie() {
       - Get controls from charlie and update the callbacks with his desired
       control scheme
     */
+  Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
+  Controller.Axis2.changed(ControllerInteraction::moveRightSide);
+
   Controller.ButtonLeft.pressed(nothing);
   Controller.ButtonX.pressed(nothing);
   Controller.ButtonA.pressed(nothing);
+
+  Controller.ButtonL1.pressed(ControllerInteraction::pushIntake);
+  Controller.ButtonL1.released(ControllerInteraction::stopIntake);
+
+  Controller.ButtonL2.pressed(ControllerInteraction::retractPiston);
+  Controller.ButtonL2.released(ControllerInteraction::stopPiston);
+
+  Controller.ButtonR1.pressed(ControllerInteraction::pullIntake);
+  Controller.ButtonR1.released(ControllerInteraction::stopIntake);
+
+  Controller.ButtonR2.pressed(ControllerInteraction::extendPiston);
+  Controller.ButtonR2.released(ControllerInteraction::stopPiston);
+
+  Controller.ButtonDown.pressed(ControllerInteraction::liftArm);
+  Controller.ButtonDown.released(ControllerInteraction::stopArm);
+
+  Controller.ButtonB.pressed(ControllerInteraction::lowerArm);
+  Controller.ButtonB.released(ControllerInteraction::stopArm);
 }
 
 void Driver::setDriverAndrew() {
   Controller.ButtonX.pressed(nothing);
   Controller.ButtonA.pressed(nothing);
 
-  Controller.Screen.clearScreen();
-  Controller.Screen.print("Hello Andrew!");
+  // Controller.Screen.clearScreen();
+  // Controller.Screen.print("Hello Andrew!");
 
   // Set the left joystick Y Axis to move the left side of the robot
   Controller.Axis3.changed(ControllerInteraction::moveLeftSide);
@@ -132,8 +153,9 @@ void Driver::setDriverAndrew() {
   Controller.Axis2.changed(ControllerInteraction::moveRightSide);
 
   // ~~~ Arm Movement Setup ~~~
-  Controller.ButtonLeft.pressed(ControllerInteraction::liftArm);
-  Controller.ButtonLeft.released(ControllerInteraction::stopArm);
+
+  Controller.ButtonRight.pressed(ControllerInteraction::lowerArm);
+  Controller.ButtonRight.released(ControllerInteraction::stopArm);
 
   // sets the down buttons pressed and released functions
   Controller.ButtonDown.pressed(ControllerInteraction::lowerArm);
