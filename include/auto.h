@@ -17,8 +17,10 @@ public:
   static void spinForDegrees(double distanceVal, motor Motor, bool wait = false,
                              double velVal = 50,
                              velocityUnits velcUnits = velocityUnits::pct);
+  static void dropOff();
 
 public:
+static void autoSkills();
   static void blueLeftAuto();
   static void blueRightAuto();
   static void redLeftAuto();

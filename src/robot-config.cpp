@@ -21,7 +21,7 @@ motor rightIntakeMotor = motor(PORT5, ratio18_1, true);
 motor leftArmMotor = motor(PORT8, ratio36_1, true);
 motor rightArmMotor = motor(PORT7, ratio36_1, false);
 
-// Piston motor
+// Piston motor motor leftPiston
 
 motor leftPistonMotor = motor(PORT10, ratio36_1, true);
 motor rightPistonMotor = motor(PORT9, ratio36_1, false);
