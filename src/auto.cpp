@@ -167,32 +167,38 @@ void Auto::dropOff() {
 }
 
 void Auto::autoSkills() {
-  spinForDegrees(-50, rightWheelMotor,false);
+  spinForDegrees(-50, rightWheelMotor, false);
   spinForDegrees(250, leftWheelMotor, true);
 
-  spinForDegrees(475, leftWheelMotor);
-  spinForDegrees(455, rightWheelMotor);
+  spinForDegrees(530, leftWheelMotor);
+  spinForDegrees(515, rightWheelMotor);
 
-  spinForDegrees(-225, leftPistonMotor, true, 50);
-  spinForDegrees(-225, rightPistonMotor);
+  spinForDegrees(-230, leftPistonMotor, false, 50);
+  spinForDegrees(-230, rightPistonMotor, false);
 
-  spinForDegrees(-440, rightArmMotor, false, 70); // may need to adjust speed
-  spinForDegrees(-440, leftArmMotor, true, 70);
+  spinForDegrees(-465, rightArmMotor, false, 90);
+  spinForDegrees(-465, leftArmMotor, true, 90);
 
-  spinForDegrees(-720, leftIntakeMotor);
-  spinForDegrees(-720, rightIntakeMotor, true, 70);
+  spinForDegrees(-1440, leftIntakeMotor, false, 100);
+  spinForDegrees(-1440, rightIntakeMotor, true, 100);
+  // Everything above this works well dont fuck with the values either swap out
+  // the battery or make sure starting postion is right the very lright of the
+  // robotshould be lined up with the edge of the tile
 
   // after tower
-  spinForDegrees(440, rightArmMotor, false, 70);
-  spinForDegrees(440, leftArmMotor, false, 70);
+  spinForDegrees(465, rightArmMotor, false, 70);
+  spinForDegrees(465, leftArmMotor, false, 70);
 
-  spinForDegrees(225, leftPistonMotor);
-  spinForDegrees(225, rightPistonMotor);
+  spinForDegrees(230, leftPistonMotor);
+  spinForDegrees(230, rightPistonMotor);
 
   IntakeMotors.spin(fwd, 100, pct);
 
-  spinForDegrees(-75, rightWheelMotor);
+  spinForDegrees(-300, rightWheelMotor);
+  printf("Right wheel turn post tower -300deg");
   spinForDegrees(-425, leftWheelMotor, true, 50);
+  printf("left wheel turn post tower -425deg done");
+
 
   spinForDegrees(1990, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
