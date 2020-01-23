@@ -1,6 +1,8 @@
+
+
 #include "auto.h"
 #include "ControlScheme.h"
-#include "stdio.h" #
+#include "stdio.h"
 
 using namespace vex;
 
@@ -32,7 +34,7 @@ void Auto::blueRightAuto() {
   // Spin the Intake Motors
   ControllerInteraction::pullIntake();
 
-  // To counter an initial force from starting the intake system
+  // To counter an initial fo    rce from starting the intake system
   rightWheelMotor.spinFor(directionType::fwd, 20, deg);
 
   // Drive forward towards the first block
@@ -73,8 +75,8 @@ void Auto::redRightAuto() {
 
   IntakeMotors.spin(fwd, 100, pct);
   // collect 4 wih 5th ontop of 4th
-  spinForDegrees(1250.4, leftWheelMotor, false, 60);
-  spinForDegrees(1199.2, rightWheelMotor, true, 60);
+  spinForDegrees(1250.4, leftWheelMotor, 60, false);
+  spinForDegrees(1199.2, rightWheelMotor, 60, true);
 
   // backup
   spinForDegrees(-269.6, leftWheelMotor);
@@ -89,11 +91,11 @@ void Auto::redRightAuto() {
 
   wait(50, msec);
   // collect 3
-  spinForDegrees(1200.4, leftWheelMotor, false, 60);
-  spinForDegrees(1149.2, rightWheelMotor, true, 60);
+  spinForDegrees(1200.4, leftWheelMotor, 60);
+  spinForDegrees(1149.2, rightWheelMotor, 60, true);
 
-  spinForDegrees(500, leftWheelMotor, false, 35);
-  spinForDegrees(-500, rightWheelMotor, true, 35);
+  spinForDegrees(500, leftWheelMotor, 35, false);
+  spinForDegrees(-500, rightWheelMotor, 35, true);
 
   IntakeMotors.stop();
 
@@ -128,8 +130,8 @@ void Auto::blueLeftAuto() {
   spinForDegrees(1200.4, leftWheelMotor);
   spinForDegrees(1149.2, rightWheelMotor, true);
 
-  spinForDegrees(-475, leftWheelMotor, false, 30);
-  spinForDegrees(475, rightWheelMotor, true, 30);
+  spinForDegrees(-475, leftWheelMotor, 30, false);
+  spinForDegrees(475, rightWheelMotor, 30, true);
 
   IntakeMotors.stop();
 
@@ -165,38 +167,35 @@ void Auto::dropOff() {
 }
 
 void Auto::autoSkills() {
-  spinForDegrees(-50, rightWheelMotor);
+  spinForDegrees(-50, rightWheelMotor,false);
   spinForDegrees(250, leftWheelMotor, true);
 
   spinForDegrees(475, leftWheelMotor);
   spinForDegrees(455, rightWheelMotor);
 
-  spinForDegrees(-225, leftPistonMotor, true);
+  spinForDegrees(-225, leftPistonMotor, true, 50);
   spinForDegrees(-225, rightPistonMotor);
 
-  spinForDegrees(-440, rightArmMotor, 70); // raises arm too high at 460
+  spinForDegrees(-440, rightArmMotor, false, 70); // may need to adjust speed
   spinForDegrees(-440, leftArmMotor, true, 70);
 
   spinForDegrees(-720, leftIntakeMotor);
-  spinForDegrees(-720, rightIntakeMotor, true);
+  spinForDegrees(-720, rightIntakeMotor, true, 70);
 
   // after tower
-  spinForDegrees(440, rightArmMotor, 70);
-  spinForDegrees(440, leftArmMotor, 70);
+  spinForDegrees(440, rightArmMotor, false, 70);
+  spinForDegrees(440, leftArmMotor, false, 70);
 
   spinForDegrees(225, leftPistonMotor);
   spinForDegrees(225, rightPistonMotor);
 
-  // I want to switch this to a set rotation instead of a constant spin
   IntakeMotors.spin(fwd, 100, pct);
 
   spinForDegrees(-75, rightWheelMotor);
-  spinForDegrees(-425, leftWheelMotor, true);
-
-  spinForDegrees(50, leftWheelMotor, true);
+  spinForDegrees(-425, leftWheelMotor, true, 50);
 
   spinForDegrees(1990, leftWheelMotor);
-  spinForDegrees(1210, rightWheelMotor, true);
+  spinForDegrees(1310, rightWheelMotor, true, 50);
 
   IntakeMotors.stop(hold);
 }
