@@ -179,8 +179,8 @@ void Auto::autoSkills() {
   spinForDegrees(-465, rightArmMotor, false, 90);
   spinForDegrees(-465, leftArmMotor, true, 90);
 
-  spinForDegrees(-1440, leftIntakeMotor, false, 100);
-  spinForDegrees(-1440, rightIntakeMotor, true, 100);
+  spinForDegrees(-1000, leftIntakeMotor, false, 100);
+  spinForDegrees(-1000, rightIntakeMotor, true, 100);
   // Everything above this works well dont fuck with the values either swap out
   // the battery or make sure starting postion is right the very lright of the
   // robotshould be lined up with the edge of the tile
@@ -194,14 +194,28 @@ void Auto::autoSkills() {
 
   IntakeMotors.spin(fwd, 100, pct);
 
-  spinForDegrees(-300, rightWheelMotor);
+  // this turn works well!
+  spinForDegrees(-175, rightWheelMotor);
   printf("Right wheel turn post tower -300deg");
   spinForDegrees(-425, leftWheelMotor, true, 50);
   printf("left wheel turn post tower -425deg done");
 
+  // TEST REMOVE IF ERR
+  spinForDegrees(-215, rightWheelMotor);
+  spinForDegrees(-230, leftWheelMotor, true);
+  wait(10, sec);
+  // ABOVE TEST REMOVE IF ERR (if we keep this in make sure to adjust the foward
+  // movment below)
 
-  spinForDegrees(1990, leftWheelMotor);
+  // having an issue of pushing blocks instead of just picking them up we
+  // will get 3 blocks instead of all 5
+  spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
+
+  // maybe turn a bit the the right then straighten out right after
+
+  spinForDegrees(1010, leftWheelMotor);
+  spinForDegrees(1000, rightWheelMotor, true, 50);
 
   IntakeMotors.stop(hold);
 }

@@ -142,7 +142,7 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  // task updateEncoders = task(updateMotorEncoders);
+  task updateEncoders = task(updateMotorEncoders);
 
   while (1) {
     if (Controller.ButtonX.pressing()) {
