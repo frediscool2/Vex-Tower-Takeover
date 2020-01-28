@@ -201,8 +201,8 @@ void Auto::autoSkills() {
   printf("left wheel turn post tower -425deg done");
 
   // TEST REMOVE IF ERR
-  spinForDegrees(-215, rightWheelMotor);
-  spinForDegrees(-230, leftWheelMotor, true);
+  spinForDegrees(-235, rightWheelMotor);
+  spinForDegrees(-260, leftWheelMotor, true);
   wait(10, sec);
   // ABOVE TEST REMOVE IF ERR (if we keep this in make sure to adjust the foward
   // movment below)
