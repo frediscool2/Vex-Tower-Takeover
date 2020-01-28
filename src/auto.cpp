@@ -1,5 +1,3 @@
-
-
 #include "auto.h"
 #include "ControlScheme.h"
 #include "stdio.h"
@@ -173,11 +171,11 @@ void Auto::autoSkills() {
   spinForDegrees(530, leftWheelMotor);
   spinForDegrees(515, rightWheelMotor);
 
+  spinForDegrees(465, rightArmMotor, false, 90);
+  spinForDegrees(465, leftArmMotor, false, 90);
+
   spinForDegrees(-230, leftPistonMotor, false, 50);
   spinForDegrees(-230, rightPistonMotor, false);
-
-  spinForDegrees(-465, rightArmMotor, false, 90);
-  spinForDegrees(-465, leftArmMotor, true, 90);
 
   spinForDegrees(-1000, leftIntakeMotor, false, 100);
   spinForDegrees(-1000, rightIntakeMotor, true, 100);
@@ -186,36 +184,57 @@ void Auto::autoSkills() {
   // robotshould be lined up with the edge of the tile
 
   // after tower
-  spinForDegrees(465, rightArmMotor, false, 70);
-  spinForDegrees(465, leftArmMotor, false, 70);
-
   spinForDegrees(230, leftPistonMotor);
   spinForDegrees(230, rightPistonMotor);
+
+  spinForDegrees(-465, rightArmMotor, false, 70);
+  spinForDegrees(-465, leftArmMotor, true, 70);
 
   IntakeMotors.spin(fwd, 100, pct);
 
   // this turn works well!
   spinForDegrees(-175, rightWheelMotor);
-  printf("Right wheel turn post tower -300deg");
   spinForDegrees(-425, leftWheelMotor, true, 50);
-  printf("left wheel turn post tower -425deg done");
 
-  // TEST REMOVE IF ERR
   spinForDegrees(-235, rightWheelMotor);
-  spinForDegrees(-260, leftWheelMotor, true);
-  wait(10, sec);
-  // ABOVE TEST REMOVE IF ERR (if we keep this in make sure to adjust the foward
-  // movment below)
+  spinForDegrees(-265, leftWheelMotor, true);
 
-  // having an issue of pushing blocks instead of just picking them up we
-  // will get 3 blocks instead of all 5
+  spinForDegrees(465, rightArmMotor, false, 70);
+  spinForDegrees(465, leftArmMotor, true, 70);
+
   spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
 
-  // maybe turn a bit the the right then straighten out right after
+  // ~~~ 3 blocks or 4 picked up just about to hit tower at this point~~~
 
-  spinForDegrees(1010, leftWheelMotor);
-  spinForDegrees(1000, rightWheelMotor, true, 50);
+  // just straight
+  spinForDegrees(2610, leftWheelMotor);
+  spinForDegrees(2600, rightWheelMotor, true, 50);
+
+  //~~~ DROP OFF ~~~
+  spinForDegrees(-50, rightWheelMotor, false);
+  spinForDegrees(300, leftWheelMotor, true);
 
   IntakeMotors.stop(hold);
+
+  spinForDegrees(-15, leftIntakeMotor);
+  spinForDegrees(-15, rightIntakeMotor);
+
+  spinForDegrees(150, rightWheelMotor);
+  spinForDegrees(150, leftWheelMotor, true);
+
+  spinForDegrees(-1125.6, leftPistonMotor);
+  spinForDegrees(-1125.6, rightPistonMotor, true);
+
+  IntakeMotors.spin(fwd, 50, pct);
+
+  spinForDegrees(150, leftPistonMotor);
+  spinForDegrees(150, rightPistonMotor, true);
+
+  spinForDegrees(1125.3, leftPistonMotor);
+  spinForDegrees(1125.3, rightPistonMotor);
+
+  spinForDegrees(-620.6, leftWheelMotor);
+  spinForDegrees(-620.6, rightWheelMotor, true);
+  // end drop off
 }
