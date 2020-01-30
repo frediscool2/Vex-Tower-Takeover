@@ -171,11 +171,11 @@ void Auto::autoSkills() {
   spinForDegrees(530, leftWheelMotor);
   spinForDegrees(515, rightWheelMotor);
 
-  spinForDegrees(465, rightArmMotor, false, 90);
-  spinForDegrees(465, leftArmMotor, false, 90);
-
   spinForDegrees(-230, leftPistonMotor, false, 50);
   spinForDegrees(-230, rightPistonMotor, false);
+
+  spinForDegrees(-465, rightArmMotor, false, 90);
+  spinForDegrees(-465, leftArmMotor, true, 90);
 
   spinForDegrees(-1000, leftIntakeMotor, false, 100);
   spinForDegrees(-1000, rightIntakeMotor, true, 100);
@@ -184,11 +184,11 @@ void Auto::autoSkills() {
   // robotshould be lined up with the edge of the tile
 
   // after tower
+//  spinForDegrees(465, rightArmMotor, false, 70);
+  // spinForDegrees(465, leftArmMotor, false, 70);
+
   spinForDegrees(230, leftPistonMotor);
   spinForDegrees(230, rightPistonMotor);
-
-  spinForDegrees(-465, rightArmMotor, false, 70);
-  spinForDegrees(-465, leftArmMotor, true, 70);
 
   IntakeMotors.spin(fwd, 100, pct);
 
