@@ -1,5 +1,3 @@
-
-
 #include "auto.h"
 #include "ControlScheme.h"
 #include "stdio.h"
@@ -167,35 +165,76 @@ void Auto::dropOff() {
 }
 
 void Auto::autoSkills() {
-  spinForDegrees(-50, rightWheelMotor,false);
+  spinForDegrees(-50, rightWheelMotor, false);
   spinForDegrees(250, leftWheelMotor, true);
 
-  spinForDegrees(475, leftWheelMotor);
-  spinForDegrees(455, rightWheelMotor);
+  spinForDegrees(530, leftWheelMotor);
+  spinForDegrees(515, rightWheelMotor);
 
-  spinForDegrees(-225, leftPistonMotor, true, 50);
-  spinForDegrees(-225, rightPistonMotor);
+  spinForDegrees(-230, leftPistonMotor, false, 50);
+  spinForDegrees(-230, rightPistonMotor, false);
 
-  spinForDegrees(-440, rightArmMotor, false, 70); // may need to adjust speed
-  spinForDegrees(-440, leftArmMotor, true, 70);
+  spinForDegrees(-465, rightArmMotor, false, 90);
+  spinForDegrees(-465, leftArmMotor, true, 90);
 
-  spinForDegrees(-720, leftIntakeMotor);
-  spinForDegrees(-720, rightIntakeMotor, true, 70);
+  spinForDegrees(-1000, leftIntakeMotor, false, 100);
+  spinForDegrees(-1000, rightIntakeMotor, true, 100);
+  // Everything above this works well dont fuck with the values either swap out
+  // the battery or make sure starting postion is right the very lright of the
+  // robotshould be lined up with the edge of the tile
 
   // after tower
-  spinForDegrees(440, rightArmMotor, false, 70);
-  spinForDegrees(440, leftArmMotor, false, 70);
+//  spinForDegrees(465, rightArmMotor, false, 70);
+  // spinForDegrees(465, leftArmMotor, false, 70);
 
-  spinForDegrees(225, leftPistonMotor);
-  spinForDegrees(225, rightPistonMotor);
+  spinForDegrees(230, leftPistonMotor);
+  spinForDegrees(230, rightPistonMotor);
 
   IntakeMotors.spin(fwd, 100, pct);
 
-  spinForDegrees(-75, rightWheelMotor);
+  // this turn works well!
+  spinForDegrees(-175, rightWheelMotor);
   spinForDegrees(-425, leftWheelMotor, true, 50);
 
-  spinForDegrees(1990, leftWheelMotor);
+  spinForDegrees(-235, rightWheelMotor);
+  spinForDegrees(-265, leftWheelMotor, true);
+
+  spinForDegrees(465, rightArmMotor, false, 70);
+  spinForDegrees(465, leftArmMotor, true, 70);
+
+  spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
 
+  // ~~~ 3 blocks or 4 picked up just about to hit tower at this point~~~
+
+  // just straight
+  spinForDegrees(2610, leftWheelMotor);
+  spinForDegrees(2600, rightWheelMotor, true, 50);
+
+  //~~~ DROP OFF ~~~
+  spinForDegrees(-50, rightWheelMotor, false);
+  spinForDegrees(300, leftWheelMotor, true);
+
   IntakeMotors.stop(hold);
+
+  spinForDegrees(-15, leftIntakeMotor);
+  spinForDegrees(-15, rightIntakeMotor);
+
+  spinForDegrees(150, rightWheelMotor);
+  spinForDegrees(150, leftWheelMotor, true);
+
+  spinForDegrees(-1125.6, leftPistonMotor);
+  spinForDegrees(-1125.6, rightPistonMotor, true);
+
+  IntakeMotors.spin(fwd, 50, pct);
+
+  spinForDegrees(150, leftPistonMotor);
+  spinForDegrees(150, rightPistonMotor, true);
+
+  spinForDegrees(1125.3, leftPistonMotor);
+  spinForDegrees(1125.3, rightPistonMotor);
+
+  spinForDegrees(-620.6, leftWheelMotor);
+  spinForDegrees(-620.6, rightWheelMotor, true);
+  // end drop off
 }
