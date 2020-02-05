@@ -241,3 +241,11 @@ void Auto::autoSkills() {
   spinForDegrees(-620.6, rightWheelMotor, true);
   // end drop off
 }
+
+void Auto::Unpack()
+{
+  auto movement = 20;
+  //Move the arms to unfold the ramp
+  ArmMotors.rotateFor(fwd, movement, deg, true);
+  ArmMotors.rotateFor(directionType::rev, movement + 5, deg, true);
+}
