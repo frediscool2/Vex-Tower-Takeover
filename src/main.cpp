@@ -85,9 +85,9 @@ int updateMotorEncoders() {
                             rightWheelMotor.temperature(celsius));
 
     Controller.Screen.setCursor(2, 0);
-    Controller.Screen.print("P1: %.1f P2: %.1f",
-                            leftPistonMotor.temperature(celsius),
-                            rightPistonMotor.temperature(celsius));
+    Controller.Screen.print("LI: %.1f RI: %.1f",
+                            leftIntakeMotor.temperature(celsius),
+                            rightIntakeMotor.temperature(celsius));
 
     Controller.Screen.setCursor(3, 0);
     Controller.Screen.print("A1: %.1f A2: %.1f", leftArmMotor.rotation(deg),

@@ -174,8 +174,8 @@ void Auto::autoSkills() {
   spinForDegrees(-230, leftPistonMotor, false, 50);
   spinForDegrees(-230, rightPistonMotor, false);
 
-  spinForDegrees(-465, rightArmMotor, false, 90);
-  spinForDegrees(-465, leftArmMotor, true, 90);
+  spinForDegrees(-450, rightArmMotor, false, 90); // prev val 465 for both
+  spinForDegrees(-450, leftArmMotor, true, 90);
 
   spinForDegrees(-1000, leftIntakeMotor, false, 100);
   spinForDegrees(-1000, rightIntakeMotor, true, 100);
@@ -184,23 +184,24 @@ void Auto::autoSkills() {
   // robotshould be lined up with the edge of the tile
 
   // after tower
-//  spinForDegrees(465, rightArmMotor, false, 70);
-  // spinForDegrees(465, leftArmMotor, false, 70);
+  spinForDegrees(450, rightArmMotor, false, 90);
+  spinForDegrees(450, leftArmMotor, false, 90);
 
   spinForDegrees(230, leftPistonMotor);
-  spinForDegrees(230, rightPistonMotor);
+  spinForDegrees(230, rightPistonMotor); //*speed
 
   IntakeMotors.spin(fwd, 100, pct);
 
-  // this turn works well!
+  // this turn needs to be adjusted so that we end upfacing a tiny bit more to
+  // the right
   spinForDegrees(-175, rightWheelMotor);
-  spinForDegrees(-425, leftWheelMotor, true, 50);
+  spinForDegrees(-400, leftWheelMotor, true,
+                 50); // prev val 425 but 400 works well
 
-  spinForDegrees(-235, rightWheelMotor);
-  spinForDegrees(-265, leftWheelMotor, true);
-
-  spinForDegrees(465, rightArmMotor, false, 70);
-  spinForDegrees(465, leftArmMotor, true, 70);
+  // not going far enough back in this step
+  spinForDegrees(-260, rightWheelMotor);      // prev was -235
+  spinForDegrees(-290, leftWheelMotor, true); // prev was -265
+  wait(10, sec);
 
   spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
@@ -226,8 +227,9 @@ void Auto::autoSkills() {
   spinForDegrees(-1125.6, leftPistonMotor);
   spinForDegrees(-1125.6, rightPistonMotor, true);
 
-  IntakeMotors.spin(fwd, 50, pct);
+  IntakeMotors.spin(reverse, 50, pct);
 
+  // why do we do this?
   spinForDegrees(150, leftPistonMotor);
   spinForDegrees(150, rightPistonMotor, true);
 
