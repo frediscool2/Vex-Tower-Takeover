@@ -14,7 +14,7 @@ motor leftWheelMotor = motor(PORT4, ratio18_1, false);
 motor rightWheelMotor = motor(PORT2, ratio18_1, true);
 
 // left and right intake motors
-motor leftIntakeMotor = motor(PORT1, ratio18_1, false);
+motor leftIntakeMotor = motor(PORT11, ratio18_1, false);
 motor rightIntakeMotor = motor(PORT5, ratio18_1, true);
 
 // Arm motor
@@ -23,8 +23,8 @@ motor rightArmMotor = motor(PORT7, ratio36_1, false);
 
 // Piston motor motor leftPiston
 
-motor leftPistonMotor = motor(PORT10, ratio36_1, true);
-motor rightPistonMotor = motor(PORT9, ratio36_1, false);
+motor leftPistonMotor = motor(PORT9, ratio36_1, true);
+motor rightPistonMotor = motor(PORT10, ratio36_1, false);
 
 // Controller
 controller Controller = controller(primary);

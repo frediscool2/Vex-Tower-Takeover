@@ -238,3 +238,9 @@ void Auto::autoSkills() {
   spinForDegrees(-620.6, rightWheelMotor, true);
   // end drop off
 }
+
+void Unfold()
+{
+  ArmMotors.rotateFor(fwd, 20, deg, true);
+  wait(150, msec);
+}
