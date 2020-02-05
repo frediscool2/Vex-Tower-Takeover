@@ -23,12 +23,12 @@ void ControllerInteraction::pullIntake() {
 
 void ControllerInteraction::liftArm() {
   // Arm Motor Forward
-  ArmMotors.spin(fwd, 40, pct);
+  ArmMotors.spin(fwd, 100, pct);
 }
 
 void ControllerInteraction::lowerArm() {
   // Arm Motor Reverse 50% power
-  ArmMotors.spin(reverse, 40, pct);
+  ArmMotors.spin(reverse, 100, pct);
 }
 
 void ControllerInteraction::extendPiston() {
