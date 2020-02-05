@@ -165,6 +165,8 @@ void Auto::dropOff() {
 }
 
 void Auto::autoSkills() {
+  //
+
   spinForDegrees(-50, rightWheelMotor, false);
   spinForDegrees(250, leftWheelMotor, true);
 
@@ -201,7 +203,6 @@ void Auto::autoSkills() {
   // not going far enough back in this step
   spinForDegrees(-260, rightWheelMotor);      // prev was -235
   spinForDegrees(-290, leftWheelMotor, true); // prev was -265
-  wait(10, sec);
 
   spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
