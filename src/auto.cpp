@@ -239,8 +239,10 @@ void Auto::autoSkills() {
   // end drop off
 }
 
-void Unfold()
+void Auto::Unpack()
 {
-  ArmMotors.rotateFor(fwd, 20, deg, true);
-  wait(150, msec);
+  auto movement = 20;
+  //Move the arms to unfold the ramp
+  ArmMotors.rotateFor(fwd, movement, deg, true);
+  ArmMotors.rotateFor(directionType::rev, movement + 5, deg, true);
 }

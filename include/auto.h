@@ -18,6 +18,7 @@ public:
                              double velVal = 50,
                              velocityUnits velcUnits = velocityUnits::pct);
   static void dropOff();
+  static void Unpack();
 
 public:
   static void autoSkills();
