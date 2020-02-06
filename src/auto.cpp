@@ -167,16 +167,25 @@ void Auto::dropOff() {
 void Auto::autoSkills() {
   // Unpack();
 
-  spinForDegrees(-98, rightArmMotor, false, 90);
-  spinForDegrees(-98, leftArmMotor, true, 90);
+  // pushing preload into 4 stack
 
-  wait(100, msec);
+  // backing up into wall after pushing preload
+  spinForDegrees(-292, leftWheelMotor, false);
+  spinForDegrees(-292, rightWheelMotor, true);
 
-  spinForDegrees(98, rightArmMotor, false, 90);
-  spinForDegrees(98, leftArmMotor, true, 90);
+  // fold out
+  spinForDegrees(-400, rightArmMotor, false, 100);
+  spinForDegrees(-400, leftArmMotor, true, 100);
 
-  wait(10, sec);
-  
+  spinForDegrees(225, rightArmMotor, false, 100);
+  spinForDegrees(225, leftArmMotor, true, 100);
+
+  ArmMotors.stop(hold);
+
+  spinForDegrees(225, rightArmMotor, false, 100);
+  spinForDegrees(225, leftArmMotor, true, 100);
+  // end fold out
+
   spinForDegrees(-50, rightWheelMotor, false);
   spinForDegrees(250, leftWheelMotor, true);
 
