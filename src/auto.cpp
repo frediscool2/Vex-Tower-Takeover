@@ -168,6 +168,8 @@ void Auto::autoSkills() {
   // Unpack();
 
   // pushing preload into 4 stack
+  spinForDegrees(292, leftWheelMotor, false);
+  spinForDegrees(292, rightWheelMotor, true);
 
   // backing up into wall after pushing preload
   spinForDegrees(-292, leftWheelMotor, false);
@@ -177,51 +179,55 @@ void Auto::autoSkills() {
   spinForDegrees(-400, rightArmMotor, false, 100);
   spinForDegrees(-400, leftArmMotor, true, 100);
 
-  spinForDegrees(225, rightArmMotor, false, 100);
-  spinForDegrees(225, leftArmMotor, true, 100);
+  spinForDegrees(450, rightArmMotor, false, 100);
+  spinForDegrees(450, leftArmMotor, true, 100);
 
-  ArmMotors.stop(hold);
-
-  spinForDegrees(225, rightArmMotor, false, 100);
-  spinForDegrees(225, leftArmMotor, true, 100);
   // end fold out
+  wait(500, msec);
 
-  spinForDegrees(-50, rightWheelMotor, false);
-  spinForDegrees(250, leftWheelMotor, true);
+  // drive forward to preload block in line
+  spinForDegrees(155, leftWheelMotor, false);
+  spinForDegrees(155, rightWheelMotor, true);
 
-  spinForDegrees(530, leftWheelMotor);
-  spinForDegrees(515, rightWheelMotor);
+  // drive forward as we collect
+  spinForDegrees(125, leftWheelMotor, false, 30);
+  spinForDegrees(125, rightWheelMotor, false, 30);
 
-  spinForDegrees(-230, leftPistonMotor, false, 50);
-  spinForDegrees(-230, rightPistonMotor, false);
+  // collect block
+  spinForDegrees(350, leftIntakeMotor, false, 80);
+  spinForDegrees(350, rightIntakeMotor, true, 80);
 
-  spinForDegrees(-450, rightArmMotor, false, 90); // prev val 465 for both
-  spinForDegrees(-450, leftArmMotor, true, 90);
+  // turn towards tower
+  spinForDegrees(375, leftWheelMotor, false);
+  spinForDegrees(-1, rightWheelMotor, true);
+
+  // raise arm while on route to tower
+  spinForDegrees(-575, leftArmMotor, false, 100);
+  spinForDegrees(-575, rightArmMotor, true, 100);
+
+  // drive towards tower
+  spinForDegrees(255, leftWheelMotor, false, 30);
+  spinForDegrees(260, rightWheelMotor, true, 30);
 
   spinForDegrees(-1000, leftIntakeMotor, false, 100);
   spinForDegrees(-1000, rightIntakeMotor, true, 100);
-  // Everything above this works well dont fuck with the values either swap out
-  // the battery or make sure starting postion is right the very lright of the
-  // robotshould be lined up with the edge of the tile
 
-  // after tower
-  spinForDegrees(450, rightArmMotor, false, 90);
-  spinForDegrees(450, leftArmMotor, false, 90);
+  // turn towards wall with back facing at an angle
+  spinForDegrees(-260, leftWheelMotor, false);
+  spinForDegrees(-26, rightWheelMotor, true);
+  wait(2, sec);
 
-  spinForDegrees(230, leftPistonMotor);
-  spinForDegrees(230, rightPistonMotor); //*speed
+  // lower arm
+  spinForDegrees(600, leftArmMotor, false, 100);
+  spinForDegrees(600, rightArmMotor, false, 100);
+
+  // backup into wall
+  spinForDegrees(-574, leftWheelMotor, false);
+  spinForDegrees(-550, rightWheelMotor, true);
+
+  spinForDegrees(-95, leftWheelMotor, true);
 
   IntakeMotors.spin(fwd, 100, pct);
-
-  // this turn needs to be adjusted so that we end upfacing a tiny bit more to
-  // the right
-  spinForDegrees(-175, rightWheelMotor);
-  spinForDegrees(-400, leftWheelMotor, true,
-                 50); // prev val 425 but 400 works well
-
-  // not going far enough back in this step
-  spinForDegrees(-260, rightWheelMotor);      // prev was -235
-  spinForDegrees(-290, leftWheelMotor, true); // prev was -265
 
   spinForDegrees(1320, leftWheelMotor);
   spinForDegrees(1310, rightWheelMotor, true, 50);
@@ -234,27 +240,35 @@ void Auto::autoSkills() {
 
   //~~~ DROP OFF ~~~
   spinForDegrees(-50, rightWheelMotor, false);
-  spinForDegrees(300, leftWheelMotor, true);
+  spinForDegrees(250, leftWheelMotor, true);
 
   IntakeMotors.stop(hold);
 
-  spinForDegrees(-15, leftIntakeMotor);
-  spinForDegrees(-15, rightIntakeMotor);
+  spinForDegrees(200, rightWheelMotor, false, 30);
+  spinForDegrees(200, leftWheelMotor, true, 30);
 
-  spinForDegrees(150, rightWheelMotor);
-  spinForDegrees(150, leftWheelMotor, true);
+  spinForDegrees(-125, leftIntakeMotor);
+  spinForDegrees(-125, rightIntakeMotor);
 
-  spinForDegrees(-1125.6, leftPistonMotor);
-  spinForDegrees(-1125.6, rightPistonMotor, true);
+  spinForDegrees(50, rightWheelMotor, false, 20);
+  spinForDegrees(50, leftWheelMotor, false, 20);
+
+  spinForDegrees(900.6, leftPistonMotor, false);
+  spinForDegrees(900.6, rightPistonMotor, true);
+
+  spinForDegrees(50, leftPistonMotor, false, 20);
+  spinForDegrees(50, rightPistonMotor, true, 20);
+
+  // why do we do this?
+
+  spinForDegrees(-1125.3, leftPistonMotor);
+  spinForDegrees(-1125.3, rightPistonMotor);
+
+  wait(100, msec);
 
   IntakeMotors.spin(reverse, 50, pct);
 
-  // why do we do this?
-  spinForDegrees(150, leftPistonMotor);
-  spinForDegrees(150, rightPistonMotor, true);
-
-  spinForDegrees(1125.3, leftPistonMotor);
-  spinForDegrees(1125.3, rightPistonMotor);
+  wait(250, msec);
 
   spinForDegrees(-620.6, leftWheelMotor);
   spinForDegrees(-620.6, rightWheelMotor, true);

@@ -54,9 +54,12 @@ void resetEncoders() {
 }
 
 int updateMotorEncoders() {
+  leftIntakeMotor.setBrake(coast);
+  rightIntakeMotor.setBrake(coast);
   resetEncoders();
   while (true) {
     Controller.Screen.clearScreen();
+  
     printf("~~~~ Motor Encoders ~~~\n\n");
     printf("DriveL:  %.2f DriveR:  %.2f\n", leftWheelMotor.rotation(deg),
            rightWheelMotor.rotation(deg));
