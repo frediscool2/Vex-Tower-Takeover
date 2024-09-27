@@ -1,10 +1,9 @@
 /*----------------------------------------------------------------------------*/
-/*                                                                            */
 /*    Module:       main.cpp    F */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
-/*                                                                            */
+/*    Author:       VEX */
+/*    Created:      Thu Sep 26 2019 */
+/*    Description:  Competition Template */
+/* */
 /*----------------------------------------------------------------------------*/
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -20,23 +19,18 @@
 // pistonMotor          motor         8
 // Controller          controller
 // ---- END VEXCODE CONFIGURED DEVICES ----
-
+//
+#include "ControlScheme.h"
+#include "auto.h"
 #include "vex.h"
-///
-#include "Animation.cpp"
-#include "ControlScheme.cpp"
-#include <vector>
 
+// using namespace Autonomous;
 using namespace vex;
+
+distanceUnits cm = distanceUnits::cm;
 
 // A global instance of competition
 competition Competition;
-ObjectTracking objectTracker;
-Animation animation;
-
-// define your global instances of motors and other devices here
-event checkSignature = event();
-event screenRefresh = event();
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -47,76 +41,116 @@ event screenRefresh = event();
 /*  function is only called once after the V5 has been powered on and        */
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
+
+void resetEncoders() {
+  leftWheelMotor.resetRotation();
+  rightWheelMotor.resetRotation();
+  leftArmMotor.resetRotation();
+  rightArmMotor.resetRotation();
+  leftPistonMotor.resetRotation();
+  rightPistonMotor.resetRotation();
+  leftIntakeMotor.resetRotation();
+  rightIntakeMotor.resetRotation();
+}
+
+int updateMotorEncoders() {
+  leftIntakeMotor.setBrake(coast);
+  rightIntakeMotor.setBrake(coast);
+  resetEncoders();
+  while (true) {
+    Controller.Screen.clearScreen();
+  
+    printf("~~~~ Motor Encoders ~~~\n\n");
+    printf("DriveL:  %.2f DriveR:  %.2f\n", leftWheelMotor.rotation(deg),
+           rightWheelMotor.rotation(deg));
+    printf("PistonL: %.2f  PistonR: %.2f\n", leftPistonMotor.rotation(deg),
+           rightPistonMotor.rotation(deg));
+    printf("ArmL: %.2f  ArmR: %.2f\n", leftArmMotor.rotation(deg),
+           rightArmMotor.rotation(deg));
+    printf("IntakeL: %.2f IntakeR:  %.2f\n", leftIntakeMotor.rotation(deg),
+           rightIntakeMotor.rotation(deg));
+
+    printf("~~~~ Motor Temperatures  ~~~\n\n");
+    printf("DriveL:  %.1f DriveR:  %.1f\n", leftWheelMotor.temperature(celsius),
+           rightWheelMotor.temperature(celsius));
+    printf("PistonL:  %.1f PistonR: %.1f\n",
+           leftPistonMotor.temperature(celsius),
+           rightPistonMotor.temperature(celsius));
+    printf("ArmL:  %.1f ArmR:  %.1f\n", leftArmMotor.temperature(celsius),
+           rightArmMotor.temperature(celsius));
+    printf("IntakeL: %.1f IntakeR: %.1f\n",
+           leftIntakeMotor.temperature(celsius),
+           rightIntakeMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(1, 0);
+    Controller.Screen.print("DL: %.1f DR: %.1f",
+                            leftWheelMotor.temperature(celsius),
+                            rightWheelMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(2, 0);
+    Controller.Screen.print("LI: %.1f RI: %.1f",
+                            leftIntakeMotor.temperature(celsius),
+                            rightIntakeMotor.temperature(celsius));
+
+    Controller.Screen.setCursor(3, 0);
+    Controller.Screen.print("A1: %.1f A2: %.1f", leftArmMotor.rotation(deg),
+                            rightArmMotor.rotation(deg));
+
+    wait(10, msec); // motors has a max poll rate of 10 msec
+  }
+  return -1;
+}
+
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  objectTracker.intiSensor();
+
+  leftWheelMotor.resetRotation();
+  rightWheelMotor.resetRotation();
+
+  leftWheelMotor.setBrake(coast);
+  rightWheelMotor.setBrake(coast);
+
+  leftArmMotor.setBrake(hold);
+  rightArmMotor.setBrake(hold);
+
+  leftPistonMotor.setBrake(hold);
+  rightPistonMotor.setBrake(hold);
+
+  leftIntakeMotor.setBrake(hold);
+  rightIntakeMotor.setBrake(hold);
+
+  // DEBUG
+  Driver::setDriverCharlie();
 }
 
 void autonomous(void) {
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
+
+  Auto::autoSkills();
+  /* fold out
+    // PISTON
+    Auto::spinForDegrees(-277.4, leftPistonMotor);
+    Auto::spinForDegrees(-281, rightPistonMotor, true);
+
+    Auto::spinForDegrees(709.8, leftArmMotor);
+    Auto::spinForDegrees(709.8, rightArmMotor, true);
+
+    Auto::spinForDegrees(277.4, leftPistonMotor);
+    Auto::spinForDegrees(281, rightPistonMotor, true);
+
+    Auto::redRightAuto();
+    */
 }
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  Brain.Screen.render(true);
+  task updateEncoders = task(updateMotorEncoders);
+
   while (1) {
-    //~~~ Pressed Functions ~~~
-    /*Currently I have the functions named as the input they are described as in
-     * the Controllerler layout sheet. I am doing it this way so when we have
-     * our mutiple Controller scheme files for each driver we will only have to
-     * swap out the ControllerScheme.cpp file ansd will not have to change
-     * anything else. This can cause confusion for those who have not looked at
-     * the control layout. Please do so
-
-      Also the motors are labeled by the letter taped onto them again this was a
-     drive team instruction and is a temp solution
-
-     The alternative to an if else chain is an event based code system using the
-     pressed() functions. The downside to the event based aproach is a lower
-     update rate for motor values
-
-     */
-    // BL 1,2 and BL release
-    if (Controller.ButtonL1.pressing()) {
-      ControllerInteraction::bL1Pressed();
-    } else if (Controller.ButtonL2.pressing()) {
-      ControllerInteraction::bL2Pressed();
-    } else {
-      ControllerInteraction::bLReleased();
+    if (Controller.ButtonX.pressing()) {
+      resetEncoders();
     }
-
-    if (Controller.ButtonR1.pressing()) {
-      ControllerInteraction::bR1Pressed();
-    }
-    // BL 3 and CL
-    if (Controller.ButtonRight.pressing()) {
-      ControllerInteraction::bL3Pressed();
-    } else if (Controller.ButtonDown.pressing()) {
-      ControllerInteraction::cLPressed();
-    } else {
-      ControllerInteraction::bL3Released();
-    }
-
-    // BR 3 and CR
-    if (Controller.ButtonY.pressing()) {
-      ControllerInteraction::bL3Pressed();
-    } else if (Controller.ButtonB.pressing()) {
-      ControllerInteraction::cRPressed();
-    } else {
-      ControllerInteraction::bR3Released();
-    }
-
-    // ~~~ JoyStick Controllers ~~~
-
-    // TL left,right
-    Controller.Axis3.changed(ControllerInteraction::leftJoystickChange);
-
-    // TR left,right
-    Controller.Axis2.changed(ControllerInteraction::rightJoystickChange);
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -127,16 +161,12 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
+
   // Run the pre-autonomous function.
   pre_auton();
 
-  screenRefresh(Animation::updateScreen);
-  checkSignature(ObjectTracking::hasSignatureCallback);
-
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    checkSignature.broadcastAndWait();
-    screenRefresh.broadcastAndWait();
     wait(100, msec);
   }
 }

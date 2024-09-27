@@ -10,49 +10,29 @@ brain Brain;
 // VEXcode device constructors
 
 // leftt and right wheel motors
-motor rightWheelMotorA = motor(PORT1, ratio18_1, true);
-motor rightWheelMotorC = motor(PORT2, ratio18_1, true);
-motor leftWheelMotorB = motor(PORT3, ratio18_1, false);
-motor leftWheelMotorD = motor(PORT4, ratio18_1, false);
+motor leftWheelMotor = motor(PORT4, ratio18_1, false);
+motor rightWheelMotor = motor(PORT2, ratio18_1, true);
 
 // left and right intake motors
-motor leftIntakeMotor = motor(PORT5, ratio18_1, false);
-motor rightIntakeMotor = motor(PORT6, ratio18_1, true);
+motor leftIntakeMotor = motor(PORT11, ratio36_1, false);
+motor rightIntakeMotor = motor(PORT5, ratio36_1, true);
 
 // Arm motor
-motor armMotor = motor(PORT7, ratio18_1, false);
+motor leftArmMotor = motor(PORT8, ratio36_1, true);
+motor rightArmMotor = motor(PORT7, ratio36_1, false);
 
-// Piston motor
-motor pistonMotor = motor(PORT8, ratio18_1, false);
+// Piston motor motor leftPiston
+
+motor leftPistonMotor = motor(PORT9, ratio36_1, true);
+motor rightPistonMotor = motor(PORT10, ratio36_1, false);
 
 // Controller
 controller Controller = controller(primary);
 
 // ~~~ Motor Groups ~~~
-motor_group leftMotors = motor_group(leftWheelMotorB, leftWheelMotorD);
-motor_group rightMotors = motor_group(rightWheelMotorA, rightWheelMotorC);
-motor_group intakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
-
-// Drivetrain
-drivetrain driveTrain =
-    drivetrain(leftMotors, rightMotors, 299.24, 31.75, 130, mm, 1);
-
-// sdcard
-brain::sdcard sdcard = brain::sdcard();
-
-// vision sensor
-vision Vision = vision(PORT7);
-
-// Vison Signatures
-signature VisionBLUEBOX = // values were taken from vex
-    signature(1, -3441, -2785, -3113, 8975, 10355, 9665, 2.5, 0);
-signature VisionGREENBOX =
-    signature(2, -5767, -4965, -5366, -3803, -2861, -3332, 2.5, 0);
-signature VisionREDBOX =
-    signature(3, 8099, 8893, 8496, -1505, -949, -1227, 2.5, 0);
-
-unsigned x;
-signature VisonPencil = signature(4, x, x, x, x, x, x, 2.5, 0);
+motor_group IntakeMotors = motor_group(leftIntakeMotor, rightIntakeMotor);
+motor_group ArmMotors = motor_group(leftArmMotor, rightArmMotor);
+motor_group PistonMotors = motor_group(leftPistonMotor, rightPistonMotor);
 
 // VEXcode generated functions
 
